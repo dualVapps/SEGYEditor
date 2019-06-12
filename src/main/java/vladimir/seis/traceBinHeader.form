@@ -1,0 +1,2677 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="main.java.vladimir.seis.traceBinHeader">
+  <grid id="27dc6" binding="traceBinJpanel" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1014" height="2377"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <grid id="d6562" binding="traceSelectorJPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="40"/>
+            <maximum-size width="-1" height="40"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="d5b3b" class="javax.swing.JSpinner" binding="traceSelector">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="1" use-parent-layout="false">
+                <minimum-size width="70" height="35"/>
+                <maximum-size width="70" height="35"/>
+              </grid>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <scrollpane id="85501">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="1" use-parent-layout="false">
+            <preferred-size width="1000" height="700"/>
+            <maximum-size width="1000" height="700"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="ceca4" binding="binDataJPanel" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints/>
+            <properties>
+              <enabled value="true"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="e9303" binding="infoJPanel1" layout-manager="GridLayoutManager" row-count="55" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="5" left="5" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="true">
+                    <maximum-size width="350" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="20073" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="1-4 traceSequenceNumberWithinLine"/>
+                    </properties>
+                  </component>
+                  <component id="ce622" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="5-8 traceSequenceNumberWithinSegyFile"/>
+                    </properties>
+                  </component>
+                  <component id="a5872" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="9-12 origFieldRecordNumber"/>
+                    </properties>
+                  </component>
+                  <component id="bc9c5" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="13-16 traceNumberWithinOrigFieldRecord"/>
+                    </properties>
+                  </component>
+                  <component id="2bf22" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="17-20 energySourcePointNumber"/>
+                    </properties>
+                  </component>
+                  <component id="45ed0" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="21-24 ensembleNumber"/>
+                    </properties>
+                  </component>
+                  <component id="2cb81" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="25-28 traceNumberWithinEnsemble"/>
+                    </properties>
+                  </component>
+                  <component id="9b0b1" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="29-30 traceIdCode"/>
+                    </properties>
+                  </component>
+                  <component id="dd8e1" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="31-32 vertSummedTracesYieldingThisTrace"/>
+                    </properties>
+                  </component>
+                  <component id="a5246" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="33-34 horizStackedTracesYieldingThisTrace"/>
+                    </properties>
+                  </component>
+                  <component id="c5592" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="35-36 dataUse"/>
+                    </properties>
+                  </component>
+                  <component id="a8d17" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="37-40 distFromSourcePointToReceiverGroup"/>
+                    </properties>
+                  </component>
+                  <component id="5adfb" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="41-44 receiverGroupElevation"/>
+                    </properties>
+                  </component>
+                  <component id="cedee" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="45-48 surfaceElevationAtSource"/>
+                    </properties>
+                  </component>
+                  <component id="1d526" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="49-52 sourceDepthBelowSurface"/>
+                    </properties>
+                  </component>
+                  <component id="a70cb" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="53-56 datumElevationAtReceiverGroup"/>
+                    </properties>
+                  </component>
+                  <component id="21744" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="57-60 datumElevationAtSource"/>
+                      <verticalTextPosition value="0"/>
+                    </properties>
+                  </component>
+                  <component id="d0f48" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="17" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="61-64 waterDepthAtSource"/>
+                    </properties>
+                  </component>
+                  <component id="a4269" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="18" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="65- 68 waterDepthAtGroup"/>
+                    </properties>
+                  </component>
+                  <component id="563ee" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="19" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="69-70 elevationScalar"/>
+                    </properties>
+                  </component>
+                  <component id="c49cc" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="20" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="71-72 coordScalar"/>
+                    </properties>
+                  </component>
+                  <component id="f169a" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="21" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="73-76 sourceCoordX"/>
+                    </properties>
+                  </component>
+                  <component id="c9c0b" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="22" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="77-80 sourceCoordY"/>
+                    </properties>
+                  </component>
+                  <component id="ebdff" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="23" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="81-84 groupCoordX"/>
+                    </properties>
+                  </component>
+                  <component id="ff998" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="24" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="85-88 groupCoordY"/>
+                    </properties>
+                  </component>
+                  <component id="7f468" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="25" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="89-90 coordUnits"/>
+                    </properties>
+                  </component>
+                  <component id="4710f" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="26" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="91-92 weatheringVelocity"/>
+                    </properties>
+                  </component>
+                  <component id="aee4f" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="27" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="93-94 subweatheringVelocity"/>
+                    </properties>
+                  </component>
+                  <component id="6485c" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="28" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="95-96 upholeTimeAtSource"/>
+                    </properties>
+                  </component>
+                  <component id="793f2" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="29" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="97-98 upholeTimeAtGroup"/>
+                    </properties>
+                  </component>
+                  <component id="346c2" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="30" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="99-100 sourceStaticCorrection"/>
+                    </properties>
+                  </component>
+                  <component id="8d808" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="31" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="101-102 groupStaticCorrectionMs"/>
+                    </properties>
+                  </component>
+                  <component id="7916d" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="32" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="103-104 totalStaticAppliedMs"/>
+                    </properties>
+                  </component>
+                  <component id="7e8c4" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="33" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="105-106 lagTimeAMs"/>
+                    </properties>
+                  </component>
+                  <component id="7ddee" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="34" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="107-108 lagTimeBMs"/>
+                    </properties>
+                  </component>
+                  <component id="c49d2" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="35" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="109-110 delayRecordingTimeMs"/>
+                    </properties>
+                  </component>
+                  <component id="62805" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="36" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="111-112 muteTimeStartMs"/>
+                    </properties>
+                  </component>
+                  <component id="e8981" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="37" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="113-114 muteTimeEndMs"/>
+                    </properties>
+                  </component>
+                  <component id="59e72" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="38" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="115-116 samplesNumber"/>
+                    </properties>
+                  </component>
+                  <component id="7fd4c" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="39" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="117-118 sampleIntervalMs"/>
+                    </properties>
+                  </component>
+                  <component id="5a0f1" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="40" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="119-120 gainType"/>
+                    </properties>
+                  </component>
+                  <component id="5e608" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="41" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="121-122 instrumentGainConstant"/>
+                    </properties>
+                  </component>
+                  <component id="c3459" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="42" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="123-124 instrumentEarlyOrInitialGain"/>
+                    </properties>
+                  </component>
+                  <component id="aee64" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="43" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="125-126 correlated"/>
+                    </properties>
+                  </component>
+                  <component id="44d9" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="44" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="127-128 sweepFrequencyAtStart"/>
+                    </properties>
+                  </component>
+                  <component id="acb11" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="45" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="129-130 sweepFrequencyAtEnd"/>
+                    </properties>
+                  </component>
+                  <component id="9ad90" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="46" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="131-132 sweepLengthMs"/>
+                    </properties>
+                  </component>
+                  <component id="2bec0" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="47" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="133-134 sweepType"/>
+                    </properties>
+                  </component>
+                  <component id="6cc35" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="48" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="135-136 sweepTraceTaperLengthAtStartMs"/>
+                    </properties>
+                  </component>
+                  <component id="30961" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="49" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="137-138 sweepTraceTaperLengthAtEndMs"/>
+                    </properties>
+                  </component>
+                  <component id="2b64" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="50" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="139-140 taperType"/>
+                    </properties>
+                  </component>
+                  <component id="b3d4a" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="51" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="141-142 aliasFilterFreq"/>
+                    </properties>
+                  </component>
+                  <component id="d8a0e" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="52" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="143-144 aliasFilterSlope"/>
+                    </properties>
+                  </component>
+                  <component id="ababc" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="53" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="145-146 notchFilterFreq"/>
+                    </properties>
+                  </component>
+                  <component id="b7ed8" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="54" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <alignmentY value="0.5"/>
+                      <iconTextGap value="0"/>
+                      <text value="147-148 notchFilterSlope"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="20e07" binding="dataJPanel1" layout-manager="GridLayoutManager" row-count="55" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="5" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="true">
+                    <minimum-size width="95" height="-1"/>
+                    <preferred-size width="95" height="-1"/>
+                    <maximum-size width="95" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <alignmentX value="0.5"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="daebb" class="javax.swing.JTextField" binding="traceSequenceNumberWithinLine">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="ec2ab" class="javax.swing.JTextField" binding="traceSequenceNumberWithinSegyFile">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="acb01" class="javax.swing.JTextField" binding="origFieldRecordNumber">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="cd25c" class="javax.swing.JTextField" binding="traceNumberWithinOrigFieldRecord">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="14fa5" class="javax.swing.JTextField" binding="energySourcePointNumber">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="4cd3f" class="javax.swing.JTextField" binding="ensembleNumber">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="e8c85" class="javax.swing.JTextField" binding="traceNumberWithinEnsemble">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="15d2" class="javax.swing.JTextField" binding="traceIdCode">
+                    <constraints>
+                      <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="d653e" class="javax.swing.JTextField" binding="vertSummedTracesYieldingThisTrace">
+                    <constraints>
+                      <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="b31e6" class="javax.swing.JTextField" binding="horizStackedTracesYieldingThisTrace">
+                    <constraints>
+                      <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="c2954" class="javax.swing.JTextField" binding="dataUse">
+                    <constraints>
+                      <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="da78d" class="javax.swing.JTextField" binding="distFromSourcePointToReceiverGroup">
+                    <constraints>
+                      <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="5f451" class="javax.swing.JTextField" binding="receiverGroupElevation">
+                    <constraints>
+                      <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="5c486" class="javax.swing.JTextField" binding="surfaceElevationAtSource">
+                    <constraints>
+                      <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="d6fcb" class="javax.swing.JTextField" binding="sourceDepthBelowSurface">
+                    <constraints>
+                      <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="1ec84" class="javax.swing.JTextField" binding="datumElevationAtReceiverGroup">
+                    <constraints>
+                      <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="e1bb8" class="javax.swing.JTextField" binding="datumElevationAtSource">
+                    <constraints>
+                      <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="7c2e1" class="javax.swing.JTextField" binding="waterDepthAtSource">
+                    <constraints>
+                      <grid row="17" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="c304f" class="javax.swing.JTextField" binding="waterDepthAtGroup">
+                    <constraints>
+                      <grid row="18" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="11aa8" class="javax.swing.JTextField" binding="elevationScalar">
+                    <constraints>
+                      <grid row="19" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="7c3a7" class="javax.swing.JTextField" binding="coordScalar">
+                    <constraints>
+                      <grid row="20" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="6b082" class="javax.swing.JTextField" binding="sourceCoordX">
+                    <constraints>
+                      <grid row="21" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="86090" class="javax.swing.JTextField" binding="sourceCoordY">
+                    <constraints>
+                      <grid row="22" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="73110" class="javax.swing.JTextField" binding="groupCoordX">
+                    <constraints>
+                      <grid row="23" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="52fad" class="javax.swing.JTextField" binding="groupCoordY">
+                    <constraints>
+                      <grid row="24" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="e1733" class="javax.swing.JTextField" binding="coordUnits">
+                    <constraints>
+                      <grid row="25" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="9fb8a" class="javax.swing.JTextField" binding="weatheringVelocity">
+                    <constraints>
+                      <grid row="26" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="7e551" class="javax.swing.JTextField" binding="subweatheringVelocity">
+                    <constraints>
+                      <grid row="27" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="9b87f" class="javax.swing.JTextField" binding="upholeTimeAtSource">
+                    <constraints>
+                      <grid row="28" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="8c639" class="javax.swing.JTextField" binding="upholeTimeAtGroup">
+                    <constraints>
+                      <grid row="29" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="71566" class="javax.swing.JTextField" binding="sourceStaticCorrection">
+                    <constraints>
+                      <grid row="30" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="ea21d" class="javax.swing.JTextField" binding="groupStaticCorrectionMs">
+                    <constraints>
+                      <grid row="31" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="e76b6" class="javax.swing.JTextField" binding="totalStaticAppliedMs">
+                    <constraints>
+                      <grid row="32" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="14e64" class="javax.swing.JTextField" binding="lagTimeAMs">
+                    <constraints>
+                      <grid row="33" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="25e5d" class="javax.swing.JTextField" binding="lagTimeBMs">
+                    <constraints>
+                      <grid row="34" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="a174a" class="javax.swing.JTextField" binding="delayRecordingTimeMs">
+                    <constraints>
+                      <grid row="35" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="3aba2" class="javax.swing.JTextField" binding="muteTimeStartMs">
+                    <constraints>
+                      <grid row="36" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="91d14" class="javax.swing.JTextField" binding="muteTimeEndMs">
+                    <constraints>
+                      <grid row="37" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="693c0" class="javax.swing.JTextField" binding="samplesNumber">
+                    <constraints>
+                      <grid row="38" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="2bf64" class="javax.swing.JTextField" binding="sampleIntervalMs">
+                    <constraints>
+                      <grid row="39" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="83947" class="javax.swing.JTextField" binding="gainType">
+                    <constraints>
+                      <grid row="40" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="3bc63" class="javax.swing.JTextField" binding="instrumentGainConstant">
+                    <constraints>
+                      <grid row="41" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="82237" class="javax.swing.JTextField" binding="instrumentEarlyOrInitialGain">
+                    <constraints>
+                      <grid row="42" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="822ec" class="javax.swing.JTextField" binding="correlated">
+                    <constraints>
+                      <grid row="43" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="d7eb1" class="javax.swing.JTextField" binding="sweepFrequencyAtStart">
+                    <constraints>
+                      <grid row="44" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="26275" class="javax.swing.JTextField" binding="sweepFrequencyAtEnd">
+                    <constraints>
+                      <grid row="45" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="f806f" class="javax.swing.JTextField" binding="sweepLengthMs">
+                    <constraints>
+                      <grid row="46" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="58553" class="javax.swing.JTextField" binding="sweepType">
+                    <constraints>
+                      <grid row="47" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="771b8" class="javax.swing.JTextField" binding="sweepTraceTaperLengthAtStartMs">
+                    <constraints>
+                      <grid row="48" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="b1e36" class="javax.swing.JTextField" binding="sweepTraceTaperLengthAtEndMs">
+                    <constraints>
+                      <grid row="49" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="c8d3a" class="javax.swing.JTextField" binding="taperType">
+                    <constraints>
+                      <grid row="50" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="c0bf0" class="javax.swing.JTextField" binding="aliasFilterFreq">
+                    <constraints>
+                      <grid row="51" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="ed34f" class="javax.swing.JTextField" binding="aliasFilterSlope">
+                    <constraints>
+                      <grid row="52" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="69381" class="javax.swing.JTextField" binding="notchFilterFreq">
+                    <constraints>
+                      <grid row="53" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="5805c" class="javax.swing.JTextField" binding="notchFilterSlope">
+                    <constraints>
+                      <grid row="54" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <enabled value="true"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="652ee" binding="infoJPanel2" layout-manager="GridLayoutManager" row-count="54" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="5" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="true">
+                    <maximum-size width="360" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="ddf90" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="149-150 lowCutFreq"/>
+                    </properties>
+                  </component>
+                  <component id="f5cea" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="151-152 highCutFreq"/>
+                    </properties>
+                  </component>
+                  <component id="ac111" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="153-154 lowCutSlope"/>
+                    </properties>
+                  </component>
+                  <component id="7c86e" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="155-156 highCutSlope"/>
+                    </properties>
+                  </component>
+                  <component id="ede8a" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="157-158 year"/>
+                    </properties>
+                  </component>
+                  <component id="ecd39" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="159-160 dayOfYear"/>
+                    </properties>
+                  </component>
+                  <component id="4397a" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="161-162 hourOfDay"/>
+                    </properties>
+                  </component>
+                  <component id="109ee" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="163-164 minuteOfHour"/>
+                    </properties>
+                  </component>
+                  <component id="f7f0d" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="165-166 secondOfMinute"/>
+                    </properties>
+                  </component>
+                  <component id="3eec5" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="167-168 timeBasisCode"/>
+                    </properties>
+                  </component>
+                  <component id="c8209" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value=" 169-170 traceWeightFactor"/>
+                    </properties>
+                  </component>
+                  <component id="1e41a" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="171-172 geophoneGroupNumOfRollSwitchPosOne"/>
+                    </properties>
+                  </component>
+                  <component id="3e881" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="173-174 geophoneGroupNumOfTraceOneWithinOrigRecord"/>
+                    </properties>
+                  </component>
+                  <component id="342c5" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="175-176 geophoneGroupNumOfLastWithinOrigRecord"/>
+                    </properties>
+                  </component>
+                  <component id="28409" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="177-178 gapSize"/>
+                    </properties>
+                  </component>
+                  <component id="97924" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="179-180 overTravel"/>
+                    </properties>
+                  </component>
+                  <component id="8f4ed" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*181-182 segyHedRev"/>
+                    </properties>
+                  </component>
+                  <component id="fe6b8" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="17" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*183-186 shotID"/>
+                    </properties>
+                  </component>
+                  <component id="2f66f" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="18" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*187-187 auxChanSigDesc"/>
+                    </properties>
+                  </component>
+                  <component id="575c9" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="19" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*188-188 auxChanID"/>
+                    </properties>
+                  </component>
+                  <component id="60853" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="20" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*189-192 shotPointLine"/>
+                    </properties>
+                  </component>
+                  <component id="16a09" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="21" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*193-196 shotPointSta"/>
+                    </properties>
+                  </component>
+                  <component id="85c07" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="22" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*197-198 recLine"/>
+                    </properties>
+                  </component>
+                  <component id="a211a" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="23" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*199-200 recSta"/>
+                    </properties>
+                  </component>
+                  <component id="c7e77" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="24" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*201-201 vSMT"/>
+                    </properties>
+                  </component>
+                  <component id="cc20b" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="25" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*202-202 vSMTScaleCode"/>
+                    </properties>
+                  </component>
+                  <component id="1ee23" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="26" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*203-204 vSMTHOA"/>
+                    </properties>
+                  </component>
+                  <component id="e7731" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="27" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*205-206 vSMTVOA"/>
+                    </properties>
+                  </component>
+                  <component id="cac41" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="28" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*207-207 sourceType"/>
+                    </properties>
+                  </component>
+                  <component id="a6e71" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="29" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*208-208 sourceTypeSEGD"/>
+                    </properties>
+                  </component>
+                  <component id="822eb" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="30" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*209-209 auxChanType"/>
+                    </properties>
+                  </component>
+                  <component id="162f2" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="31" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*210-210 noiseEdType"/>
+                    </properties>
+                  </component>
+                  <component id="ef5c4" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="32" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*211-212 noiseEdGateLength"/>
+                    </properties>
+                  </component>
+                  <component id="80456" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="33" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*213-213 deviceType"/>
+                    </properties>
+                  </component>
+                  <component id="4271" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="34" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*214-216 devSerNum"/>
+                    </properties>
+                  </component>
+                  <component id="f8eeb" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="35" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*217-217 devChanNum"/>
+                    </properties>
+                  </component>
+                  <component id="27e1e" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="36" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*218-218 auxChanSourcsetID"/>
+                    </properties>
+                  </component>
+                  <component id="7fa09" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="37" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*219-219 debStatus"/>
+                    </properties>
+                  </component>
+                  <component id="fc1a0" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="38" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*220-220 lATTestType"/>
+                    </properties>
+                  </component>
+                  <component id="c298a" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="39" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*221-222 fixedLowCutFreq"/>
+                    </properties>
+                  </component>
+                  <component id="27a48" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="40" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*223-223 fixedLowCutSlope"/>
+                    </properties>
+                  </component>
+                  <component id="7b1aa" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="41" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*224-224 boxFunction"/>
+                    </properties>
+                  </component>
+                  <component id="3de31" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="42" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*225-226 notchBCenFreq"/>
+                    </properties>
+                  </component>
+                  <component id="25cb2" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="43" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*227-228 notchBBandwidth"/>
+                    </properties>
+                  </component>
+                  <component id="f33f2" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="44" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*229-230 notchCCenFreq"/>
+                    </properties>
+                  </component>
+                  <component id="964c6" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="45" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*231-232 notchCBandwidth"/>
+                    </properties>
+                  </component>
+                  <component id="a3abe" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="46" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*233-233 eventType"/>
+                    </properties>
+                  </component>
+                  <component id="11cdb" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="47" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*234-234 sensorTypeID"/>
+                    </properties>
+                  </component>
+                  <component id="4d9a" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="48" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*235-235 vSMTInfo1"/>
+                    </properties>
+                  </component>
+                  <component id="5b708" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="49" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*236-236 vSMTInfo2"/>
+                    </properties>
+                  </component>
+                  <component id="3fe18" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="50" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*237-237 vSMTInfo3"/>
+                    </properties>
+                  </component>
+                  <component id="757e3" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="51" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*238-238 vSMTInfo4"/>
+                    </properties>
+                  </component>
+                  <component id="adce7" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="52" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*239-239 vSMTInfo5"/>
+                    </properties>
+                  </component>
+                  <component id="f5a20" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="53" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                        <maximum-size width="-1" height="13"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <text value="*240-240 dataModBit"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="e3cfe" binding="dataJPanel2" layout-manager="GridLayoutManager" row-count="54" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="5" left="0" bottom="0" right="0"/>
+                <constraints>
+                  <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="true">
+                    <minimum-size width="95" height="-1"/>
+                    <preferred-size width="95" height="-1"/>
+                    <maximum-size width="95" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="36f99" class="javax.swing.JTextField" binding="lowCutFreq">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="77480" class="javax.swing.JTextField" binding="highCutFreq">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="a510e" class="javax.swing.JTextField" binding="lowCutSlope">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="3955" class="javax.swing.JTextField" binding="highCutSlope">
+                    <constraints>
+                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="e5042" class="javax.swing.JTextField" binding="year">
+                    <constraints>
+                      <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="23a6f" class="javax.swing.JTextField" binding="dayOfYear">
+                    <constraints>
+                      <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="4da" class="javax.swing.JTextField" binding="hourOfDay">
+                    <constraints>
+                      <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="a45fc" class="javax.swing.JTextField" binding="minuteOfHour">
+                    <constraints>
+                      <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="85718" class="javax.swing.JTextField" binding="secondOfMinute">
+                    <constraints>
+                      <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="9ac35" class="javax.swing.JTextField" binding="timeBasisCode">
+                    <constraints>
+                      <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="180eb" class="javax.swing.JTextField" binding="traceWeightFactor">
+                    <constraints>
+                      <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="ee26a" class="javax.swing.JTextField" binding="geophoneGroupNumOfRollSwitchPosOne">
+                    <constraints>
+                      <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="4a0fa" class="javax.swing.JTextField" binding="geophoneGroupNumOfTraceOneWithinOrigRecord">
+                    <constraints>
+                      <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="7b5b0" class="javax.swing.JTextField" binding="geophoneGroupNumOfLastWithinOrigRecord">
+                    <constraints>
+                      <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="1d118" class="javax.swing.JTextField" binding="gapSize">
+                    <constraints>
+                      <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="2e525" class="javax.swing.JTextField" binding="overTravel">
+                    <constraints>
+                      <grid row="15" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="e3d67" class="javax.swing.JTextField" binding="segyHedRev">
+                    <constraints>
+                      <grid row="16" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="443f3" class="javax.swing.JTextField" binding="shotID">
+                    <constraints>
+                      <grid row="17" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="b9f8e" class="javax.swing.JTextField" binding="auxChanSigDesc">
+                    <constraints>
+                      <grid row="18" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="95042" class="javax.swing.JTextField" binding="auxChanID">
+                    <constraints>
+                      <grid row="19" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="a25da" class="javax.swing.JTextField" binding="shotPointLine">
+                    <constraints>
+                      <grid row="20" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="812b" class="javax.swing.JTextField" binding="shotPointSta">
+                    <constraints>
+                      <grid row="21" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="ed4b1" class="javax.swing.JTextField" binding="recLine">
+                    <constraints>
+                      <grid row="22" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="baefb" class="javax.swing.JTextField" binding="recSta">
+                    <constraints>
+                      <grid row="23" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="8bdb7" class="javax.swing.JTextField" binding="vSMT">
+                    <constraints>
+                      <grid row="24" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="66abb" class="javax.swing.JTextField" binding="vSMTScaleCode">
+                    <constraints>
+                      <grid row="25" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="d1f18" class="javax.swing.JTextField" binding="vSMTHOA">
+                    <constraints>
+                      <grid row="26" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="9f91" class="javax.swing.JTextField" binding="vSMTVOA">
+                    <constraints>
+                      <grid row="27" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="202db" class="javax.swing.JTextField" binding="sourceType">
+                    <constraints>
+                      <grid row="28" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="176a5" class="javax.swing.JTextField" binding="sourceTypeSEGD">
+                    <constraints>
+                      <grid row="29" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="6edbd" class="javax.swing.JTextField" binding="auxChanType">
+                    <constraints>
+                      <grid row="30" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="77086" class="javax.swing.JTextField" binding="noiseEdType">
+                    <constraints>
+                      <grid row="31" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="87af9" class="javax.swing.JTextField" binding="noiseEdGateLength">
+                    <constraints>
+                      <grid row="32" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="a8162" class="javax.swing.JTextField" binding="deviceType">
+                    <constraints>
+                      <grid row="33" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="58a8c" class="javax.swing.JTextField" binding="devSerNum">
+                    <constraints>
+                      <grid row="34" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="97c62" class="javax.swing.JTextField" binding="devChanNum">
+                    <constraints>
+                      <grid row="35" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="84dde" class="javax.swing.JTextField" binding="auxChanSourcsetID">
+                    <constraints>
+                      <grid row="36" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="34151" class="javax.swing.JTextField" binding="debStatus">
+                    <constraints>
+                      <grid row="37" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="aa766" class="javax.swing.JTextField" binding="lATTestType">
+                    <constraints>
+                      <grid row="38" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="330f" class="javax.swing.JTextField" binding="fixedLowCutFreq">
+                    <constraints>
+                      <grid row="39" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="9e0bf" class="javax.swing.JTextField" binding="fixedLowCutSlope">
+                    <constraints>
+                      <grid row="40" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="c00d3" class="javax.swing.JTextField" binding="boxFunction">
+                    <constraints>
+                      <grid row="41" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="9d3c1" class="javax.swing.JTextField" binding="notchBCenFreq">
+                    <constraints>
+                      <grid row="42" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="183fb" class="javax.swing.JTextField" binding="notchBBandwidth">
+                    <constraints>
+                      <grid row="43" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="9aaae" class="javax.swing.JTextField" binding="notchCCenFreq">
+                    <constraints>
+                      <grid row="44" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="96438" class="javax.swing.JTextField" binding="notchCBandwidth">
+                    <constraints>
+                      <grid row="45" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="cf4fd" class="javax.swing.JTextField" binding="eventType">
+                    <constraints>
+                      <grid row="46" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="ba01c" class="javax.swing.JTextField" binding="sensorTypeID">
+                    <constraints>
+                      <grid row="47" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="9de5d" class="javax.swing.JTextField" binding="vSMTInfo1">
+                    <constraints>
+                      <grid row="48" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="7849f" class="javax.swing.JTextField" binding="vSMTInfo2">
+                    <constraints>
+                      <grid row="49" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="1ff93" class="javax.swing.JTextField" binding="vSMTInfo3">
+                    <constraints>
+                      <grid row="50" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="4cef0" class="javax.swing.JTextField" binding="vSMTInfo4">
+                    <constraints>
+                      <grid row="51" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="de941" class="javax.swing.JTextField" binding="vSMTInfo5">
+                    <constraints>
+                      <grid row="52" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                  <component id="bace4" class="javax.swing.JTextField" binding="dataModBit">
+                    <constraints>
+                      <grid row="53" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="95" height="-1"/>
+                        <maximum-size width="95" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <editable value="false"/>
+                      <horizontalAlignment value="4"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </scrollpane>
+    </children>
+  </grid>
+</form>

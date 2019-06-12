@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="main.java.vladimir.seis.mainGui">
+  <grid id="27dc6" binding="mainJPanel" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="800" height="600"/>
+    </constraints>
+    <properties>
+      <minimumSize width="800" height="600"/>
+      <opaque value="true"/>
+      <preferredSize width="1024" height="800"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="2407c" binding="filesPanel" layout-manager="GridLayoutManager" row-count="7" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false">
+            <minimum-size width="200" height="-1"/>
+            <preferred-size width="200" height="24"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="36c2f" class="javax.swing.JList" binding="filesList">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <selectionMode value="0"/>
+            </properties>
+          </component>
+          <component id="8c46c" class="javax.swing.JLabel" binding="lawPoint1TL">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="lawPoint1TL"/>
+            </properties>
+          </component>
+          <component id="aac3f" class="javax.swing.JLabel" binding="lawPoint2TL">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="lawPoint2TL"/>
+            </properties>
+          </component>
+          <component id="d7a0d" class="javax.swing.JLabel" binding="lawPoint3TL">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="lawPoint3TL"/>
+            </properties>
+          </component>
+          <component id="fc1f8" class="javax.swing.JLabel" binding="lawPoint4TL">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="lawPoint4TL"/>
+            </properties>
+          </component>
+          <component id="e6552" class="javax.swing.JLabel" binding="lawPoint5TL">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="lawPoint5TL"/>
+            </properties>
+          </component>
+          <component id="7c194" class="javax.swing.JLabel" binding="lawPoint6TL">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="lawPoint6TL"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="130cd" binding="buttonPanel" layout-manager="GridLayoutManager" row-count="12" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="30" left="0" bottom="100" right="0"/>
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="120" height="-1"/>
+            <preferred-size width="120" height="-1"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="8ef8c" class="javax.swing.JButton" binding="showFileTxtButton">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="70" height="50"/>
+                <preferred-size width="70" height="50"/>
+                <maximum-size width="70" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="F txt"/>
+            </properties>
+          </component>
+          <component id="1b937" class="javax.swing.JButton" binding="showFileBinButton">
+            <constraints>
+              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="70" height="50"/>
+                <preferred-size width="70" height="50"/>
+                <maximum-size width="70" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="F bin"/>
+            </properties>
+          </component>
+          <component id="1da0" class="javax.swing.JButton" binding="showTraceBinButton">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="70" height="50"/>
+                <preferred-size width="70" height="50"/>
+                <maximum-size width="70" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="T bin"/>
+            </properties>
+          </component>
+          <component id="ab31" class="javax.swing.JButton" binding="pickingButton">
+            <constraints>
+              <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="70" height="50"/>
+                <preferred-size width="70" height="50"/>
+                <maximum-size width="70" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="Pick"/>
+            </properties>
+          </component>
+          <component id="344ea" class="javax.swing.JButton" binding="saveFileButton">
+            <constraints>
+              <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="70" height="50"/>
+                <preferred-size width="70" height="50"/>
+                <maximum-size width="70" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="Save"/>
+            </properties>
+          </component>
+          <component id="d4ea1" class="javax.swing.JButton" binding="shooseFileButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="70" height="50"/>
+                <preferred-size width="70" height="50"/>
+                <maximum-size width="70" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <enabled value="true"/>
+              <selected value="false"/>
+              <text value="open"/>
+            </properties>
+            <clientProperties>
+              <hideActionText class="java.lang.Boolean" value="false"/>
+            </clientProperties>
+          </component>
+          <component id="fe720" class="javax.swing.JButton" binding="settingsBotton">
+            <constraints>
+              <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="90" height="50"/>
+                <preferred-size width="90" height="50"/>
+                <maximum-size width="90" height="50"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="Settings"/>
+            </properties>
+          </component>
+          <vspacer id="97f55">
+            <constraints>
+              <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+            </constraints>
+          </vspacer>
+          <component id="d90bb" class="javax.swing.JButton" binding="scaleUp">
+            <constraints>
+              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="50" height="30"/>
+                <preferred-size width="50" height="30"/>
+                <maximum-size width="50" height="30"/>
+              </grid>
+            </constraints>
+            <properties>
+              <horizontalTextPosition value="0"/>
+              <text value="+"/>
+            </properties>
+          </component>
+          <component id="a45b6" class="javax.swing.JButton" binding="scaleDown">
+            <constraints>
+              <grid row="7" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="50" height="30"/>
+                <preferred-size width="50" height="30"/>
+                <maximum-size width="50" height="30"/>
+              </grid>
+            </constraints>
+            <properties>
+              <horizontalTextPosition value="0"/>
+              <text value="-"/>
+            </properties>
+          </component>
+          <component id="4b259" class="javax.swing.JButton" binding="scaleZero">
+            <constraints>
+              <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="50" height="30"/>
+                <preferred-size width="50" height="30"/>
+                <maximum-size width="50" height="30"/>
+              </grid>
+            </constraints>
+            <properties>
+              <horizontalTextPosition value="0"/>
+              <text value="0"/>
+            </properties>
+          </component>
+          <component id="e47d9" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Scale :"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <scrollpane id="af69e">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-4999237"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="54117" binding="tempPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints/>
+            <properties>
+              <foreground color="-4671557"/>
+            </properties>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </scrollpane>
+    </children>
+  </grid>
+</form>
