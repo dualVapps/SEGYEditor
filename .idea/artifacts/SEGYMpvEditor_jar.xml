@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SEGYMpvEditor:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SEGYMpvEditor_jar</output-path>
+    <root id="archive" name="SEGYMpvEditor.jar">
+      <element id="module-output" name="SEGYMpvEditor" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/vladimir/seis/jfree/jfreesvg-2.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/vladimir/seis/jfree/jcommon-1.0.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/vladimir/seis/jfree/jfreechart-1.0.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/vladimir/seis/jfree/jfreechart-1.0.19-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/vladimir/seis/jfree/jfreechart-1.0.19-experimental.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.12.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.12.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/vladimir/seis/akka/akka-actor_2.12-2.5.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/vladimir/seis/akka/akka-remote_2.12-2.5.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/vladimir/seis/akka/akka-stream_2.12-2.5.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/vladimir/seis/akka/akka-cluster_2.12-2.5.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/main/java/vladimir/seis/akka/akka-protobuf_2.12-2.5.15.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
