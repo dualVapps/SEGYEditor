@@ -89,8 +89,8 @@ public class ChartExecutor {
 
 
 
-        chartPanel[0].setPreferredSize((new java.awt.Dimension(120, 270)));
-        chartPanel[1].setPreferredSize((new java.awt.Dimension(960, 270)));
+        chartPanel[0].setPreferredSize((new java.awt.Dimension(108, 270)));
+        chartPanel[1].setPreferredSize((new java.awt.Dimension(864, 270)));
 //            System.out.println("1   1  + "+chartPanel[1].getMouseXCoordinate());
 //            System.out.println("2   2  + "+chartPanel[1].getX());
 //            System.out.println("3   3  + "+chartPanel[1].getHeight());

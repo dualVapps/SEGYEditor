@@ -57,6 +57,7 @@ public class mainGui
     private JLabel lawPoint4TL;
     private JLabel lawPoint5TL;
     private JLabel lawPoint6TL;
+    private JButton clearButton;
     JFileChooser fc;
     static private File directory;
     static private File savePath;
@@ -235,10 +236,10 @@ public class mainGui
 
                 //TODO Something weard with throwing other threads errors;
 
-//                makeButtonsActive();
 //                System.out.println("11111111111111111111111");
-//                reDrawChartsWithRenevalData();
+                reDrawChartsWithRenevalData();
 //                System.out.println("22222222222222222222222222");
+                makeButtonsActive();
 
 
             }
@@ -344,10 +345,11 @@ public class mainGui
                         DataOutputStream dos = new DataOutputStream(fos);
                         mainController.segyTempFile.writeToDataOutputStream(dos);
 
-                        for (int i = 0; i < 216; i++) { //TODO change to variable
+                        for (int i = 0; i < 54; i++) { //TODO change to variable (216)
 //                            System.out.println(" *** mainController.segyTempTraces[i].getTraceSequenceNumberWithinLine() " + mainController.segyTempTraces[i].getTraceSequenceNumberWithinLine());
                             mainController.segyTempTraces[i].writeToDataOutputStream(dos);
-                            mainController.segyTempTracesData[i].writeToDataOutputStream(dos,settings_singl.getSample_sizeInBytes());
+//                            mainController.segyTempTracesData[i].writeToDataOutputStream(dos,settings_singl.getSample_sizeInBytes());
+                            mainController.segyTempTracesData[i].writeToDataOutputStream(dos,settings_singl.getSample_sizeInBytes()-4); // -1*4 (4*2047)
 //                            System.out.println("mainController.segyTempTraces.length  " + mainController.segyTempTraces.length);
 //                            System.out.println("mainController.segyTempTracesData.length  " + mainController.segyTempTracesData.length);
                         }
@@ -494,6 +496,12 @@ public class mainGui
                 tempPanel.repaint();
             }
         });
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
     private void makeProccesing() { //TODO Changing in SEGY FIle
 
@@ -555,29 +563,31 @@ public class mainGui
     }
 
     // Changing traces with 4 secmic records
-    private void processingTraceHeader() {
+    private void processingTraceHeader() { //TODO CHECK if 54*4 (216) traces
         for (int i = 0; i < mainController.getSegyTempTracesData()[2].getData().length; i++) {
             mainController.getSegyTempTracesData()[2].getData()[i] = (mainController.getSegyTempTracesData()[3].getData()[i] +
                     mainController.getSegyTempTracesData()[4].getData()[i])/2;
 
         }
 
-        for (int i = 0; i < mainController.getSegyTempTracesData()[56].getData().length; i++) {
-            mainController.getSegyTempTracesData()[56].getData()[i] = (mainController.getSegyTempTracesData()[57].getData()[i] +
-                    mainController.getSegyTempTracesData()[58].getData()[i])/2;
-        }
+        //TODO for future release in 216
 
-        for (int i = 0; i < mainController.getSegyTempTracesData()[110].getData().length; i++) {
-            mainController.getSegyTempTracesData()[110].getData()[i] = (mainController.getSegyTempTracesData()[111].getData()[i] +
-                    mainController.getSegyTempTracesData()[112].getData()[i])/2;
-        }
-
-        for (int i = 0; i < mainController.getSegyTempTracesData()[164].getData().length; i++) {
-            mainController.getSegyTempTracesData()[164].getData()[i] = (mainController.getSegyTempTracesData()[165].getData()[i] +
-                    mainController.getSegyTempTracesData()[166].getData()[i])/2;
-
-
-        }
+//        for (int i = 0; i < mainController.getSegyTempTracesData()[56].getData().length; i++) {
+//            mainController.getSegyTempTracesData()[56].getData()[i] = (mainController.getSegyTempTracesData()[57].getData()[i] +
+//                    mainController.getSegyTempTracesData()[58].getData()[i])/2;
+//        }
+//
+//        for (int i = 0; i < mainController.getSegyTempTracesData()[110].getData().length; i++) {
+//            mainController.getSegyTempTracesData()[110].getData()[i] = (mainController.getSegyTempTracesData()[111].getData()[i] +
+//                    mainController.getSegyTempTracesData()[112].getData()[i])/2;
+//        }
+//
+//        for (int i = 0; i < mainController.getSegyTempTracesData()[164].getData().length; i++) {
+//            mainController.getSegyTempTracesData()[164].getData()[i] = (mainController.getSegyTempTracesData()[165].getData()[i] +
+//                    mainController.getSegyTempTracesData()[166].getData()[i])/2;
+//
+//
+//        }
     }
 
     private static void initializeFrames()
@@ -609,7 +619,7 @@ public class mainGui
 
         }
 
-        chartExecutor.setSameScale();   // TODO Write javadoc
+
 
 //                  for (int j = 0; j < chartPanel.length; j++) {
 ////                    tempPanel.add(chartPanel[j], BorderLayout.LINE_END);
@@ -624,6 +634,7 @@ public class mainGui
 //        system::terminate;
         reDrawChartsWithRenevalData();
         makeButtonsActive();
+        chartExecutor.setSameScale();   // TODO Write javadoc
 //        done.thenRunAsync(() -> onFinishedreading()
     }
 

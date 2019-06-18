@@ -416,6 +416,7 @@ public class SegyTempFile {
         bb.putInt(numOfFiles);
         bb.putInt(numOfTraces);
         for (int i = 0; i < 226; i++) { //228 = 3500 - 3283 + 1 Gap in read order
+
             bb.put((byte)0x00);
         }
         bb.putShort(segyRevision);
