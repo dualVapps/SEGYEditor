@@ -10,12 +10,9 @@ import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import akka.util.ByteString;
+import main.java.vladimir.seis.segystream.*;
 import org.jfree.chart.panel.CrosshairOverlay;
 import org.jfree.chart.plot.Crosshair;
-import main.java.vladimir.seis.segystream.SegyConfig;
-import main.java.vladimir.seis.segystream.SegyFlow;
-import main.java.vladimir.seis.segystream.SegyHeaders;
-import main.java.vladimir.seis.segystream.SegyPart;
 import org.jfree.chart.ChartPanel;
 import scala.concurrent.Future;
 
@@ -31,12 +28,11 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.concurrent.CompletionStage;
 
-public class mainGui
-{
+public class mainGui {
     //TODO make unactive if settings Change
 
-//    private final ChartPanel chartPanel1;
-    public  JPanel mainJPanel;
+    //    private final ChartPanel chartPanel1;
+    public JPanel mainJPanel;
     private JButton shooseFileButton;
     private JPanel filesPanel;
     private JPanel tempPanel;
@@ -68,11 +64,11 @@ public class mainGui
     static private Settings_singleton settings_singl;
     static private MyDrawingGlassPane myDrawingGlassPane;
 
-    static public  mainController mainController;
+    static public mainController mainController;
 
     private boolean isPickingMode = false;
 
-    public static void main(String[] args) { //TODO Delete log and sout tests, add fool protection
+    public static void main(String[] args) { //TODO Delete log and sout tests, add fool protectionб rewrite to another method of starting (see book)
 
         JFrame mainJFrame = new JFrame("mainGui");
 //        shooseFileButton.setIc;
@@ -82,11 +78,11 @@ public class mainGui
 
         mainJFrame.setContentPane(new mainGui().mainJPanel);
         mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myDrawingGlassPane = new MyDrawingGlassPane();
+        mainController = new mainController();
+        myDrawingGlassPane = new MyDrawingGlassPane(mainController);
         mainJFrame.setGlassPane(myDrawingGlassPane);
         mainJFrame.pack();
         mainJFrame.setVisible(true);
-        mainController = new mainController();
         JFrame settingsJFrame = new JFrame("settings");
         Settings settings = new Settings();
         settingsJFrame.setContentPane(settings.settingsPanel);
@@ -94,7 +90,6 @@ public class mainGui
         settingsJFrame.pack();
         settingsJFrame.setVisible(true);
         settings_singl = new Settings_singleton().getSettings_singleton();
-
 
 
 //        setupMainController();
@@ -117,9 +112,8 @@ public class mainGui
         return myDrawingGlassPane;
     }
 
-    public mainGui()
-    {
 
+    public mainGui() {
         makeButtonsUnactive();
         //        getMainJPanel().addMouseListener(this);
 
@@ -136,7 +130,9 @@ public class mainGui
                     directory = fc.getSelectedFile();
                     choosenFiles = directory.listFiles(new FilenameFilter() {
                         public boolean accept(File dir, String name) {
-                            return name.toLowerCase().endsWith(".sgy");}});
+                            return name.toLowerCase().endsWith(".sgy");
+                        }
+                    });
 
                     if (choosenFiles.length != 0) {
 
@@ -172,16 +168,12 @@ public class mainGui
                         });
 
                         filesList.setListData(choosenFileNames);
-                    }
-
-                    else {
+                    } else {
                         JOptionPane.showMessageDialog(mainJPanel,
                                 "Файлы sgy не найдены",
                                 "Внимание",
                                 JOptionPane.WARNING_MESSAGE);
                     }
-
-
 
 
 //                        file = fc.getSelectedFile();
@@ -193,10 +185,9 @@ public class mainGui
 //                    log.setCaretPosition(log.getDocument().getLength());
 
 
-
             }
 
-            private void startReading() {
+            private void startReading() { // Исспользование класса реактивной (RxJava) акка
                 final ActorSystem system = ActorSystem.create("111");
                 final Materializer materializer = ActorMaterializer.create(system);
 
@@ -231,10 +222,10 @@ public class mainGui
 //                done.thenRunAsync(() -> onFinishedreading());
 //                done.thenRun(system::terminate);
 
-                    done.thenRun(() -> onFinishedreading());
+                done.thenRun(() -> onFinishedreading());
 
 
-                //TODO Something weard with throwing other threads errors;
+                //TODO Something weard with throwing errors from other threads;
 
 //                System.out.println("11111111111111111111111");
                 reDrawChartsWithRenevalData();
@@ -250,7 +241,7 @@ public class mainGui
                 JFrame fileTxtJFrame = new JFrame("fileTxtHeader");
                 fileTxtHeader fileTxtHeader = new fileTxtHeader();
                 fileTxtJFrame.setContentPane(fileTxtHeader.fileTxtJPanel);
-                fileTxtJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE );
+                fileTxtJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 fileTxtHeader.setTxtHeader(mainController.getSegyTempFile().getFileTextHeader());
                 fileTxtJFrame.pack();
                 fileTxtJFrame.setVisible(true);
@@ -263,7 +254,7 @@ public class mainGui
                 JFrame fileBinJFrame = new JFrame("fileBinHeader");
                 fileBinHeader fileBinHeader = new fileBinHeader();
                 fileBinJFrame.setContentPane(fileBinHeader.fileBinJPanel);
-                fileBinJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE );
+                fileBinJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 fileBinHeader.setBinHeader(
                         mainController.getSegyTempFile().getJobId(),
                         mainController.getSegyTempFile().getLineNumber(),
@@ -314,7 +305,7 @@ public class mainGui
                 JFrame traceBinJFrame = new JFrame("traceBinHeader");
                 traceBinHeader traceBinHeader = new traceBinHeader();
                 traceBinJFrame.setContentPane(traceBinHeader.traceBinJpanel);
-                traceBinJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE );
+                traceBinJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 
 //                System.out.println("mainController.getSegyTempTraces(0).toString(): "+mainController.getSegyTempTraces(0).toString());
@@ -325,11 +316,13 @@ public class mainGui
                 traceBinJFrame.setVisible(true);
             }
         });
+
+        // Сохранение данных в новую папку /Edited с перезаписью даты и времени создания на исходную
         saveFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                savePath = new File(directory.getAbsolutePath()+"/Edited");
+                savePath = new File(directory.getAbsolutePath() + "/Edited");
                 savePath.mkdir();
 //                System.out.println(choosenFiles[choosenIndex].getPath());
 //                System.out.println(choosenFiles[choosenIndex].getName());
@@ -337,11 +330,11 @@ public class mainGui
 
                 makeProccesing();
 
-                FileOutputStream fos=null;
+                FileOutputStream fos = null;
                 try {
-                    fos = new FileOutputStream(savePath.getAbsolutePath()+"/"+choosenFiles[choosenIndex].getName());
+                    fos = new FileOutputStream(savePath.getAbsolutePath() + "/" + choosenFiles[choosenIndex].getName());
 
-                    if (fos != null)  {
+                    if (fos != null) {
                         DataOutputStream dos = new DataOutputStream(fos);
                         mainController.segyTempFile.writeToDataOutputStream(dos);
 
@@ -349,7 +342,7 @@ public class mainGui
 //                            System.out.println(" *** mainController.segyTempTraces[i].getTraceSequenceNumberWithinLine() " + mainController.segyTempTraces[i].getTraceSequenceNumberWithinLine());
                             mainController.segyTempTraces[i].writeToDataOutputStream(dos);
 //                            mainController.segyTempTracesData[i].writeToDataOutputStream(dos,settings_singl.getSample_sizeInBytes());
-                            mainController.segyTempTracesData[i].writeToDataOutputStream(dos,settings_singl.getSample_sizeInBytes()-4); // -1*4 (4*2047)
+                            mainController.segyTempTracesData[i].writeToDataOutputStream(dos, settings_singl.getSample_sizeInBytes() - 4); // -1*4 (4*2047)
 //                            System.out.println("mainController.segyTempTraces.length  " + mainController.segyTempTraces.length);
 //                            System.out.println("mainController.segyTempTracesData.length  " + mainController.segyTempTracesData.length);
                         }
@@ -359,14 +352,13 @@ public class mainGui
 
                     }
 
-                    if (fos != null)  {
+                    if (fos != null) {
                         fos.flush();
                         fos.close();
                     }
 
 
-                }
-                catch (Exception exc1) {
+                } catch (Exception exc1) {
                     exc1.printStackTrace();
                 }
 
@@ -378,11 +370,11 @@ public class mainGui
 //                    System.out.println(attr.lastModifiedTime().toString());
 
 
-                    Path savedPath = Paths.get(savePath.getAbsolutePath()+"/"+choosenFiles[choosenIndex].getName());
+                    Path savedPath = Paths.get(savePath.getAbsolutePath() + "/" + choosenFiles[choosenIndex].getName());
 
 
-                    Files.setAttribute(savedPath,"creationTime",attr.creationTime());
-                    Files.setAttribute(savedPath,"lastModifiedTime",attr.lastModifiedTime());
+                    Files.setAttribute(savedPath, "creationTime", attr.creationTime());
+                    Files.setAttribute(savedPath, "lastModifiedTime", attr.lastModifiedTime());
 
                     BasicFileAttributes attr1 = Files.readAttributes(savedPath, BasicFileAttributes.class);
 
@@ -395,8 +387,9 @@ public class mainGui
 //                    System.out.println(attr1.lastModifiedTime().toString());
 
 
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
                 }
-                catch (IOException ioe) {ioe.printStackTrace();}
 
 //                Path file = ...;
 //                BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
@@ -405,7 +398,6 @@ public class mainGui
 //                System.out.println("lastAccessTime: " + attr.lastAccessTime());
 //                System.out.println("lastModifiedTime: " + attr.lastModifiedTime());
 //
-
 
 
 //                    for (int j = 0; j < 6; j++) {
@@ -429,23 +421,22 @@ public class mainGui
 //                }
 //            }
 //        });
+
+
         pickingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!isPickingMode) {
                     pickingButton.setBorder(BorderFactory.createLoweredBevelBorder());
                     myDrawingGlassPane.setVisible(true);
-                }
-
-                else
-                {
+                } else {
                     pickingButton.setBorder(null);
                     myDrawingGlassPane.setVisible(false);
                 }
             }
         });
 
-        initChartPanels();
+        initChartPanels(); //Метод инициализации
 
         settingsBotton.addActionListener(new ActionListener() {
             @Override
@@ -458,7 +449,6 @@ public class mainGui
                 settingsJFrame.setVisible(true);
 
 
-
             }
         });
 
@@ -466,7 +456,7 @@ public class mainGui
             @Override
             public void actionPerformed(ActionEvent e) {
                 double temp = chartExecutor.getScaleFactor();
-                chartExecutor.setScaleFactor(0.75*temp);
+                chartExecutor.setScaleFactor(0.75 * temp);
                 chartExecutor.setSameScale();
                 System.out.println("Scale" + temp);
                 tempPanel.revalidate();
@@ -479,7 +469,7 @@ public class mainGui
             @Override
             public void actionPerformed(ActionEvent e) {
                 double temp = chartExecutor.getScaleFactor();
-                chartExecutor.setScaleFactor(1.5*temp);
+                chartExecutor.setScaleFactor(1.5 * temp);
                 chartExecutor.setSameScale();
                 tempPanel.revalidate();
                 tempPanel.repaint();
@@ -503,6 +493,7 @@ public class mainGui
             }
         });
     }
+
     private void makeProccesing() { //TODO Changing in SEGY FIle
 
 //        for (int i = 0; i < 54; i++) {
@@ -510,8 +501,6 @@ public class mainGui
 //        }
 
         processingTraceHeader();
-
-
 
 
     }
@@ -524,7 +513,7 @@ public class mainGui
 
         chartExecutor = new ChartExecutor("Line Chart Demo");
         chartPanel = chartExecutor.getChartPanel();
-        tempPanel.setLayout(new BoxLayout(tempPanel,BoxLayout.X_AXIS));
+        tempPanel.setLayout(new BoxLayout(tempPanel, BoxLayout.X_AXIS));
         tempPanel.add(chartPanel[0]);
         tempPanel.add(chartPanel[1]);
 
@@ -538,11 +527,7 @@ public class mainGui
 ////             tempPanel.add(chartPanel[j]);
 
 
-
-
-
-
-         chartExecutor.setSettings_singleton(settings_singl);
+        chartExecutor.setSettings_singleton(settings_singl);
         System.out.println("Add charts");
         System.out.println(tempPanel.toString());
 //        tempPanel.setVisible(false);
@@ -551,7 +536,7 @@ public class mainGui
 //        pickingJLF.repaint();
 
 //        pickingJLF.
-            //Code for adding crosshair
+        //Code for adding crosshair
 //            CrosshairOverlay crosshairOverlay = new CrosshairOverlay();
 //            chartPanel[1].addOverlay(crosshairOverlay.addDomainCrosshair(new Crosshair()));
 
@@ -559,14 +544,13 @@ public class mainGui
 //        }
 
 
-
     }
 
-    // Changing traces with 4 secmic records
+    // Changing traces with 4 seismic records
     private void processingTraceHeader() { //TODO CHECK if 54*4 (216) traces
         for (int i = 0; i < mainController.getSegyTempTracesData()[2].getData().length; i++) {
             mainController.getSegyTempTracesData()[2].getData()[i] = (mainController.getSegyTempTracesData()[3].getData()[i] +
-                    mainController.getSegyTempTracesData()[4].getData()[i])/2;
+                    mainController.getSegyTempTracesData()[4].getData()[i]) / 2;
 
         }
 
@@ -590,14 +574,13 @@ public class mainGui
 //        }
     }
 
-    private static void initializeFrames()
-    {
+    private static void initializeFrames() {
         //
 
 
     }
 
-     void  reDrawChartsWithRenevalData(){
+    void reDrawChartsWithRenevalData() {
 
         //                chartExecutor = new ChartExecutor("Line Chart Demo");  //Previous version of code
 //                ChartPanel[] chartPanel = chartExecutor.getChartPanel();
@@ -620,7 +603,6 @@ public class mainGui
         }
 
 
-
 //                  for (int j = 0; j < chartPanel.length; j++) {
 ////                    tempPanel.add(chartPanel[j], BorderLayout.LINE_END);
 //                    tempPanel.add(chartPanel[j]);
@@ -630,7 +612,7 @@ public class mainGui
         tempPanel.repaint();
     }
 
-    void onFinishedreading(){
+    void onFinishedreading() {
 //        system::terminate;
         reDrawChartsWithRenevalData();
         makeButtonsActive();
@@ -638,29 +620,43 @@ public class mainGui
 //        done.thenRunAsync(() -> onFinishedreading()
     }
 
+    void setJLabelsLaw(String s1, String s2, String s3, String s4, String s5, String s6) {
+
+        if (s1!=null) lawPoint1TL.setText(s1); else  lawPoint1TL.setText("");
+        if (s2!=null) lawPoint2TL.setText(s1); else  lawPoint2TL.setText("");
+        if (s3!=null) lawPoint3TL.setText(s1); else  lawPoint3TL.setText("");
+        if (s4!=null) lawPoint4TL.setText(s1); else  lawPoint4TL.setText("");
+        if (s5!=null) lawPoint5TL.setText(s1); else  lawPoint5TL.setText("");
+        if (s6!=null) lawPoint6TL.setText(s1); else  lawPoint6TL.setText("");
+
+    }
+
+
 
     private void makeButtonsUnactive() {
-          showFileTxtButton.setEnabled(false);
-          showFileBinButton.setEnabled(false);
-          showTraceBinButton.setEnabled(false);
-          pickingButton.setEnabled(false);
-          saveFileButton.setEnabled(false);
+        showFileTxtButton.setEnabled(false);
+        showFileBinButton.setEnabled(false);
+        showTraceBinButton.setEnabled(false);
+        pickingButton.setEnabled(false);
+        saveFileButton.setEnabled(false);
 //          settingsBotton.setEnabled(false);
-          scaleUp.setEnabled(false);
-          scaleDown.setEnabled(false);
-          scaleZero.setEnabled(false);
+        scaleUp.setEnabled(false);
+        scaleDown.setEnabled(false);
+        scaleZero.setEnabled(false);
     }
+
     private void makeButtonsActive() {
-          showFileTxtButton.setEnabled(true);
-          showFileBinButton.setEnabled(true);
-          showTraceBinButton.setEnabled(true);
-          pickingButton.setEnabled(true);
-          saveFileButton.setEnabled(true);
+        showFileTxtButton.setEnabled(true);
+        showFileBinButton.setEnabled(true);
+        showTraceBinButton.setEnabled(true);
+        pickingButton.setEnabled(true);
+        saveFileButton.setEnabled(true);
 //          settingsBotton.setEnabled(false);
-          scaleUp.setEnabled(true);
-          scaleDown.setEnabled(true);
-          scaleZero.setEnabled(true);
+        scaleUp.setEnabled(true);
+        scaleDown.setEnabled(true);
+        scaleZero.setEnabled(true);
     }
+
     private void makeButtonsActiveExcPicking() {
         showFileTxtButton.setEnabled(true);
         showFileBinButton.setEnabled(true);
@@ -673,23 +669,23 @@ public class mainGui
         scaleZero.setEnabled(true);
 
     }
+
     private void makeButtonsUnactiveExcPicking() {
-          showFileTxtButton.setEnabled(false);
-          showFileBinButton.setEnabled(false);
-          showTraceBinButton.setEnabled(true);
+        showFileTxtButton.setEnabled(false);
+        showFileBinButton.setEnabled(false);
+        showTraceBinButton.setEnabled(true);
 //          pickingButton.setEnabled(false);
-          saveFileButton.setEnabled(false);
-          settingsBotton.setEnabled(false);
-          scaleUp.setEnabled(false);
-          scaleDown.setEnabled(false);
-          scaleZero.setEnabled(false);
+        saveFileButton.setEnabled(false);
+        settingsBotton.setEnabled(false);
+        scaleUp.setEnabled(false);
+        scaleDown.setEnabled(false);
+        scaleZero.setEnabled(false);
     }
+
 
 //    public static void setupMainController() {
 //        mainController.setMainGui(this);
 //    }
-
-
 
 
 //    @Override
@@ -717,4 +713,6 @@ public class mainGui
 //    public void mouseExited(MouseEvent e) {
 //
 //    }
+
 }
+

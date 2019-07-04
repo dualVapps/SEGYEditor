@@ -16,16 +16,22 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
     JScrollPane jScrollPane;
     ChartPanelRewrite tempChartPanelRewrite;
     ArrayList<Point> muteLaw = new ArrayList<>();
+    String[] JL_PointsLabelsString = new String[6];
+    mainController mainController;
 
     public int getPointsCount() {
         return pointsCount;
+    }
+
+    public ArrayList<Point> getMuteLaw() {
+        return muteLaw;
     }
 
     public void setPointsCount(int pointsCount) {
         this.pointsCount = pointsCount;
     }
 
-    int pointsCount = -1;
+    int pointsCount = -1;  //OverInfo to checking do not uses
 
     public void setButtonJPanel(JPanel buttonJPanel) {
         this.buttonJPanel = buttonJPanel;
@@ -36,19 +42,38 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
     }
 
     protected void paintComponent(Graphics g) {
-        if (point != null) {
+
+        if (muteLaw.size()>0) {
             g.setColor(Color.red);
             g.setPaintMode();
-            g.drawOval(point.x - 5, point.y - 5, 10, 10);
-
-
-            if (pointsCount > 1) {
-                for (int i = 1; i < muteLaw.size(); i++) {
-                    g.drawLine(muteLaw.get(pointsCount - 1).x, muteLaw.get(pointsCount - 1).y, muteLaw.get(pointsCount).x, muteLaw.get(pointsCount).y);
-                }
+            for (int i = 0; i < muteLaw.size(); i++) {
+                g.drawOval(muteLaw.get(i).x - 5, muteLaw.get(i).y - 5, 10, 10);
+                JL_PointsLabelsString[i] = "" + muteLaw.get(i).x + "  ::  " + muteLaw.get(i).y;
             }
 
+
+            if (muteLaw.size() > 1) {
+                for (int i = 1; i < muteLaw.size(); i++) {
+                    g.drawLine(muteLaw.get(i - 1).x, muteLaw.get(i - 1).y, muteLaw.get(i).x, muteLaw.get(i).y);
+
+                }
+
+            }
         }
+
+//        if (point != null) {
+//            g.setColor(Color.red);
+//            g.setPaintMode();
+//            g.drawOval(point.x - 5, point.y - 5, 10, 10);
+//
+//
+//            if (pointsCount > 1) {
+//                for (int i = 1; i < muteLaw.size(); i++) {
+//                    g.drawLine(muteLaw.get(pointsCount - 1).x, muteLaw.get(pointsCount - 1).y, muteLaw.get(pointsCount).x, muteLaw.get(pointsCount).y);
+//                }
+//            }
+//
+//        }
     }
 
     public void setPoint(Point p) {
@@ -56,7 +81,8 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
     }
 
 
-    public MyDrawingGlassPane(){
+    public MyDrawingGlassPane(mainController mainController){
+        this.mainController = mainController;
         init();
     }
 
@@ -65,7 +91,7 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
         point = e.getPoint();
 
 
-        if (pointsCount < 5) {
+        if (muteLaw.size() <= 5) {
 
             //TODO Check if in window
 
@@ -84,10 +110,20 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
             tempChartPanelRewrite = (ChartPanelRewrite) tempJPanel.getComponentAt(point);
             tempChartPanelRewrite.chartMouseClicked(new ChartMouseEvent(tempChartPanelRewrite.getChart(), e, tempChartPanelRewrite.getEntityForPoint(e.getX(), e.getY())));
             System.out.println(tempJPanel.getComponentAt(point).toString());
+            System.out.println(" Checking if aright x--- "  + point.x);
+            System.out.println(" Checking if aright y--- "  + point.y);
 
-            pointsCount++;
-            muteLaw.add(point);
+            if (muteLaw.size() == 0) {   //Checking if point aright from previous
+                muteLaw.add(point);
+            }
+
+            else if (muteLaw.get(muteLaw.size()-1).x > point.x) {
+                muteLaw.add(point);
+            }
+
+
             repaint();
+            updateUIMuteLawLabels();
 
         }
 
@@ -157,6 +193,24 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
         {
            addMouseListener(this);
             addMouseMotionListener(this);
+
+
         }
+    }
+
+    private void updateUIMuteLawLabels() {
+        for (int i = 0; i < muteLaw.size(); i++) {
+            JL_PointsLabelsString[i] = Integer.toString(muteLaw.get(i).x) + "  ::  " + Integer.toString(muteLaw.get(i).y);
+        }
+
+
+        mainController.defineJLabelText(
+                JL_PointsLabelsString[0] != null ? JL_PointsLabelsString[0] : "",
+                JL_PointsLabelsString[1] != null ? JL_PointsLabelsString[1] : "",
+                JL_PointsLabelsString[2] != null ? JL_PointsLabelsString[2] : "",
+                JL_PointsLabelsString[3] != null ? JL_PointsLabelsString[3] : "",
+                JL_PointsLabelsString[4] != null ? JL_PointsLabelsString[4] : "",
+                JL_PointsLabelsString[5] != null ? JL_PointsLabelsString[5] : ""
+        );
     }
 }

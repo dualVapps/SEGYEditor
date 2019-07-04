@@ -1,0 +1,373 @@
+@startuml
+
+title __SEGYTEMPEDIT's Class Diagram__\n
+
+  namespace main.java.vladimir.seis {
+    namespace segystream {
+      namespace SEGYTempEdit {
+        class main.java.vladimir.seis.segystream.SEGYTempEdit.SegyTempFile {
+            ~ FileTextHeader : String
+            ~ amplitudeRecoveryMethod : Short
+            ~ auxTracesPerEnsemble : Short
+            ~ binaryGainRecovered : Short
+            ~ correlatedDataTraces : Short
+            ~ dataSampleFormatCode : Short
+            ~ dataTracesPerEnsemble : Short
+            ~ dsuSN : Short
+            ~ ensembleFold : Short
+            ~ extendedTextHeaders : Short
+            ~ fixedLengthTraceFlag : Short
+            ~ formatVersion : Short
+            ~ impulseSignalPolarity : Short
+            ~ jobId : Integer
+            ~ lineNumber : Integer
+            ~ lineSpacing : Short
+            ~ littleIndian : Short
+            ~ manufacturer : Short
+            ~ measurementSystem : Short
+            ~ numOfFiles : Integer
+            ~ numOfTraces : Integer
+            ~ reelHdrRev : Short
+            ~ reelNumber : Integer
+            ~ sampleIntervalMicroSec : Short
+            ~ sampleIntervalMicroSecOrig : Short
+            ~ samplesPerDataTrace : Short
+            ~ samplesPerDataTraceOrig : Short
+            ~ segyRevision : Short
+            ~ staSpacing : Short
+            ~ sweepFrequencyAtEndHz : Short
+            ~ sweepFrequencyAtStartHz : Short
+            ~ sweepLengthMs : Short
+            ~ sweepTraceTaperLengthAtEndMs : Short
+            ~ sweepTraceTaperLengthAtStartMs : Short
+            ~ sweepTypeCode : Short
+            ~ taperType : Short
+            ~ traceNumberOfSweepChannel : Short
+            ~ traceSortingCode : Short
+            ~ verticalSumCode : Short
+            ~ vibratoryPolarityCode : Short
+            + getAmplitudeRecoveryMethod()
+            + getAuxTracesPerEnsemble()
+            + getBinaryGainRecovered()
+            + getCorrelatedDataTraces()
+            + getDataSampleFormatCode()
+            + getDataTracesPerEnsemble()
+            + getDsuSN()
+            + getEnsembleFold()
+            + getFileTextHeader()
+            + getFormatVersion()
+            + getImpulseSignalPolarity()
+            + getJobId()
+            + getLineNumber()
+            + getLineSpacing()
+            + getLittleIndian()
+            + getManufacturer()
+            + getMeasurementSystem()
+            + getNumOfFiles()
+            + getNumOfTraces()
+            + getReelHdrRev()
+            + getReelNumber()
+            + getSampleIntervalMicroSec()
+            + getSampleIntervalMicroSecOrig()
+            + getSamplesPerDataTrace()
+            + getSamplesPerDataTraceOrig()
+            + getSegyRevision()
+            + getStaSpacing()
+            + getSweepFrequencyAtEndHz()
+            + getSweepFrequencyAtStartHz()
+            + getSweepLengthMs()
+            + getSweepTraceTaperLengthAtEndMs()
+            + getSweepTraceTaperLengthAtStartMs()
+            + getSweepTypeCode()
+            + getTaperType()
+            + getTraceNumberOfSweepChannel()
+            + getTraceSortingCode()
+            + getVerticalSumCode()
+            + getVibratoryPolarityCode()
+            + printFileHeader()
+            + setBinFileHeader()
+            + setFileTextHeader()
+            + writeToDataOutputStream()
+        }
+      }
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    namespace segystream {
+      namespace SEGYTempEdit {
+        class main.java.vladimir.seis.segystream.SEGYTempEdit.SegyTempTrace {
+            ~ aliasFilterFreq : Short
+            ~ aliasFilterSlope : Short
+            ~ auxChanID : Byte
+            ~ auxChanSigDesc : Byte
+            ~ auxChanSourcsetID : Byte
+            ~ auxChanType : Byte
+            ~ boxFunction : Byte
+            ~ coordScalar : Short
+            ~ coordUnits : Short
+            ~ correlated : Short
+            ~ dataModBit : Byte
+            ~ dataUse : Short
+            ~ datumElevationAtReceiverGroup : Integer
+            ~ datumElevationAtSource : Integer
+            ~ dayOfYear : Short
+            ~ debStatus : Byte
+            ~ delayRecordingTimeMs : Short
+            ~ devChanNum : Byte
+            ~ deviceType1bdevSerNum3b : Integer
+            ~ distFromSourcePointToReceiverGroup : Integer
+            ~ elevationScalar : Short
+            ~ energySourcePointNumber : Integer
+            ~ ensembleNumber : Integer
+            ~ eventType : Byte
+            ~ fixedLowCutFreq : Short
+            ~ fixedLowCutSlope : Byte
+            ~ gainType : Short
+            ~ gapSize : Short
+            ~ geophoneGroupNumOfLastWithinOrigRecord : Short
+            ~ geophoneGroupNumOfRollSwitchPosOne : Short
+            ~ geophoneGroupNumOfTraceOneWithinOrigRecord : Short
+            ~ groupCoordX : Integer
+            ~ groupCoordY : Integer
+            ~ groupStaticCorrectionMs : Short
+            ~ highCutFreq : Short
+            ~ highCutSlope : Short
+            ~ horizStackedTracesYieldingThisTrace : Short
+            ~ hourOfDay : Short
+            ~ instrumentEarlyOrInitialGain : Short
+            ~ instrumentGainConstant : Short
+            ~ lATTestType : Byte
+            ~ lagTimeAMs : Short
+            ~ lagTimeBMs : Short
+            ~ lowCutFreq : Short
+            ~ lowCutSlope : Short
+            ~ minuteOfHour : Short
+            ~ muteTimeEndMs : Short
+            ~ muteTimeStartMs : Short
+            ~ noiseEdGateLength : Short
+            ~ noiseEdType : Byte
+            ~ notchBBandwidth : Short
+            ~ notchBCenFreq : Short
+            ~ notchCBandwidth : Short
+            ~ notchCCenFreq : Short
+            ~ notchFilterFreq : Short
+            ~ notchFilterSlope : Short
+            ~ origFieldRecordNumber : Integer
+            ~ overTravel : Short
+            ~ recLine : Short
+            ~ recSta : Short
+            ~ receiverGroupElevation : Integer
+            ~ sampleIntervalMs : Short
+            ~ samplesNumber : Short
+            ~ secondOfMinute : Short
+            ~ segyHedRev : Short
+            ~ sensorTypeID : Byte
+            ~ shotID : Integer
+            ~ shotPointLine : Integer
+            ~ shotPointSta : Integer
+            ~ sourceCoordX : Integer
+            ~ sourceCoordY : Integer
+            ~ sourceDepthBelowSurface : Integer
+            ~ sourceStaticCorrection : Short
+            ~ sourceType : Byte
+            ~ sourceTypeSEGD : Byte
+            ~ subweatheringVelocity : Short
+            ~ surfaceElevationAtSource : Integer
+            ~ sweepFrequencyAtEnd : Short
+            ~ sweepFrequencyAtStart : Short
+            ~ sweepLengthMs : Short
+            ~ sweepTraceTaperLengthAtEndMs : Short
+            ~ sweepTraceTaperLengthAtStartMs : Short
+            ~ sweepType : Short
+            ~ taperType : Short
+            ~ timeBasisCode : Short
+            ~ totalStaticAppliedMs : Short
+            ~ traceIdCode : Short
+            ~ traceNumberWithinEnsemble : Integer
+            ~ traceNumberWithinOrigFieldRecord : Integer
+            ~ traceSequenceNumberWithinLine : Integer
+            ~ traceSequenceNumberWithinSegyFile : Integer
+            ~ traceWeightFactor : Short
+            ~ upholeTimeAtGroup : Short
+            ~ upholeTimeAtSource : Short
+            ~ vSMT : Byte
+            ~ vSMTHOA : Short
+            ~ vSMTInfo1 : Byte
+            ~ vSMTInfo2 : Byte
+            ~ vSMTInfo3 : Byte
+            ~ vSMTInfo4 : Byte
+            ~ vSMTInfo5 : Byte
+            ~ vSMTScaleCode : Byte
+            ~ vSMTVOA : Short
+            ~ vertSummedTracesYieldingThisTrace : Short
+            ~ waterDepthAtGroup : Integer
+            ~ waterDepthAtSource : Integer
+            ~ weatheringVelocity : Short
+            ~ year : Short
+            + getAliasFilterFreq()
+            + getAliasFilterSlope()
+            + getAuxChanID()
+            + getAuxChanSigDesc()
+            + getAuxChanSourcsetID()
+            + getAuxChanType()
+            + getBoxFunction()
+            + getCoordScalar()
+            + getCoordUnits()
+            + getCorrelated()
+            + getDataModBit()
+            + getDataUse()
+            + getDatumElevationAtReceiverGroup()
+            + getDatumElevationAtSource()
+            + getDayOfYear()
+            + getDebStatus()
+            + getDelayRecordingTimeMs()
+            + getDevChanNum()
+            + getDeviceType1bdevSerNum3b()
+            + getDistFromSourcePointToReceiverGroup()
+            + getElevationScalar()
+            + getEnergySourcePointNumber()
+            + getEnsembleNumber()
+            + getEventType()
+            + getFixedLowCutFreq()
+            + getFixedLowCutSlope()
+            + getGainType()
+            + getGapSize()
+            + getGeophoneGroupNumOfLastWithinOrigRecord()
+            + getGeophoneGroupNumOfRollSwitchPosOne()
+            + getGeophoneGroupNumOfTraceOneWithinOrigRecord()
+            + getGroupCoordX()
+            + getGroupCoordY()
+            + getGroupStaticCorrectionMs()
+            + getHighCutFreq()
+            + getHighCutSlope()
+            + getHorizStackedTracesYieldingThisTrace()
+            + getHourOfDay()
+            + getInstrumentEarlyOrInitialGain()
+            + getInstrumentGainConstant()
+            + getLagTimeAMs()
+            + getLagTimeBMs()
+            + getLowCutFreq()
+            + getLowCutSlope()
+            + getMinuteOfHour()
+            + getMuteTimeEndMs()
+            + getMuteTimeStartMs()
+            + getNoiseEdGateLength()
+            + getNoiseEdType()
+            + getNotchBBandwidth()
+            + getNotchBCenFreq()
+            + getNotchCBandwidth()
+            + getNotchCCenFreq()
+            + getNotchFilterFreq()
+            + getNotchFilterSlope()
+            + getOrigFieldRecordNumber()
+            + getOverTravel()
+            + getRecLine()
+            + getRecSta()
+            + getReceiverGroupElevation()
+            + getSampleIntervalMs()
+            + getSamplesNumber()
+            + getSecondOfMinute()
+            + getSegyHedRev()
+            + getSensorTypeID()
+            + getShotID()
+            + getShotPointLine()
+            + getShotPointSta()
+            + getSourceCoordX()
+            + getSourceCoordY()
+            + getSourceDepthBelowSurface()
+            + getSourceStaticCorrection()
+            + getSourceType()
+            + getSourceTypeSEGD()
+            + getSubweatheringVelocity()
+            + getSurfaceElevationAtSource()
+            + getSweepFrequencyAtEnd()
+            + getSweepFrequencyAtStart()
+            + getSweepLengthMs()
+            + getSweepTraceTaperLengthAtEndMs()
+            + getSweepTraceTaperLengthAtStartMs()
+            + getSweepType()
+            + getTaperType()
+            + getTimeBasisCode()
+            + getTotalStaticAppliedMs()
+            + getTraceIdCode()
+            + getTraceNumberWithinEnsemble()
+            + getTraceNumberWithinOrigFieldRecord()
+            + getTraceSequenceNumberWithinLine()
+            + getTraceSequenceNumberWithinSegyFile()
+            + getTraceWeightFactor()
+            + getUpholeTimeAtGroup()
+            + getUpholeTimeAtSource()
+            + getVertSummedTracesYieldingThisTrace()
+            + getWaterDepthAtGroup()
+            + getWaterDepthAtSource()
+            + getWeatheringVelocity()
+            + getYear()
+            + getlATTestType()
+            + getvSMT()
+            + getvSMTHOA()
+            + getvSMTInfo1()
+            + getvSMTInfo2()
+            + getvSMTInfo3()
+            + getvSMTInfo4()
+            + getvSMTInfo5()
+            + getvSMTScaleCode()
+            + getvSMTVOA()
+            + printHeader()
+            + setAuxChanType()
+            + setTraceBinHeader()
+            + writeToDataOutputStream()
+        }
+      }
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    namespace segystream {
+      namespace SEGYTempEdit {
+        class main.java.vladimir.seis.segystream.SEGYTempEdit.SegyTempTraceData {
+            + data : float[]
+            + getData()
+            + writeToDataOutputStream()
+        }
+      }
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    namespace segystream {
+      namespace SEGYTempEdit {
+        class main.java.vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue {
+            ~ dataValue : double
+            ~ datasetValue : int
+            ~ sampleValue : int
+            ~ x : int
+            ~ y : int
+            + TrimLawSingleValue()
+            + getDataValue()
+            + getSampleValue()
+            + getX()
+            + getY()
+            + setDataValue()
+            + setSampleValue()
+            + setX()
+            + setY()
+        }
+      }
+    }
+  }
+  
+
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

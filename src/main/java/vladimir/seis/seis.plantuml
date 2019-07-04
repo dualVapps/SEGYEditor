@@ -1,0 +1,385 @@
+@startuml
+
+title __SEIS's Class Diagram__\n
+
+  namespace main.java.vladimir.seis {
+    class main.java.vladimir.seis.ChartExecutor {
+        ~ chartAdd : JFreeChart
+        ~ chartData : JFreeChart
+        - categoryDatasets : DefaultCategoryDatasetRewrite[]
+        - categoryPlots : CategoryPlotRewrite[]
+        - chartPanel : ChartPanelRewrite[]
+        - scaleFactor : double
+        + ChartExecutor()
+        + drewCircleInBackground()
+        + getChartPanel()
+        + getScaleFactor()
+        + setSameScale()
+        + setScaleFactor()
+        + setSettings_singleton()
+        + updateWithDataset()
+        - createAddChart()
+        - createDataset()
+        - createDateChart()
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    class main.java.vladimir.seis.MyCategoryPlot {
+        + MyCategoryPlot()
+        + MyCategoryPlot()
+        + handleClick()
+        + mouseClicked()
+        + mouseEntered()
+        + mouseExited()
+        + mousePressed()
+        + mouseReleased()
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    class main.java.vladimir.seis.MyDrawingGlassPane {
+        ~ buttonJPanel : JPanel
+        ~ jScrollPane : JScrollPane
+        ~ muteLaw : ArrayList<Point>
+        ~ point : Point
+        ~ pointsCount : int
+        ~ tempJPanel : JPanel
+        + MyDrawingGlassPane()
+        + drawingOnMouseReleased()
+        + getPointsCount()
+        + mouseClicked()
+        + mouseDragged()
+        + mouseEntered()
+        + mouseExited()
+        + mouseMoved()
+        + mousePressed()
+        + mouseReleased()
+        + setButtonJPanel()
+        + setPoint()
+        + setPointsCount()
+        + setTempJPanel()
+        # paintComponent()
+        - init()
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    class main.java.vladimir.seis.PrintDebugInfo {
+        {static} + main()
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    class main.java.vladimir.seis.Settings {
+        + settingsPanel : JPanel
+        - confirmButton : JButton
+        - numberOfSamplesInt : int
+        - numberOfSamplesTF : JTextField
+        - preference1 : JPanel
+        - preference1Txt : JLabel
+        - preference2 : JPanel
+        - preference2txt : JLabel
+        - preference3 : JPanel
+        - preference3Txt : JLabel
+        - sizesInBytesInt : int
+        - sizesInBytesTF : JTextField
+        - textField3 : JTextField
+        + Settings()
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    class main.java.vladimir.seis.Settings_singleton {
+        - number_of_samples : int
+        - sample_sizeInBytes : int
+        - trimLaw : ArrayList<TrimLawSingleValue>
+        + addValueToTrimLaw()
+        + getNumber_of_samples()
+        + getSample_sizeInBytes()
+        + getSettings_singleton()
+        + setNumber_of_samples()
+        + setSample_sizeInBytes()
+        + zerodTrimLaw()
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    class main.java.vladimir.seis.fileBinHeader {
+        + fileBinJPanel : JPanel
+        - amplitudeRecoveryMethod : JTextField
+        - auxTracesPerEnsemble : JTextField
+        - binaryGainRecovered : JTextField
+        - correlatedDataTraces : JTextField
+        - dataSampleFormatCode : JTextField
+        - dataTracesPerEnsemble : JTextField
+        - dsuSN : JTextField
+        - ensembleFold : JTextField
+        - formatVersion : JTextField
+        - impulseSignalPolarity : JTextField
+        - infoAddJPanel : JPanel
+        - infoAddJPanel2 : JPanel
+        - infoJPanel : JPanel
+        - infoJPanel2 : JPanel
+        - jobId : JTextField
+        - lineNumber : JTextField
+        - lineSpacing : JTextField
+        - littleIndian : JTextField
+        - manufacturer : JTextField
+        - measurementSystem : JTextField
+        - numOfFiles : JTextField
+        - numOfTraces : JTextField
+        - reelHdrRev : JTextField
+        - reelNumber : JTextField
+        - sampleIntervalMicroSec : JTextField
+        - sampleIntervalMicroSecOrig : JTextField
+        - samplesPerDataTrace : JTextField
+        - samplesPerDataTraceOrig : JTextField
+        - staSpacing : JTextField
+        - sweepFrequencyAtEndHz : JTextField
+        - sweepFrequencyAtStartHz : JTextField
+        - sweepLengthMs : JTextField
+        - sweepTraceTaperLengthAtEndMs : JTextField
+        - sweepTraceTaperLengthAtStartMs : JTextField
+        - sweepTypeCode : JTextField
+        - taperType : JTextField
+        - traceNumberOfSweepChannel : JTextField
+        - traceSortingCode : JTextField
+        - valueJPanel : JPanel
+        - valueJpanel2 : JPanel
+        - verticalSumCode : JTextField
+        - vibratoryPolarityCode : JTextField
+        + setBinHeader()
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    class main.java.vladimir.seis.fileTxtHeader {
+        + fileTxtJPanel : JPanel
+        - textArea1 : JTextArea
+        + setTxtHeader()
+        - createUIComponents()
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    class main.java.vladimir.seis.mainController {
+        {static} + mainGui : mainGui
+        + segyTempTraces : SegyTempTrace[]
+        + segyTempTracesData : SegyTempTraceData[]
+        + getSegyTempFile()
+        + getSegyTempTraces()
+        + getSegyTempTracesData()
+        + mainController()
+        {static} + setMainGui()
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    class main.java.vladimir.seis.mainGui {
+        {static} + mainController : mainController
+        + mainJPanel : JPanel
+        ~ fc : JFileChooser
+        - buttonPanel : JPanel
+        - chartPanel : ChartPanel[]
+        - choosenFiles : File[]
+        - choosenIndex : int
+        - clearButton : JButton
+        {static} - directory : File
+        - filesList : JList
+        - filesPanel : JPanel
+        - isPickingMode : boolean
+        - lawPoint1TL : JLabel
+        - lawPoint2TL : JLabel
+        - lawPoint3TL : JLabel
+        - lawPoint4TL : JLabel
+        - lawPoint5TL : JLabel
+        - lawPoint6TL : JLabel
+        {static} - myDrawingGlassPane : MyDrawingGlassPane
+        - pickingButton : JButton
+        - saveFileButton : JButton
+        {static} - savePath : File
+        - scaleDown : JButton
+        - scaleUp : JButton
+        - scaleZero : JButton
+        - settingsBotton : JButton
+        {static} - settings_singl : Settings_singleton
+        - shooseFileButton : JButton
+        - showFileBinButton : JButton
+        - showFileTxtButton : JButton
+        - showTraceBinButton : JButton
+        - tempPanel : JPanel
+        {static} + getMainController()
+        + getMainJPanel()
+        {static} + getMyDrawingGlassPane()
+        {static} + getSettings_singl()
+        {static} + main()
+        + mainGui()
+        ~ onFinishedreading()
+        ~ reDrawChartsWithRenevalData()
+        - createUIComponents()
+        - initChartPanels()
+        {static} - initializeFrames()
+        - makeButtonsActive()
+        - makeButtonsActiveExcPicking()
+        - makeButtonsUnactive()
+        - makeButtonsUnactiveExcPicking()
+        - makeProccesing()
+        - processingTraceHeader()
+    }
+  }
+  
+
+  namespace main.java.vladimir.seis {
+    class main.java.vladimir.seis.traceBinHeader {
+        + traceBinJpanel : JPanel
+        - aliasFilterFreq : JTextField
+        - aliasFilterSlope : JTextField
+        - auxChanID : JTextField
+        - auxChanSigDesc : JTextField
+        - auxChanSourcsetID : JTextField
+        - auxChanType : JTextField
+        - binDataJPanel : JPanel
+        - boxFunction : JTextField
+        - coordScalar : JTextField
+        - coordUnits : JTextField
+        - correlated : JTextField
+        - dataJPanel1 : JPanel
+        - dataJPanel2 : JPanel
+        - dataModBit : JTextField
+        - dataUse : JTextField
+        - datumElevationAtReceiverGroup : JTextField
+        - datumElevationAtSource : JTextField
+        - dayOfYear : JTextField
+        - debStatus : JTextField
+        - delayRecordingTimeMs : JTextField
+        - devChanNum : JTextField
+        - devSerNum : JTextField
+        - deviceType : JTextField
+        - distFromSourcePointToReceiverGroup : JTextField
+        - elevationScalar : JTextField
+        - energySourcePointNumber : JTextField
+        - ensembleNumber : JTextField
+        - eventType : JTextField
+        - fixedLowCutFreq : JTextField
+        - fixedLowCutSlope : JTextField
+        - gainType : JTextField
+        - gapSize : JTextField
+        - geophoneGroupNumOfLastWithinOrigRecord : JTextField
+        - geophoneGroupNumOfRollSwitchPosOne : JTextField
+        - geophoneGroupNumOfTraceOneWithinOrigRecord : JTextField
+        - groupCoordX : JTextField
+        - groupCoordY : JTextField
+        - groupStaticCorrectionMs : JTextField
+        - highCutFreq : JTextField
+        - highCutSlope : JTextField
+        - horizStackedTracesYieldingThisTrace : JTextField
+        - hourOfDay : JTextField
+        - infoJPanel1 : JPanel
+        - infoJPanel2 : JPanel
+        - instrumentEarlyOrInitialGain : JTextField
+        - instrumentGainConstant : JTextField
+        - lATTestType : JTextField
+        - lagTimeAMs : JTextField
+        - lagTimeBMs : JTextField
+        - lowCutFreq : JTextField
+        - lowCutSlope : JTextField
+        - minuteOfHour : JTextField
+        - muteTimeEndMs : JTextField
+        - muteTimeStartMs : JTextField
+        - noiseEdGateLength : JTextField
+        - noiseEdType : JTextField
+        - notchBBandwidth : JTextField
+        - notchBCenFreq : JTextField
+        - notchCBandwidth : JTextField
+        - notchCCenFreq : JTextField
+        - notchFilterFreq : JTextField
+        - notchFilterSlope : JTextField
+        - origFieldRecordNumber : JTextField
+        - overTravel : JTextField
+        - recLine : JTextField
+        - recSta : JTextField
+        - receiverGroupElevation : JTextField
+        - sampleIntervalMs : JTextField
+        - samplesNumber : JTextField
+        - secondOfMinute : JTextField
+        - segyHedRev : JTextField
+        - sensorTypeID : JTextField
+        - shotID : JTextField
+        - shotPointLine : JTextField
+        - shotPointSta : JTextField
+        - sourceCoordX : JTextField
+        - sourceCoordY : JTextField
+        - sourceDepthBelowSurface : JTextField
+        - sourceStaticCorrection : JTextField
+        - sourceType : JTextField
+        - sourceTypeSEGD : JTextField
+        - subweatheringVelocity : JTextField
+        - surfaceElevationAtSource : JTextField
+        - sweepFrequencyAtEnd : JTextField
+        - sweepFrequencyAtStart : JTextField
+        - sweepLengthMs : JTextField
+        - sweepTraceTaperLengthAtEndMs : JTextField
+        - sweepTraceTaperLengthAtStartMs : JTextField
+        - sweepType : JTextField
+        - taperType : JTextField
+        - timeBasisCode : JTextField
+        - totalStaticAppliedMs : JTextField
+        - traceIdCode : JTextField
+        - traceNumberWithinEnsemble : JTextField
+        - traceNumberWithinOrigFieldRecord : JTextField
+        - traceSelector : JSpinner
+        - traceSelectorJPanel : JPanel
+        - traceSequenceNumberWithinLine : JTextField
+        - traceSequenceNumberWithinSegyFile : JTextField
+        - traceWeightFactor : JTextField
+        - upholeTimeAtGroup : JTextField
+        - upholeTimeAtSource : JTextField
+        - vSMT : JTextField
+        - vSMTHOA : JTextField
+        - vSMTInfo1 : JTextField
+        - vSMTInfo2 : JTextField
+        - vSMTInfo3 : JTextField
+        - vSMTInfo4 : JTextField
+        - vSMTInfo5 : JTextField
+        - vSMTScaleCode : JTextField
+        - vSMTVOA : JTextField
+        - vertSummedTracesYieldingThisTrace : JTextField
+        - waterDepthAtGroup : JTextField
+        - waterDepthAtSource : JTextField
+        - weatheringVelocity : JTextField
+        - year : JTextField
+        + setBinHeaderTxtFields()
+        + traceBinHeader()
+    }
+  }
+  
+
+  main.java.vladimir.seis.ChartExecutor o-- main.java.vladimir.seis.Settings_singleton : settings_singleton
+  main.java.vladimir.seis.MyCategoryPlot .up.|> java.awt.event.MouseListener
+  main.java.vladimir.seis.MyCategoryPlot -up-|> org.jfree.chart.plot.CategoryPlot
+  main.java.vladimir.seis.MyDrawingGlassPane .up.|> javax.swing.event.MouseInputListener
+  main.java.vladimir.seis.MyDrawingGlassPane -up-|> javax.swing.JComponent
+  main.java.vladimir.seis.MyDrawingGlassPane o-- main.java.vladimir.seis.segystream.ChartPanelRewrite : tempChartPanelRewrite
+  main.java.vladimir.seis.Settings_singleton o-- main.java.vladimir.seis.Settings_singleton : settings_singleton
+  main.java.vladimir.seis.mainController o-- main.java.vladimir.seis.segystream.SEGYTempEdit.SegyTempFile : segyTempFile
+  main.java.vladimir.seis.mainGui o-- main.java.vladimir.seis.ChartExecutor : chartExecutor
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

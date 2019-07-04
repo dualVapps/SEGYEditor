@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
+import java.util.ArrayList;
 
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.data.Range;
@@ -28,6 +29,8 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.chart.plot.CombinedDomainCategoryPlot;
 import main.java.vladimir.seis.segystream.DefaultCategoryDatasetRewrite;
 import main.java.vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue;
+
+import javax.swing.*;
 //    import org.jfree.chart.renderer.ItemLabelPosition;
 //    import org.jfree.chart.renderer.LineAndShapeRenderer;
 //    import org.jfree.data.CategoryDataset;
@@ -39,15 +42,19 @@ import main.java.vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue;
 public class ChartExecutor {
 
     //    private ChartPanelRewrite[] chartPanel;
+    /* Инициализация основных обьектов
+    *   Определение класса типа синглетон с двойной проверкой для хранения настроек
+    *  */
     private ChartPanelRewrite[] chartPanel;
     private DefaultCategoryDatasetRewrite[] categoryDatasets;
     private CategoryPlotRewrite[] categoryPlots;
     private double scaleFactor = 0.5;
+    private ArrayList<Point> currentMuteLaw;
     JFreeChart chartAdd, chartData;
     Settings_singleton settings_singleton;
 
 
-
+    // Метод для установки мастаба (для установки одинакового масштаба для все трасс)
     public void setScaleFactor(double scaleFactor) {
         this.scaleFactor = scaleFactor;
     }
@@ -62,6 +69,12 @@ public class ChartExecutor {
 
     public ChartExecutor(String title) {
 
+
+
+        /* Конструктор класса выполнения графопостроений
+        * Реврайт классы - переписанные со стандартных
+        * с дополнительным функционалом
+        *  */
 //        super(title);
 //        chartPanel = new ChartPanel[54];
 //        categoryDatasets = new DefaultCategoryDataset[54];
@@ -83,22 +96,27 @@ public class ChartExecutor {
 //            chartPanel[0] = new ChartPanelRewrite(chartAdd);
 //            chartPanel[1] = new ChartPanelRewrite(chartData);
 
-        chartPanel[0] = new ChartPanelRewrite(chartAdd,settings_singleton);
+        chartPanel[0] = new ChartPanelRewrite(chartAdd, settings_singleton);
         chartPanel[1] = new ChartPanelRewrite(chartData, 12.288,settings_singleton);
         chartPanel[1].setChartExecutor(this);
 
 
-
-        chartPanel[0].setPreferredSize((new java.awt.Dimension(108, 270)));
-        chartPanel[1].setPreferredSize((new java.awt.Dimension(864, 270)));
+        // Изменение размеров составных частей окна (не работает!)
+        chartPanel[0].setPreferredSize((new java.awt.Dimension(97, 270)));
+        chartPanel[1].setPreferredSize((new java.awt.Dimension(778, 270)));
 //            System.out.println("1   1  + "+chartPanel[1].getMouseXCoordinate());
 //            System.out.println("2   2  + "+chartPanel[1].getX());
 //            System.out.println("3   3  + "+chartPanel[1].getHeight());
 
     }
 
+    public void setCurrentMuteLaw(ArrayList<Point> currentMuteLaw) {
+        this.currentMuteLaw = currentMuteLaw;
+    }
 
-    private CategoryDataset createDataset(int index) {
+
+
+    private CategoryDataset createDataset(int index) { //Не исспользуется????
         // row keys...
         String series1 = "First";
 //        String series2 = "Second";
@@ -148,7 +166,7 @@ public class ChartExecutor {
 
     }
 
-
+    // Создание графика вспомогательных трасс
     private JFreeChart createAddChart(CategoryDataset DefaultCategoryDataset) {
 
 
@@ -189,6 +207,8 @@ public class ChartExecutor {
 
     }
 
+    // Создание графика основный трасс данных
+//    TODO Rewrite to using only own classes
     private JFreeChart createDateChart(CategoryDataset dataset) {
 
         // create the chart...
@@ -221,7 +241,7 @@ public class ChartExecutor {
         return chart;
     }
 
-
+    // Заполнение графиков данными
     public void updateWithDataset(int index) {
 
         String series1 = "First";
@@ -268,7 +288,7 @@ public class ChartExecutor {
         }
     }
 
-
+//    Не исспользуеться попытка реализации 1-го варианта пикирования (выбор к исспользованию glasspanel)
     public void drewCircleInBackground(int x, int y) {
 
         BufferedImage bf = new BufferedImage(chartPanel[1].getWidth(), chartPanel[1].getHeight(), BufferedImage.TYPE_INT_RGB);
