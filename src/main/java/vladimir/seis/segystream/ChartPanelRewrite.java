@@ -161,54 +161,62 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
 
         ChartEntity eventEntity = event.getEntity();
 
-        System.out.println("11" + event.getTrigger().toString());
-        System.out.println("12" + event.getTrigger().getY());
-        System.out.println("12" + event.getTrigger().getY());
-        System.out.println("13" + event.getEntity().toString());
+        if (eventEntity != null) {
 
-        if (eventEntity instanceof PlotEntity)
-        {
+            System.out.println("11" + event.getTrigger().toString());
+            System.out.println("12" + event.getTrigger().getY());
+            System.out.println("12" + event.getTrigger().getY());
+            System.out.println("13" + event.getEntity().toString());
+        }
+
+        if (eventEntity != null) {
+
+            if (eventEntity instanceof PlotEntity) {
+
+
 //        PlotEntity plE = (PlotEntity) event.getEntity();
 //        System.out.println("3" + plE.getPlot().getInsets().toString());
 //        System.out.println("4" + plE.getPlot().getDatasetGroup());
 //        System.out.println("5" + plE.getPlot().toString());
 //        System.out.println("6" + plE.getPlot().getDatasetGroup());
-        }
+            }
 
-        if (eventEntity instanceof CategoryItemEntity)
-        {
-            CategoryItemEntity caE = (CategoryItemEntity) event.getEntity();
-            System.out.println("Dataset " + caE.getDataset().toString());
-            DefaultCategoryDatasetRewrite sCDR = (DefaultCategoryDatasetRewrite) caE.getDataset();
-            System.out.println("******Dataset number " + sCDR.getNumberDataset());
-            System.out.println("******Column key " + caE.getColumnKey().toString());
+            if (eventEntity instanceof CategoryItemEntity) {
+                CategoryItemEntity caE = (CategoryItemEntity) event.getEntity();
+                System.out.println("Dataset " + caE.getDataset().toString());
+                DefaultCategoryDatasetRewrite sCDR = (DefaultCategoryDatasetRewrite) caE.getDataset();
+                System.out.println("******Dataset number " + sCDR.getNumberDataset());
+                System.out.println("******Column key " + caE.getColumnKey().toString());
 
-            System.out.println("Raw key " + caE.getRowKey().toString());
-            System.out.println("Column Index   " + caE.getDataset().getRowIndex(caE.getRowKey()));
-            System.out.println("*******Value  " + caE.getDataset().getValue(caE.getRowKey(),caE.getColumnKey()));
-
+                System.out.println("Raw key " + caE.getRowKey().toString());
+                System.out.println("Column Index   " + caE.getDataset().getRowIndex(caE.getRowKey()));
+                System.out.println("*******Value  " + caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()));
 
 
-            TrimLawSingleValue trimLawSingleValue = new TrimLawSingleValue(
-                    sCDR.getNumberDataset(),
-                    Integer.parseInt(caE.getColumnKey().toString()),
-                    (double) caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()),
-                    event.getTrigger().getX(),
-                    event.getTrigger().getY());
+                TrimLawSingleValue trimLawSingleValue = new TrimLawSingleValue(
+                        sCDR.getNumberDataset(),
+                        Integer.parseInt(caE.getColumnKey().toString()),
+                        (double) caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()),
+                        event.getTrigger().getX(),
+                        event.getTrigger().getY());
 
 //            settings_singleton.addValueToTrimLaw(trimLawSingleValue); //TODO something wrong here
-            System.out.println("Annotation begin");
+                System.out.println("Annotation begin");
 //            CategoryPointerAnnotation cpa = new CategoryPointerAnnotation("First", caE.getColumnKey(),event.getTrigger().getY(),0.9);
 
-            System.out.println("Annotation and");
+                System.out.println("Annotation and");
 
 
 //            CategoryLineAnnotation  xYLineAnnotation = new CategoryLineAnnotation(oldxPoint, oldyPoint, newxPoint, newyPoint, new BasicStroke(1.0f), Color.blue);
-            chartExecutor.drewCircleInBackground(event.getTrigger().getX() ,event.getTrigger().getY());
-            this.revalidate();
-            this.repaint();
+//               chartExecutor.drewCircleInBackground(event.getTrigger().getX(), event.getTrigger().getY()); //Trying make drawing circles first attempt (not use)
+                this.revalidate();
+                this.repaint();
+
+
+            }
 
         }
+        eventEntity = null;
 
 
 

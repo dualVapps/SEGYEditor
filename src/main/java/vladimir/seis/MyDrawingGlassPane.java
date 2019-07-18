@@ -1,5 +1,6 @@
 package main.java.vladimir.seis;
 
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import org.jfree.chart.ChartMouseEvent;
 import main.java.vladimir.seis.segystream.ChartPanelRewrite;
 
@@ -90,8 +91,10 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
 
         point = e.getPoint();
 
-
+        System.out.println("Size of Mute Law before comparising " + muteLaw.size());
         if (muteLaw.size() <= 5) {
+
+            System.out.println("Size of Mute Law after comparising " + muteLaw.size());
 
             //TODO Check if in window
 
@@ -107,23 +110,47 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
             JButton pickButton = (JButton) component[4];
             System.out.println(jScrollPane.getViewport().getView().toString());
             tempJPanel = (JPanel) jScrollPane.getViewport().getView();
-            tempChartPanelRewrite = (ChartPanelRewrite) tempJPanel.getComponentAt(point);
+
+            System.out.println("TempJPanrl : " + tempJPanel.toString());
+
+//            If ( instanceof)
+
+            System.out.println("~~~~~~~ Point ~~~~~~~" + point.toString());
+
+
+            Object tJPanel = tempJPanel.getComponentAt(point);
+            System.out.println("Object tJPanel" +tJPanel.toString());
+
+            if (tJPanel instanceof ChartPanelRewrite) {  //Trying to check getting class
+                tempChartPanelRewrite = (ChartPanelRewrite) tJPanel;
+                System.out.println("ChartPanelRewrite=getComponent" + tempJPanel.getComponentAt(point).toString());
+            }
+
+
+//            tempChartPanelRewrite = (ChartPanelRewrite) tempJPanel.getComponentAt(point);
+
+            System.out.println("TempChartPanelRewrite" + tempChartPanelRewrite.toString());
+
             tempChartPanelRewrite.chartMouseClicked(new ChartMouseEvent(tempChartPanelRewrite.getChart(), e, tempChartPanelRewrite.getEntityForPoint(e.getX(), e.getY())));
-            System.out.println(tempJPanel.getComponentAt(point).toString());
+
+
+
+//            System.out.println(tempJPanel.getComponentAt(point).toString());
             System.out.println(" Checking if aright x--- "  + point.x);
             System.out.println(" Checking if aright y--- "  + point.y);
 
             if (muteLaw.size() == 0) {   //Checking if point aright from previous
                 muteLaw.add(point);
+                System.out.println("!!!! First point added");
             }
-
-            else if (muteLaw.get(muteLaw.size()-1).x > point.x) {
+            else if (muteLaw.get(muteLaw.size()-1).x < point.x) {
                 muteLaw.add(point);
+                System.out.println("!!! Second+ point added");
             }
 
-
-            repaint();
             updateUIMuteLawLabels();
+            repaint();
+
 
         }
 

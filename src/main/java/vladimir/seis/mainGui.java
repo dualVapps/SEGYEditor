@@ -83,6 +83,7 @@ public class mainGui {
         mainJFrame.setGlassPane(myDrawingGlassPane);
         mainJFrame.pack();
         mainJFrame.setVisible(true);
+        mainJFrame.setResizable(false); // Lock size change
         JFrame settingsJFrame = new JFrame("settings");
         Settings settings = new Settings();
         settingsJFrame.setContentPane(settings.settingsPanel);
@@ -628,6 +629,8 @@ public class mainGui {
         if (s4!=null) lawPoint4TL.setText(s1); else  lawPoint4TL.setText("");
         if (s5!=null) lawPoint5TL.setText(s1); else  lawPoint5TL.setText("");
         if (s6!=null) lawPoint6TL.setText(s1); else  lawPoint6TL.setText("");
+        filesPanel.revalidate();
+        filesPanel.repaint();
 
     }
 

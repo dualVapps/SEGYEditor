@@ -79,9 +79,11 @@ public class ChartExecutor {
 //        chartPanel = new ChartPanel[54];
 //        categoryDatasets = new DefaultCategoryDataset[54];
         chartPanel = new ChartPanelRewrite[2];
+
         categoryDatasets = new DefaultCategoryDatasetRewrite[54];
         for (int i = 0; i < categoryDatasets.length; i++) {
             categoryDatasets[i] = new DefaultCategoryDatasetRewrite(i);
+
         }
 //        categoryPlots = new CategoryPlot[54];
         categoryPlots = new CategoryPlotRewrite[54];
@@ -174,6 +176,7 @@ public class ChartExecutor {
 
 
         CategoryAxis domainAxis = new CategoryAxis();
+        domainAxis.setVisible(false); //trying to disable domain (down) axis labels on additional traces
         CombinedDomainCategoryPlot plot = new CombinedDomainCategoryPlot(domainAxis);
         CategoryDataset datasetTemp = new DefaultCategoryDataset();
         ((DefaultCategoryDataset) datasetTemp).addValue(0.0, "", "");
@@ -183,6 +186,7 @@ public class ChartExecutor {
         for (int i = 0; i < 6; i++) {
 
             NumberAxis rangeAxis1 = new NumberAxis();
+            rangeAxis1.setVisible(false); //trying do turn off axis labels
 
 
 //            xyPlots[i] = new XYPlot(categoryDatasets[i], null, rangeAxisX, subplotRenderer);
@@ -190,7 +194,6 @@ public class ChartExecutor {
             plot.add(categoryPlots[i]);
 
         }
-
 
         plot.setGap(0.0);
 
@@ -212,9 +215,11 @@ public class ChartExecutor {
     private JFreeChart createDateChart(CategoryDataset dataset) {
 
         // create the chart...
+        CategoryAxis domainAxis = new CategoryAxis();// reinitialising domain for toward appearance changing
+        domainAxis.setVisible(false);//
 
-
-        CombinedDomainCategoryPlot plot = new CombinedDomainCategoryPlot();
+        CombinedDomainCategoryPlot plot = new CombinedDomainCategoryPlot(domainAxis);
+//        CombinedDomainCategoryPlot plot = new CombinedDomainCategoryPlot(); //with labels? using empty constructor
 
 
         CategoryDataset datasetTemp = new DefaultCategoryDataset();
@@ -226,6 +231,7 @@ public class ChartExecutor {
 
         for (int i = 6; i < categoryPlots.length; i++) {
             NumberAxis rangeAxis1 = new NumberAxis();
+            rangeAxis1.setVisible(false); //disable range axis labels
 
             categoryPlots[i] = new CategoryPlotRewrite(datasetTemp, null, rangeAxis1, subplotRenderer,i);
             plot.add(categoryPlots[i]);
@@ -237,7 +243,7 @@ public class ChartExecutor {
                 null, null, plot, false);
 
         chart.setBackgroundPaint(new Color(249, 255, 253));
-        chart.setBackgroundImageAlpha(0.1f);
+//        chart.setBackgroundImageAlpha(0.1f);
         return chart;
     }
 
@@ -289,14 +295,14 @@ public class ChartExecutor {
     }
 
 //    Ќе исспользуетьс€ попытка реализации 1-го варианта пикировани€ (выбор к исспользованию glasspanel)
-    public void drewCircleInBackground(int x, int y) {
-
-        BufferedImage bf = new BufferedImage(chartPanel[1].getWidth(), chartPanel[1].getHeight(), BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2D = bf.createGraphics();
-        g2D.drawOval(x-10,y-10,20,20);
-        chartData.setBackgroundImage(bf);
-        System.out.println("Affords to drew Something");
-    }
+//    public void drewCircleInBackground(int x, int y) {
+//
+//        BufferedImage bf = new BufferedImage(chartPanel[1].getWidth(), chartPanel[1].getHeight(), BufferedImage.TYPE_INT_RGB);
+//        Graphics2D g2D = bf.createGraphics();
+//        g2D.drawOval(x-10,y-10,20,20);
+//        chartData.setBackgroundImage(bf);
+//        System.out.println("Affords to drew Something");
+//    }
 
     public void setSettings_singleton(Settings_singleton settings_singleton) {
         this.settings_singleton = settings_singleton;
