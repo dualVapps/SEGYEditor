@@ -634,8 +634,6 @@ public class mainGui {
 
     }
 
-
-
     private void makeButtonsUnactive() {
         showFileTxtButton.setEnabled(false);
         showFileBinButton.setEnabled(false);
@@ -685,6 +683,15 @@ public class mainGui {
         scaleZero.setEnabled(false);
     }
 
+    public static void pickingDisablerGui() {
+        JFrame settingsJFrame = new JFrame("settings");
+        isOutPicking isOutPicking = new isOutPicking();
+        settingsJFrame.setContentPane(isOutPicking.contentPane);
+        settingsJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        settingsJFrame.pack();
+        settingsJFrame.setVisible(true);
+
+    }
 
 //    public static void setupMainController() {
 //        mainController.setMainGui(this);

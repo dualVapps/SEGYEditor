@@ -1,6 +1,6 @@
 package main.java.vladimir.seis;
 
-// TODO Application of this class is question.....
+// TODO Applying of this class is question.....
 
 
 import org.jfree.chart.axis.CategoryAxis;

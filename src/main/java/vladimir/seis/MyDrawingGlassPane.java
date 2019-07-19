@@ -92,67 +92,72 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
         point = e.getPoint();
 
         System.out.println("Size of Mute Law before comparising " + muteLaw.size());
-        if (muteLaw.size() <= 5) {
+        if (point.getX()<440) { //checking for disable picking 440: 100 + 150 + addtrace width
+           System.out.println("Programm dialog box and disabling picking");
+           mainGui.pickingDisablerGui();
 
-            System.out.println("Size of Mute Law after comparising " + muteLaw.size());
+        }
+        else if (muteLaw.size() <= 5) {
 
-            //TODO Check if in window
+                System.out.println("Size of Mute Law after comparising " + muteLaw.size());
+
+                //TODO Check if in window
 
 
 //        System.out.println(this.getRootPane().getContentPane().getComponentAt(point).getComponentAt(point).toString());
-            this.getRootPane().getContentPane().getComponents();
+                this.getRootPane().getContentPane().getComponents();
 //        System.out.println(tempJPanel.toString());
 //        System.out.println(buttonJPanel.toString());
-            Component[] component = this.getRootPane().getContentPane().getComponents(); //TODO worst solution
-            buttonJPanel = (JPanel) component[1];
-            jScrollPane = (JScrollPane) component[2];
-            component = buttonJPanel.getComponents();
-            JButton pickButton = (JButton) component[4];
-            System.out.println(jScrollPane.getViewport().getView().toString());
-            tempJPanel = (JPanel) jScrollPane.getViewport().getView();
+                Component[] component = this.getRootPane().getContentPane().getComponents(); //TODO worst solution
+                buttonJPanel = (JPanel) component[1];
+                jScrollPane = (JScrollPane) component[2];
+                component = buttonJPanel.getComponents();
+                JButton pickButton = (JButton) component[4];
 
-            System.out.println("TempJPanrl : " + tempJPanel.toString());
+                System.out.println(jScrollPane.getViewport().getView().toString());
+
+                tempJPanel = (JPanel) jScrollPane.getViewport().getView();
+
+                System.out.println("TempJPanrl : " + tempJPanel.toString());
 
 //            If ( instanceof)
 
-            System.out.println("~~~~~~~ Point ~~~~~~~" + point.toString());
+                System.out.println("~~~~~~~ Point ~~~~~~~" + point.toString());
 
 
-            Object tJPanel = tempJPanel.getComponentAt(point);
-            System.out.println("Object tJPanel" +tJPanel.toString());
+                Object tJPanel = tempJPanel.getComponentAt(point);
+                System.out.println("Object tJPanel" + tJPanel.toString());
 
-            if (tJPanel instanceof ChartPanelRewrite) {  //Trying to check getting class
-                tempChartPanelRewrite = (ChartPanelRewrite) tJPanel;
-                System.out.println("ChartPanelRewrite=getComponent" + tempJPanel.getComponentAt(point).toString());
-            }
+                if (tJPanel instanceof ChartPanelRewrite) {  //Trying to check getting class
+                    tempChartPanelRewrite = (ChartPanelRewrite) tJPanel;
+                    System.out.println("ChartPanelRewrite=getComponent" + tempJPanel.getComponentAt(point).toString());
+                }
 
 
 //            tempChartPanelRewrite = (ChartPanelRewrite) tempJPanel.getComponentAt(point);
 
-            System.out.println("TempChartPanelRewrite" + tempChartPanelRewrite.toString());
+                System.out.println("TempChartPanelRewrite" + tempChartPanelRewrite.toString());
 
-            tempChartPanelRewrite.chartMouseClicked(new ChartMouseEvent(tempChartPanelRewrite.getChart(), e, tempChartPanelRewrite.getEntityForPoint(e.getX(), e.getY())));
-
+                tempChartPanelRewrite.chartMouseClicked(new ChartMouseEvent(tempChartPanelRewrite.getChart(), e, tempChartPanelRewrite.getEntityForPoint(e.getX(), e.getY())));
 
 
 //            System.out.println(tempJPanel.getComponentAt(point).toString());
-            System.out.println(" Checking if aright x--- "  + point.x);
-            System.out.println(" Checking if aright y--- "  + point.y);
+                System.out.println(" Checking if aright x--- " + point.x);
+                System.out.println(" Checking if aright y--- " + point.y);
 
-            if (muteLaw.size() == 0) {   //Checking if point aright from previous
-                muteLaw.add(point);
-                System.out.println("!!!! First point added");
+                if (muteLaw.size() == 0) {   //Checking if point aright from previous
+                    muteLaw.add(point);
+                    System.out.println("!!!! First point added");
+                } else if (muteLaw.get(muteLaw.size() - 1).x < point.x) {
+                    muteLaw.add(point);
+                    System.out.println("!!! Second+ point added");
+                }
+
+                updateUIMuteLawLabels();
+                repaint();
+
+
             }
-            else if (muteLaw.get(muteLaw.size()-1).x < point.x) {
-                muteLaw.add(point);
-                System.out.println("!!! Second+ point added");
-            }
-
-            updateUIMuteLawLabels();
-            repaint();
-
-
-        }
 
 //        for(int i=0; i<component.length; i++)
 //        {
