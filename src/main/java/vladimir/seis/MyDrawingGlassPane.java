@@ -125,7 +125,8 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
                 System.out.println("~~~~~~~ Point ~~~~~~~" + point.toString());
 
 
-                Object tJPanel = tempJPanel.getComponentAt(point);
+                Object tJPanel = tempJPanel.getComponentAt(point);          //Fix variable bug NullPointerException
+
                 System.out.println("Object tJPanel" + tJPanel.toString());
 
                 if (tJPanel instanceof ChartPanelRewrite) {  //Trying to check getting class
@@ -152,6 +153,8 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
                     muteLaw.add(point);
                     System.out.println("!!! Second+ point added");
                 }
+
+
 
                 updateUIMuteLawLabels();
                 repaint();
@@ -232,17 +235,19 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
 
     private void updateUIMuteLawLabels() {
         for (int i = 0; i < muteLaw.size(); i++) {
-            JL_PointsLabelsString[i] = Integer.toString(muteLaw.get(i).x) + "  ::  " + Integer.toString(muteLaw.get(i).y);
+//            JL_PointsLabelsString[i] = Integer.toString(muteLaw.get(i).x) + "  ::  " + Integer.toString(muteLaw.get(i).y);
+            mainController.defineJLabelText(""+muteLaw.get(i).getX() + " :: " + muteLaw.get(i).getY(),i);
+
         }
 
 
-        mainController.defineJLabelText(
-                JL_PointsLabelsString[0] != null ? JL_PointsLabelsString[0] : "",
-                JL_PointsLabelsString[1] != null ? JL_PointsLabelsString[1] : "",
-                JL_PointsLabelsString[2] != null ? JL_PointsLabelsString[2] : "",
-                JL_PointsLabelsString[3] != null ? JL_PointsLabelsString[3] : "",
-                JL_PointsLabelsString[4] != null ? JL_PointsLabelsString[4] : "",
-                JL_PointsLabelsString[5] != null ? JL_PointsLabelsString[5] : ""
-        );
+//        mainController.defineJLabelText(
+//                JL_PointsLabelsString[0] != null ? JL_PointsLabelsString[0] : "",
+//                JL_PointsLabelsString[1] != null ? JL_PointsLabelsString[1] : "",
+//                JL_PointsLabelsString[2] != null ? JL_PointsLabelsString[2] : "",
+//                JL_PointsLabelsString[3] != null ? JL_PointsLabelsString[3] : "",
+//                JL_PointsLabelsString[4] != null ? JL_PointsLabelsString[4] : "",
+//                JL_PointsLabelsString[5] != null ? JL_PointsLabelsString[5] : ""
+//        );
     }
 }

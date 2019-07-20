@@ -17,7 +17,7 @@ public class isOutPicking extends JDialog {
 
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                onOK();
+                onOK(e);
             }
         });
 
@@ -44,9 +44,15 @@ public class isOutPicking extends JDialog {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    private void onOK() {
+    private void onOK(ActionEvent e) {
         // add your code here
-        dispose();
+        System.out.println("main controller -- "+mainGui.getMainController().toString());
+        mainGui.getMainController().clickPickingButton();
+        JComponent comp = (JComponent) e.getSource();
+        Window win = SwingUtilities.getWindowAncestor(comp);
+        win.dispose();
+
+        //        dispose();
     }
 
     private void onCancel(ActionEvent e) {
@@ -55,7 +61,7 @@ public class isOutPicking extends JDialog {
         JComponent comp = (JComponent) e.getSource();
         Window win = SwingUtilities.getWindowAncestor(comp);
         win.dispose();
-        dispose();
+//        dispose();
     }
 
     public static void main(String[] args) {

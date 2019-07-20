@@ -17,6 +17,7 @@ import org.jfree.chart.ChartPanel;
 import scala.concurrent.Future;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
@@ -32,7 +33,7 @@ public class mainGui {
     //TODO make unactive if settings Change
 
     //    private final ChartPanel chartPanel1;
-    public JPanel mainJPanel;
+    public  JPanel mainJPanel;
     private JButton shooseFileButton;
     private JPanel filesPanel;
     private JPanel tempPanel;
@@ -68,6 +69,10 @@ public class mainGui {
 
     private boolean isPickingMode = false;
 
+    public JButton getPickingButton() {
+        return pickingButton;
+    }
+
     public static void main(String[] args) { //TODO Delete log and sout tests, add fool protectioná rewrite to another method of starting (see book)
 
         JFrame mainJFrame = new JFrame("mainGui");
@@ -75,10 +80,10 @@ public class mainGui {
 //        showFileTxtButton;
 //        showFileBinButton;
 //        showTraceBinButton;
-
+        mainController = new mainController();
         mainJFrame.setContentPane(new mainGui().mainJPanel);
         mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainController = new mainController();
+
         myDrawingGlassPane = new MyDrawingGlassPane(mainController);
         mainJFrame.setGlassPane(myDrawingGlassPane);
         mainJFrame.pack();
@@ -117,7 +122,7 @@ public class mainGui {
     public mainGui() {
         makeButtonsUnactive();
         //        getMainJPanel().addMouseListener(this);
-
+        mainController.init(pickingButton,lawPoint1TL,lawPoint2TL,lawPoint3TL,lawPoint4TL,lawPoint5TL,lawPoint6TL);
         fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         shooseFileButton.addActionListener(new ActionListener() {
@@ -430,9 +435,12 @@ public class mainGui {
                 if (!isPickingMode) {
                     pickingButton.setBorder(BorderFactory.createLoweredBevelBorder());
                     myDrawingGlassPane.setVisible(true);
+                    isPickingMode = true;
                 } else {
-                    pickingButton.setBorder(null);
+//                    pickingButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
+                    pickingButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                     myDrawingGlassPane.setVisible(false);
+                    isPickingMode = false;
                 }
             }
         });
@@ -691,7 +699,12 @@ public class mainGui {
         settingsJFrame.pack();
         settingsJFrame.setVisible(true);
 
+
     }
+
+//    public static void pickingDisabler() {
+//        pickingButton.doClick();
+//    }
 
 //    public static void setupMainController() {
 //        mainController.setMainGui(this);
