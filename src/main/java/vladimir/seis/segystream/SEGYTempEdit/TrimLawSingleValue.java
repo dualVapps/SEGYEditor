@@ -1,19 +1,40 @@
 package main.java.vladimir.seis.segystream.SEGYTempEdit;
 
-public class TrimLawSingleValue {
+
+public class TrimLawSingleValue{
     int  datasetValue;
     int sampleValue;
     double dataValue;
-    int x;
-    int y;
+    double x;
+    double y;
 
 
-    public TrimLawSingleValue(int datasetValue, int sampleValue, double dataValue, int x, int y) {
+    public TrimLawSingleValue( double x, double y, int datasetValue, int sampleValue, double dataValue) {
+
+        this.x = x;
+        this.y = y;
         this.datasetValue = datasetValue;
         this.sampleValue = sampleValue;
         this.dataValue = dataValue;
+
+    }
+
+    public TrimLawSingleValue(double x, double y) {
         this.x = x;
         this.y = y;
+        this.datasetValue = -1;
+        this.sampleValue = -1;
+        this.dataValue = -1;
+
+
+    }
+
+    public int getDatasetValue() {
+        return datasetValue;
+    }
+
+    public void setDatasetValue(int datasetValue) {
+        this.datasetValue = datasetValue;
     }
 
     public int getSampleValue() {
@@ -32,7 +53,7 @@ public class TrimLawSingleValue {
         this.dataValue = dataValue;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -40,7 +61,7 @@ public class TrimLawSingleValue {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 

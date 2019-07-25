@@ -72,7 +72,7 @@ public class mainController {
 
     public void defineJLabelText (String s1, int index) {
 
-        if ((s1 != null)&&(index<7)) { lawJLs[index].setText(s1);} else lawJLs[index].setText("");
+        if ((s1 != null)&&(index<7)) { lawJLs[index].setText(s1);} else lawJLs[index].setText("  ----------");
 
 
     }

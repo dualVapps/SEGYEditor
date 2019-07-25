@@ -41,7 +41,7 @@
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="lawPoint1TL"/>
+              <text value="  ----------"/>
             </properties>
           </component>
           <component id="aac3f" class="javax.swing.JLabel" binding="lawPoint2TL">
@@ -49,7 +49,7 @@
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="lawPoint2TL"/>
+              <text value="  ----------"/>
             </properties>
           </component>
           <component id="d7a0d" class="javax.swing.JLabel" binding="lawPoint3TL">
@@ -57,7 +57,7 @@
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="lawPoint3TL"/>
+              <text value="  ----------"/>
             </properties>
           </component>
           <component id="fc1f8" class="javax.swing.JLabel" binding="lawPoint4TL">
@@ -65,7 +65,7 @@
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="lawPoint4TL"/>
+              <text value="  ----------"/>
             </properties>
           </component>
           <component id="e6552" class="javax.swing.JLabel" binding="lawPoint5TL">
@@ -73,7 +73,7 @@
               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="lawPoint5TL"/>
+              <text value="  ----------"/>
             </properties>
           </component>
           <component id="7c194" class="javax.swing.JLabel" binding="lawPoint6TL">
@@ -81,7 +81,7 @@
               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="1" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="lawPoint6TL"/>
+              <text value="  ----------"/>
             </properties>
           </component>
         </children>
@@ -264,6 +264,7 @@
               </grid>
             </constraints>
             <properties>
+              <font size="10"/>
               <iconTextGap value="0"/>
               <text value="Clear"/>
             </properties>

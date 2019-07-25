@@ -194,11 +194,14 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
 
 
                 TrimLawSingleValue trimLawSingleValue = new TrimLawSingleValue(
+                        event.getTrigger().getX(),
+                        event.getTrigger().getY(),
                         sCDR.getNumberDataset(),
                         Integer.parseInt(caE.getColumnKey().toString()),
-                        (double) caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()),
-                        event.getTrigger().getX(),
-                        event.getTrigger().getY());
+                        (double) caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()));
+
+
+
 
 //            settings_singleton.addValueToTrimLaw(trimLawSingleValue); //TODO something wrong here
                 System.out.println("Annotation begin");

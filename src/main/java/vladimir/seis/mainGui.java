@@ -96,6 +96,7 @@ public class mainGui {
         settingsJFrame.pack();
         settingsJFrame.setVisible(true);
         settings_singl = new Settings_singleton().getSettings_singleton();
+        myDrawingGlassPane.init(); //TODO Rewrite with trasfer GUI elements throw maincontroller
 
 
 //        setupMainController();
@@ -436,11 +437,13 @@ public class mainGui {
                     pickingButton.setBorder(BorderFactory.createLoweredBevelBorder());
                     myDrawingGlassPane.setVisible(true);
                     isPickingMode = true;
+                    makeButtonsUnactiveExcPicking();
                 } else {
 //                    pickingButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
                     pickingButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                     myDrawingGlassPane.setVisible(false);
                     isPickingMode = false;
+                    makeButtonsActiveExcPicking();
                 }
             }
         });
@@ -648,6 +651,7 @@ public class mainGui {
         showTraceBinButton.setEnabled(false);
         pickingButton.setEnabled(false);
         saveFileButton.setEnabled(false);
+        clearButton.setEnabled(false);
 //          settingsBotton.setEnabled(false);
         scaleUp.setEnabled(false);
         scaleDown.setEnabled(false);
@@ -667,6 +671,7 @@ public class mainGui {
     }
 
     private void makeButtonsActiveExcPicking() {
+        shooseFileButton.setEnabled(true);
         showFileTxtButton.setEnabled(true);
         showFileBinButton.setEnabled(true);
         showTraceBinButton.setEnabled(true);
@@ -676,13 +681,16 @@ public class mainGui {
         scaleUp.setEnabled(true);
         scaleDown.setEnabled(true);
         scaleZero.setEnabled(true);
+        clearButton.setEnabled(false);
 
     }
 
     private void makeButtonsUnactiveExcPicking() {
+        shooseFileButton.setEnabled(false);
         showFileTxtButton.setEnabled(false);
         showFileBinButton.setEnabled(false);
-        showTraceBinButton.setEnabled(true);
+        showTraceBinButton.setEnabled(false);
+        clearButton.setEnabled(true);
 //          pickingButton.setEnabled(false);
         saveFileButton.setEnabled(false);
         settingsBotton.setEnabled(false);
