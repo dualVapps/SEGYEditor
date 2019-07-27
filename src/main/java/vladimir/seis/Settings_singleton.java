@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class Settings_singleton {
 
     private ArrayList<TrimLawSingleValue> trimLaw = new ArrayList<>();
+    private ArrayList<TrimLawSingleValue> fullTrimLaw = new ArrayList<>(48); //MaybeChange to simple array
     private int number_of_samples;
     private int sample_sizeInBytes;
 
@@ -42,6 +43,16 @@ public class Settings_singleton {
     public void addValueToTrimLaw(TrimLawSingleValue trimLawSingleValue)
     {
         trimLaw.add(trimLawSingleValue);
+    }
+
+    //formingFullLengthTrimLaw
+    public ArrayList<TrimLawSingleValue> formingFullLengthLaw () {
+
+        ArrayList<TrimLawSingleValue> tempFullTrimLaw = new ArrayList<>(48);
+
+
+
+        return  tempFullTrimLaw;
     }
 
     }

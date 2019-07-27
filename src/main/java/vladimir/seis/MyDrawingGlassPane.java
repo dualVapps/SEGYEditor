@@ -17,12 +17,13 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
     JScrollPane jScrollPane;
     ChartPanelRewrite tempChartPanelRewrite;
     ArrayList<Point> muteLaw = new ArrayList<>();
-    String[] JL_PointsLabelsString = new String[6];
     mainController mainController;
     JButton pickButton;
     JButton clearButton;
     int pickButtonXmin, pickButtonXmax,pickButtonYmin,pickButtonYmax,
             clearButtonXmin,clearButtonXmax,clearButtonYmin,clearButtonYmax;
+
+
 
     public int getPointsCount() {
         return pointsCount;
@@ -49,11 +50,12 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
     protected void paintComponent(Graphics g) {
 
         if (muteLaw.size()>0) {
+
+            System.out.println("" + this.getClass().getSimpleName() +" MuteLaw " + muteLaw.size());
             g.setColor(Color.red);
             g.setPaintMode();
             for (int i = 0; i < muteLaw.size(); i++) {
                 g.drawOval(muteLaw.get(i).x - 5, muteLaw.get(i).y - 5, 10, 10);
-                JL_PointsLabelsString[i] = "" + muteLaw.get(i).x + "  ::  " + muteLaw.get(i).y;
             }
 
 
@@ -349,5 +351,11 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
         repaint();
 
 
+    }
+
+    public void zeroedMuteLaw(){
+        muteLaw.clear();
+        System.out.println("--aaa" + muteLaw.size());
+        repaint();
     }
 }

@@ -27,6 +27,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.SQLOutput;
 import java.util.concurrent.CompletionStage;
 
 public class mainGui {
@@ -69,13 +70,16 @@ public class mainGui {
 
     private boolean isPickingMode = false;
 
+    static JFrame mainJFrame;
+
+
     public JButton getPickingButton() {
         return pickingButton;
     }
 
     public static void main(String[] args) { //TODO Delete log and sout tests, add fool protectioná rewrite to another method of starting (see book)
 
-        JFrame mainJFrame = new JFrame("mainGui");
+        mainJFrame = new JFrame("mainGui");
 //        shooseFileButton.setIc;
 //        showFileTxtButton;
 //        showFileBinButton;
@@ -166,6 +170,7 @@ public class mainGui {
                                     JList source = (JList) event.getSource();
                                     choosenIndex = source.getSelectedIndex();
                                     startReading();
+                                    resetValuesWhenNewFileChoosen();
 //                                tempPanel.removeAll();  //TODO Refresh if new file ñhoosen
 //                                tempPanel.updateUI();
                                 }
@@ -706,6 +711,18 @@ public class mainGui {
         settingsJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         settingsJFrame.pack();
         settingsJFrame.setVisible(true);
+
+
+    }
+
+    private void resetValuesWhenNewFileChoosen() {
+        System.out.println("resetValuesWhenNewFileChoosen executed");
+        for (int i = 0; i < 6; i++) {           //numbers of labels
+            mainController.defineJLabelText(null, i);}
+        settings_singl.zerodTrimLaw();
+
+        myDrawingGlassPane.zeroedMuteLaw();
+//        ((MyDrawingGlassPane) mainJFrame.getGlassPane()).zeroedMuteLaw();
 
 
     }
