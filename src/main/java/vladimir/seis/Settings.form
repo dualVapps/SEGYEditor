@@ -29,7 +29,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="Количество отсчетов (1024)"/>
+              <text value="Количество отсчетов (2048)"/>
             </properties>
           </component>
           <component id="a0f3a" class="javax.swing.JTextField" binding="numberOfSamplesTF">
@@ -65,7 +65,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="Размер трассы в байтах  (*8=8196)"/>
+              <text value="Размер трассы в байтах  (*4=8196)"/>
             </properties>
           </component>
           <component id="9d99b" class="javax.swing.JTextField" binding="sizesInBytesTF">

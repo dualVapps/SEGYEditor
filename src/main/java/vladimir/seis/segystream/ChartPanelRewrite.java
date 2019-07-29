@@ -78,7 +78,7 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
     public ChartPanelRewrite(JFreeChart chart, Settings_singleton settings_singleton) {
         super(chart);
         this.addChartMouseListener(this);
-        this.settings_singleton = settings_singleton;
+        this.settings_singleton = mainGui.getSettings_singl();
     }
 
     public ChartPanelRewrite(JFreeChart chart, double traceLenght, Settings_singleton settings_singleton) {
@@ -86,7 +86,7 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
         super(chart);
         this.traceLenght = traceLenght;
         this.addChartMouseListener(this);
-        this.settings_singleton = settings_singleton;
+        this.settings_singleton = mainGui.getSettings_singl();
     }
 
 
@@ -161,6 +161,7 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
 
         ChartEntity eventEntity = event.getEntity();
 
+
         if (eventEntity != null) {
 
             System.out.println("11" + event.getTrigger().toString());
@@ -172,7 +173,7 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
         if (eventEntity != null) {
 
             if (eventEntity instanceof PlotEntity) {
-
+                System.out.println("instanceof PlotEntity");
 
 //        PlotEntity plE = (PlotEntity) event.getEntity();
 //        System.out.println("3" + plE.getPlot().getInsets().toString());
@@ -182,6 +183,7 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
             }
 
             if (eventEntity instanceof CategoryItemEntity) {
+                System.out.println("instanceof CategoryItemEntity");
                 CategoryItemEntity caE = (CategoryItemEntity) event.getEntity();
                 System.out.println("Dataset " + caE.getDataset().toString());
                 DefaultCategoryDatasetRewrite sCDR = (DefaultCategoryDatasetRewrite) caE.getDataset();
@@ -201,9 +203,16 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
                         (double) caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()));
 
 
+                System.out.println();
+                System.out.print("getDatasetValue   " + trimLawSingleValue.getDatasetValue());
+                System.out.print("getSampleValue   " + trimLawSingleValue.getSampleValue());
+                System.out.print("getDataValue   " + trimLawSingleValue.getDataValue());
+                System.out.print("getX   " + trimLawSingleValue.getX());
+                System.out.print("getY   " + trimLawSingleValue.getY());
+                System.out.println();
 
-
-//            settings_singleton.addValueToTrimLaw(trimLawSingleValue); //TODO something wrong here
+                System.out.println(""+ mainGui.getSettings_singl().toString());
+            mainGui.getSettings_singl().addValueToTrimLaw(trimLawSingleValue); //TODO something wrong here
                 System.out.println("Annotation begin");
 //            CategoryPointerAnnotation cpa = new CategoryPointerAnnotation("First", caE.getColumnKey(),event.getTrigger().getY(),0.9);
 

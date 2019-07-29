@@ -29,7 +29,7 @@ public class Settings {
     public Settings() {
 
 
-        numberOfSamplesTF.setText("1024");
+        numberOfSamplesTF.setText("2048");
         sizesInBytesTF.setText("8196");
 
         System.out.println(numberOfSamplesInt);

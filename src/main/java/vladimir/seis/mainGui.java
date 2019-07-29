@@ -66,6 +66,9 @@ public class mainGui {
     static private Settings_singleton settings_singl;
     static private MyDrawingGlassPane myDrawingGlassPane;
 
+    final private float[] scaleKoef = {0.2f,0.29f,0.38f, 0.5f, 0.66f, 1f, 1.5f, 2f, 2.6f, 3.5f, 5f};
+    int scaleKoefNumber=5;
+
     static public mainController mainController;
 
     private boolean isPickingMode = false;
@@ -79,7 +82,7 @@ public class mainGui {
 
     public static void main(String[] args) { //TODO Delete log and sout tests, add fool protectioná rewrite to another method of starting (see book)
 
-        mainJFrame = new JFrame("mainGui");
+        mainJFrame = new JFrame("SEGYMpvEditor");
 //        shooseFileButton.setIc;
 //        showFileTxtButton;
 //        showFileBinButton;
@@ -98,9 +101,22 @@ public class mainGui {
         settingsJFrame.setContentPane(settings.settingsPanel);
         settingsJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         settingsJFrame.pack();
+        settingsJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth()/2,
+                mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight()/2);
+        settingsJFrame.setResizable(false);
         settingsJFrame.setVisible(true);
         settings_singl = new Settings_singleton().getSettings_singleton();
         myDrawingGlassPane.init(); //TODO Rewrite with trasfer GUI elements throw maincontroller
+
+        //Checking size
+
+//        System.out.println("mainJFrame.getSize().width " + mainJFrame.getSize().width);
+//        System.out.println("mainJFrame.getSize().height " + mainJFrame.getSize().height);
+//        System.out.println("mainJFrame.getLocationOnScreen().x " + mainJFrame.getLocationOnScreen().x);
+//        System.out.println("myDrawingGlassPane.getSize().width " + myDrawingGlassPane.getSize().width);
+//        System.out.println("myDrawingGlassPane.getSize().height " + myDrawingGlassPane.getSize().height);
+//        System.out.println("myDrawingGlassPane.getLocationOnScreen().x " + myDrawingGlassPane.getLocationOnScreen().x);
+
 
 
 //        setupMainController();
@@ -463,6 +479,9 @@ public class mainGui {
                 settingsJFrame.setContentPane(settings.settingsPanel);
                 settingsJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 settingsJFrame.pack();
+                settingsJFrame.setResizable(false);
+                settingsJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth()/2,
+                        mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight()/2);
                 settingsJFrame.setVisible(true);
 
 
@@ -472,12 +491,15 @@ public class mainGui {
         scaleUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double temp = chartExecutor.getScaleFactor();
-                chartExecutor.setScaleFactor(0.75 * temp);
+//                double temp = chartExecutor.getScaleFactor();
+                if (scaleKoefNumber > 0) {
+                    scaleKoefNumber--;
+                chartExecutor.setScaleFactor(scaleKoef[scaleKoefNumber]);
                 chartExecutor.setSameScale();
-                System.out.println("Scale" + temp);
+                System.out.println("Scale" + chartExecutor.getScaleFactor());
                 tempPanel.revalidate();
                 tempPanel.repaint();
+                }
 
             }
         });
@@ -485,11 +507,15 @@ public class mainGui {
         scaleDown.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double temp = chartExecutor.getScaleFactor();
-                chartExecutor.setScaleFactor(1.5 * temp);
-                chartExecutor.setSameScale();
-                tempPanel.revalidate();
-                tempPanel.repaint();
+//                double temp = chartExecutor.getScaleFactor();
+                if (scaleKoefNumber <10 ) {
+                    scaleKoefNumber++;
+                    chartExecutor.setScaleFactor(scaleKoef[scaleKoefNumber]);
+                    chartExecutor.setSameScale();
+                    System.out.println("Scale" + chartExecutor.getScaleFactor());
+                    tempPanel.revalidate();
+                    tempPanel.repaint();
+                }
 
             }
         });
@@ -497,7 +523,8 @@ public class mainGui {
         scaleZero.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                chartExecutor.setScaleFactor(0.5);
+                scaleKoefNumber = 5; //MiddleValue
+                chartExecutor.setScaleFactor(scaleKoef[scaleKoefNumber]);
                 chartExecutor.setSameScale();
                 tempPanel.revalidate();
                 tempPanel.repaint();
@@ -619,6 +646,8 @@ public class mainGui {
 
         }
 
+        System.out.println("******************************************************");
+
 
 //                  for (int j = 0; j < chartPanel.length; j++) {
 ////                    tempPanel.add(chartPanel[j], BorderLayout.LINE_END);
@@ -633,6 +662,7 @@ public class mainGui {
 //        system::terminate;
         reDrawChartsWithRenevalData();
         makeButtonsActive();
+        chartExecutor.setInitialSameScale(); //Set initial scale separate for each file
         chartExecutor.setSameScale();   // TODO Write javadoc
 //        done.thenRunAsync(() -> onFinishedreading()
     }
@@ -705,12 +735,15 @@ public class mainGui {
     }
 
     public static void pickingDisablerGui() {
-        JFrame settingsJFrame = new JFrame("settings");
+        JFrame pickingGUIJFrame = new JFrame("Quit picking?");
         isOutPicking isOutPicking = new isOutPicking();
-        settingsJFrame.setContentPane(isOutPicking.contentPane);
-        settingsJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        settingsJFrame.pack();
-        settingsJFrame.setVisible(true);
+        pickingGUIJFrame.setContentPane(isOutPicking.contentPane);
+        pickingGUIJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        pickingGUIJFrame.pack();
+        pickingGUIJFrame.setResizable(false);
+        pickingGUIJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth()/2,
+                mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight()/2);
+        pickingGUIJFrame.setVisible(true);
 
 
     }

@@ -3,6 +3,7 @@ package main.java.vladimir.seis;
 import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import org.jfree.chart.ChartMouseEvent;
 import main.java.vladimir.seis.segystream.ChartPanelRewrite;
+import org.jfree.chart.entity.CategoryItemEntity;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -111,16 +112,16 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
             pointOnScreen = e.getLocationOnScreen();
 
 
-            System.out.println("point on screen x " + e.getLocationOnScreen().x);
-            System.out.println("point on screen y " + e.getLocationOnScreen().y);
-            System.out.println("pickButtonXmin " + pickButtonXmin);
-            System.out.println("pickButtonXmax " + pickButtonXmax);
-            System.out.println("pickButtonYmin " + pickButtonYmin);
-            System.out.println("pickButtonYmax " + pickButtonYmax);
-            System.out.println("clearButtonXmin " + clearButtonXmin);
-            System.out.println("clearButtonXmax " + clearButtonXmax);
-            System.out.println("clearButtonYmin " + clearButtonYmin);
-            System.out.println("clearButtonYmax " + clearButtonYmax);
+//            System.out.println("point on screen x " + e.getLocationOnScreen().x);
+//            System.out.println("point on screen y " + e.getLocationOnScreen().y);
+//            System.out.println("pickButtonXmin " + pickButtonXmin);
+//            System.out.println("pickButtonXmax " + pickButtonXmax);
+//            System.out.println("pickButtonYmin " + pickButtonYmin);
+//            System.out.println("pickButtonYmax " + pickButtonYmax);
+//            System.out.println("clearButtonXmin " + clearButtonXmin);
+//            System.out.println("clearButtonXmax " + clearButtonXmax);
+//            System.out.println("clearButtonYmin " + clearButtonYmin);
+//            System.out.println("clearButtonYmax " + clearButtonYmax);
 
             if (pointOnScreen.x>pickButtonXmin
                 &&pointOnScreen.x<=pickButtonXmax
@@ -156,13 +157,15 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
                 System.out.println("~~~~~~~ Point ~~~~~~~" + point.toString());
 
 
-                Object tJPanel = tempJPanel.getComponentAt(point);          //Fix variable bug NullPointerException. Bug not fixed
+//                Object tJPanel = tempJPanel.getComponentAt(point);          //Fix variable bug NullPointerException. Bug not fixed
+                Object tJPanel = tempJPanel.getComponentAt(point.x-284, point.y); //284 - difference between glassPane and tempJPanel
 
                 System.out.println("Object tJPanel" + tJPanel.toString());
 
                 if (tJPanel instanceof ChartPanelRewrite) {  //Trying to check getting class
                     tempChartPanelRewrite = (ChartPanelRewrite) tJPanel;
-                    System.out.println("ChartPanelRewrite=getComponent" + tempJPanel.getComponentAt(point).toString());
+//                    System.out.println("ChartPanelRewrite=getComponent" + tempJPanel.getComponentAt(point).toString());
+                    System.out.println("ChartPanelRewrite=getComponent" + tempJPanel.getComponentAt(point.x-284,point.y).toString());// 284 - difference between glassPane and tempJPanel
                 }
 
 
@@ -170,7 +173,45 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
 
                 System.out.println("TempChartPanelRewrite" + tempChartPanelRewrite.toString());
 
-                tempChartPanelRewrite.chartMouseClicked(new ChartMouseEvent(tempChartPanelRewrite.getChart(), e, tempChartPanelRewrite.getEntityForPoint(e.getX(), e.getY())));
+                //Checking and fix entity
+
+                boolean isItemEntity = false;
+                int shiftedX = e.getX()-440,shiftedY = e.getY();
+                int shift = 1;
+                while (!isItemEntity) {
+
+                    if (tempChartPanelRewrite.getEntityForPoint(shiftedX,shiftedY) instanceof CategoryItemEntity) {
+                        isItemEntity = true;
+                        System.out.println("Success!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    }
+
+                    else if (tempChartPanelRewrite.getEntityForPoint(shiftedX+shift,shiftedY) instanceof CategoryItemEntity) {
+                        isItemEntity = true;
+                        shiftedX = shiftedX+shift;
+                        System.out.println("Success!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+                    }
+
+                    else if (tempChartPanelRewrite.getEntityForPoint(shiftedX-shift,shiftedY) instanceof CategoryItemEntity) {
+                        isItemEntity = true;
+                        shiftedX = shiftedX-shift;
+                        System.out.println("Success!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    }
+
+                    else {
+                        shift++;
+                        System.out.println("Fail!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    }
+
+                    if (shift>16) break;
+
+
+                }
+
+
+
+                //Wrong definition of dartaset number.
+                tempChartPanelRewrite.chartMouseClicked(new ChartMouseEvent(tempChartPanelRewrite.getChart(), e, tempChartPanelRewrite.getEntityForPoint(shiftedX, e.getY())));
 
 
 //            System.out.println(tempJPanel.getComponentAt(point).toString());
@@ -189,6 +230,8 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
 
                 updateUIMuteLawLabels();
                 repaint();
+
+                debugMuteLawOutput(); //TODO Only for debug
 
 
             }
@@ -285,16 +328,16 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
 
 
 //            System.out.println("components size " + component.length);   //Must be changed when addying new button
-            System.out.println("components pickbutton " + pickButton.getText());   //Must be changed when addying new button
-            System.out.println("components clearButton " + clearButton.getText());   //Must be changed when addying new button
-            System.out.println("components pickbutton x" + pickButton.getX() + " size " + pickButton.getWidth());   //Must be changed when addying new button
-            System.out.println("components pickbutton y" + pickButton.getY() + " size " + pickButton.getHeight());   //Must be changed when addying new button
-            System.out.println("components pickbutton loc x " + pickButton.getLocation().getX() + " size " + pickButton.getHeight());   //Must be changed when addying new button
-            System.out.println("components pickbutton loc scree x " + pickButton.getLocationOnScreen().getX() + " size " + pickButton.getHeight());   //Must be changed when addying new button
-            System.out.println("components pickbutton y" + pickButton.getY() + " size " + pickButton.getHeight());   //Must be changed when addying new button
-            System.out.println("components  buttonJPanel x " + buttonJPanel.getX() + " size " + buttonJPanel.getWidth());   //Must be changed when addying new button
-            System.out.println("components  buttonJPanel y " + buttonJPanel.getY() + " size " + buttonJPanel.getHeight());   //Must be changed when addying new button
-            System.out.println("components clearButton x" + clearButton.getX() + " size " + clearButton.getWidth());   //Must be changed when addying new button
+//            System.out.println("components pickbutton " + pickButton.getText());   //Must be changed when addying new button
+//            System.out.println("components clearButton " + clearButton.getText());   //Must be changed when addying new button
+//            System.out.println("components pickbutton x" + pickButton.getX() + " size " + pickButton.getWidth());   //Must be changed when addying new button
+//            System.out.println("components pickbutton y" + pickButton.getY() + " size " + pickButton.getHeight());   //Must be changed when addying new button
+//            System.out.println("components pickbutton loc x " + pickButton.getLocation().getX() + " size " + pickButton.getHeight());   //Must be changed when addying new button
+//            System.out.println("components pickbutton loc scree x " + pickButton.getLocationOnScreen().getX() + " size " + pickButton.getHeight());   //Must be changed when addying new button
+//            System.out.println("components pickbutton y" + pickButton.getY() + " size " + pickButton.getHeight());   //Must be changed when addying new button
+//            System.out.println("components  buttonJPanel x " + buttonJPanel.getX() + " size " + buttonJPanel.getWidth());   //Must be changed when addying new button
+//            System.out.println("components  buttonJPanel y " + buttonJPanel.getY() + " size " + buttonJPanel.getHeight());   //Must be changed when addying new button
+//            System.out.println("components clearButton x" + clearButton.getX() + " size " + clearButton.getWidth());   //Must be changed when addying new button
 
 //            System.out.println("JButton components 0 " + ((JButton)(component[0])).getText());   //Must be changed when addying new button
 //            System.out.println("JButton components 1 " + ((JButton)(component[1])).getText());   //Must be changed when addying new button
@@ -318,6 +361,9 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
             tempJPanel = (JPanel) jScrollPane.getViewport().getView();
 
             System.out.println("TempJPanrl : " + tempJPanel.toString());
+            System.out.println("TempJPanrl width: " + tempJPanel.getWidth());
+            System.out.println("TempJPanrl x: " + tempJPanel.getLocation().x);
+            System.out.println("TempJPanrl x onScreen: " + tempJPanel.getLocationOnScreen().x);
 
 
         }
@@ -357,5 +403,17 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
         muteLaw.clear();
         System.out.println("--aaa" + muteLaw.size());
         repaint();
+    }
+
+    public void debugMuteLawOutput () {
+        for (int i = 0; i < mainGui.getSettings_singl().getTrimLaw().size(); i++) {
+            System.out.println();
+            System.out.print("GlassPane getDatasetValue   " + mainGui.getSettings_singl().getTrimLaw().get(i).getDatasetValue());
+            System.out.print(" getSampleValue   " + mainGui.getSettings_singl().getTrimLaw().get(i).getSampleValue());
+            System.out.print(" getDataValue   " + mainGui.getSettings_singl().getTrimLaw().get(i).getDataValue());
+            System.out.print(" getX   " + mainGui.getSettings_singl().getTrimLaw().get(i).getX());
+            System.out.print(" getY   " + mainGui.getSettings_singl().getTrimLaw().get(i).getY());
+            System.out.println();
+        }
     }
 }

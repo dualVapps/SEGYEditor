@@ -48,7 +48,7 @@ public class ChartExecutor {
     private ChartPanelRewrite[] chartPanel;
     private DefaultCategoryDatasetRewrite[] categoryDatasets;
     private CategoryPlotRewrite[] categoryPlots;
-    private double scaleFactor = 0.5;
+    private double scaleFactor = 1.0;
     private ArrayList<Point> currentMuteLaw;
     JFreeChart chartAdd, chartData;
     Settings_singleton settings_singleton;
@@ -106,6 +106,7 @@ public class ChartExecutor {
         // Изменение размеров составных частей окна (не работает!)
         chartPanel[0].setPreferredSize((new java.awt.Dimension(97, 270)));
         chartPanel[1].setPreferredSize((new java.awt.Dimension(778, 270)));
+
 //            System.out.println("1   1  + "+chartPanel[1].getMouseXCoordinate());
 //            System.out.println("2   2  + "+chartPanel[1].getX());
 //            System.out.println("3   3  + "+chartPanel[1].getHeight());
@@ -235,6 +236,7 @@ public class ChartExecutor {
 
             categoryPlots[i] = new CategoryPlotRewrite(datasetTemp, null, rangeAxis1, subplotRenderer,i);
             plot.add(categoryPlots[i]);
+
         }
         plot.setGap(0.0);
 
@@ -248,8 +250,7 @@ public class ChartExecutor {
     }
 
     // Заполнение графиков данными
-    public void updateWithDataset(int index) {
-
+    public void updateWithDataset(int index) {  //TODO 4 executing need change to one ???? Somewhere hire java.lang.IllegalArgumentException: Invalid category index:
         String series1 = "First";
         for (int i = 0; i < mainGui.getMainController().segyTempTracesData[index].getData().length; i++) {   //TODO Change to display a 1/8 of trace
             categoryDatasets[index].addValue(mainGui.getMainController().segyTempTracesData[index].getData()[i], series1, Integer.toString(i));
@@ -266,19 +267,26 @@ public class ChartExecutor {
            chartPanel[1].setHasSubcharts(true);
        }
 
+//        for (int i = 0; i < 48; i++) {
+//            System.out.println(":: Dataset number -  " + ((DefaultCategoryDatasetRewrite)((CategoryPlot)((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot())
+//                    .getSubplots().get(i)).getDataset()).getNumberDataset());
+//
+//        }
+
 
     }
 
-    //TODO Change scale to 0.8 of current
+    //TODO Change scale to 0.8 of current, Needs changes if 4*54 files
 
     public void setSameScale() {
 
-        ValueAxis tempValueAxis =  ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(0)).getRangeAxis();
-        Range tempRange =  tempValueAxis.getRange();
+
+
 
         for (int i = 0; i < 48; i++) {
             ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(i)).getRangeAxis()
-                    .setRange(tempRange.getLowerBound()*1*scaleFactor, tempRange.getLowerBound()*-1 * scaleFactor);
+                    .setRange(mainGui.getSettings_singl().getInitialFileScaleRange().getLowerBound()*1*scaleFactor,
+                            mainGui.getSettings_singl().getInitialFileScaleRange().getLowerBound()*-1 * scaleFactor); //Maybe change to upper bound value
 
 
 
@@ -303,6 +311,21 @@ public class ChartExecutor {
 //        chartData.setBackgroundImage(bf);
 //        System.out.println("Affords to drew Something");
 //    }
+
+    public void setInitialSameScale(){
+
+        ValueAxis tempValueAxis0 =  ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(12)).getRangeAxis();
+        ValueAxis tempValueAxis1 =  ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(36)).getRangeAxis();
+        Range tempRange0 =  tempValueAxis0.getRange();
+        Range tempRange1 =  tempValueAxis1.getRange();
+        mainGui.getSettings_singl().setInitialFileScaleRange(
+                new Range((tempRange0.getLowerBound() + tempRange1.getLowerBound())/2,
+                        (tempRange0.getUpperBound()+tempRange1.getUpperBound())/2));
+        System.out.println(" 0000000000000000 --"+mainGui.getSettings_singl().getInitialFileScaleRange().toString());
+
+
+
+    }
 
     public void setSettings_singleton(Settings_singleton settings_singleton) {
         this.settings_singleton = settings_singleton;

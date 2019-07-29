@@ -19,6 +19,17 @@ public class TrimLawSingleValue{
 
     }
 
+    public TrimLawSingleValue(int datasetValue, int sampleValue) {
+
+        this.x = -1;
+        this.y = -1;
+        this.datasetValue = datasetValue;
+        this.sampleValue = sampleValue;
+        this.dataValue = -1;
+    }
+
+
+
     public TrimLawSingleValue(double x, double y) {
         this.x = x;
         this.y = y;
