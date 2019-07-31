@@ -47,7 +47,7 @@ public class isOutPicking extends JDialog {
     private void onOK(ActionEvent e) {
         // add your code here
         System.out.println("main controller -- "+mainGui.getMainController().toString());
-        mainGui.getMainController().clickPickingButton();
+        mainGui.getMainController().clickPickingButtonSuccess();
         JComponent comp = (JComponent) e.getSource();
         Window win = SwingUtilities.getWindowAncestor(comp);
         win.dispose();

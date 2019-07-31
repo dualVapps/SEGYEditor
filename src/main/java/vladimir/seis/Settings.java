@@ -11,7 +11,7 @@ import java.awt.event.WindowEvent;
 public class Settings {
     private JTextField numberOfSamplesTF;
     private JTextField sizesInBytesTF;
-    private JTextField textField3;
+    private JCheckBox isFromNegToPosCB;
     private JPanel preference1;
     private JPanel preference2;
     private JPanel preference3;
@@ -20,17 +20,33 @@ public class Settings {
     private JLabel preference2txt;
     private JLabel preference3Txt;
     private JButton confirmButton;
+    private JPanel preference4;
+    private JTextField AGCWindowTracesTF;
+    private JLabel preference4Txt;
     private int numberOfSamplesInt;
     private int sizesInBytesInt;
+    private int AGCWindowTraces;
 
 
 
 
     public Settings() {
 
+        if (mainGui.getSettings_singl().getNumber_of_samples() == -1)
+        {
 
-        numberOfSamplesTF.setText("2048");
-        sizesInBytesTF.setText("8196");
+            numberOfSamplesTF.setText("2048");
+            sizesInBytesTF.setText("8196");
+            isFromNegToPosCB.setSelected(true);
+            AGCWindowTracesTF.setText("7");
+        }
+
+        else {
+            numberOfSamplesTF.setText(Integer.toString(mainGui.getSettings_singl().getNumber_of_samples()));
+            sizesInBytesTF.setText(Integer.toString(mainGui.getSettings_singl().getSample_sizeInBytes()));
+            isFromNegToPosCB.setSelected(mainGui.getSettings_singl().isFromNegToPos());
+            AGCWindowTracesTF.setText(Integer.toString(mainGui.getSettings_singl().getAgcWindowSizeInTraces()));
+        }
 
         System.out.println(numberOfSamplesInt);
 
@@ -44,7 +60,15 @@ public class Settings {
 
                 if (numberOfSamplesTF.getText().equals("")||sizesInBytesTF.getText().equals("")) {
                     JOptionPane.showMessageDialog(settingsPanel,
-                            "Неправильные данные",
+                            "Неправильные данные размера",
+                            "Внимание",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+
+                else if (AGCWindowTracesTF.getText().equals("")||(Integer.parseInt(AGCWindowTracesTF.getText()) % 2 == 0)
+                || Integer.parseInt(AGCWindowTracesTF.getText())> 21 || Integer.parseInt(AGCWindowTracesTF.getText()) <= 0){
+                    JOptionPane.showMessageDialog(settingsPanel,
+                            "Неправильные данные окна",
                             "Внимание",
                             JOptionPane.WARNING_MESSAGE);
                 }
@@ -53,9 +77,14 @@ public class Settings {
 
                     numberOfSamplesInt = Integer.parseInt(numberOfSamplesTF.getText());
                     sizesInBytesInt = Integer.parseInt(sizesInBytesTF.getText());
+                    AGCWindowTraces = Integer.parseInt(AGCWindowTracesTF.getText());
+
+
 
                     mainGui.getSettings_singl().setNumber_of_samples(numberOfSamplesInt);
                     mainGui.getSettings_singl().setSample_sizeInBytes(sizesInBytesInt);
+                    mainGui.getSettings_singl().setFromNegToPos(isFromNegToPosCB.isSelected());
+                    mainGui.getSettings_singl().setAgcWindowSizeInTraces(AGCWindowTraces);
 
 
 //                    if (numberOfSamplesInt!=0&sizesInBytesInt!=0) {

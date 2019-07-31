@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class mainController {
 
-    private  mainGui mainGui;
+//    private  mainGui mainGui;
     private JPanel mainJPanel;
     private JLabel[] lawJLs = new JLabel[6];
     public SegyTempFile segyTempFile;
@@ -79,9 +79,12 @@ public class mainController {
 
 
 
-    public void clickPickingButton() {
+    public void clickPickingButtonSuccess() {
 //        System.out.println("Picking Button" + mainGui.getPickingButton().toString());
 //        mainGui.getPickingButton().doClick();
         pickButton.doClick();
+        mainGui.getSettings_singl().formingFullLengthLaw();
+        mainGui.getSettings_singl().formingShiftedFullTrimLaw(segyTempTracesData);
+
     }
 }

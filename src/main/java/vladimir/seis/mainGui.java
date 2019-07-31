@@ -27,6 +27,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.concurrent.CompletionStage;
 
@@ -66,7 +67,7 @@ public class mainGui {
     static private Settings_singleton settings_singl;
     static private MyDrawingGlassPane myDrawingGlassPane;
 
-    final private float[] scaleKoef = {0.2f,0.29f,0.38f, 0.5f, 0.66f, 1f, 1.5f, 2f, 2.6f, 3.5f, 5f};
+    final private float[] scaleKoef = {0.125f,0.17f,0.22f, 0.33f, 0.66f, 1f, 1.5f, 3f, 4.5f, 6f, 8f};
     int scaleKoefNumber=5;
 
     static public mainController mainController;
@@ -82,7 +83,8 @@ public class mainGui {
 
     public static void main(String[] args) { //TODO Delete log and sout tests, add fool protectioná rewrite to another method of starting (see book)
 
-        mainJFrame = new JFrame("SEGYMpvEditor");
+        settings_singl = new Settings_singleton().getSettings_singleton();
+        mainJFrame = new JFrame("SEGYMpvEditor v0.01");
 //        shooseFileButton.setIc;
 //        showFileTxtButton;
 //        showFileBinButton;
@@ -105,7 +107,7 @@ public class mainGui {
                 mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight()/2);
         settingsJFrame.setResizable(false);
         settingsJFrame.setVisible(true);
-        settings_singl = new Settings_singleton().getSettings_singleton();
+
         myDrawingGlassPane.init(); //TODO Rewrite with trasfer GUI elements throw maincontroller
 
         //Checking size
@@ -543,8 +545,8 @@ public class mainGui {
 //        for (int i = 0; i < 54; i++) {
 //            mainController.segyTempTraces[i].setAuxChanType((byte)0x01);
 //        }
-
         processingTraceHeader();
+        processingDataUpperOfPicking();
 
 
     }
@@ -590,33 +592,6 @@ public class mainGui {
 
     }
 
-    // Changing traces with 4 seismic records
-    private void processingTraceHeader() { //TODO CHECK if 54*4 (216) traces
-        for (int i = 0; i < mainController.getSegyTempTracesData()[2].getData().length; i++) {
-            mainController.getSegyTempTracesData()[2].getData()[i] = (mainController.getSegyTempTracesData()[3].getData()[i] +
-                    mainController.getSegyTempTracesData()[4].getData()[i]) / 2;
-
-        }
-
-        //TODO for future release in 216
-
-//        for (int i = 0; i < mainController.getSegyTempTracesData()[56].getData().length; i++) {
-//            mainController.getSegyTempTracesData()[56].getData()[i] = (mainController.getSegyTempTracesData()[57].getData()[i] +
-//                    mainController.getSegyTempTracesData()[58].getData()[i])/2;
-//        }
-//
-//        for (int i = 0; i < mainController.getSegyTempTracesData()[110].getData().length; i++) {
-//            mainController.getSegyTempTracesData()[110].getData()[i] = (mainController.getSegyTempTracesData()[111].getData()[i] +
-//                    mainController.getSegyTempTracesData()[112].getData()[i])/2;
-//        }
-//
-//        for (int i = 0; i < mainController.getSegyTempTracesData()[164].getData().length; i++) {
-//            mainController.getSegyTempTracesData()[164].getData()[i] = (mainController.getSegyTempTracesData()[165].getData()[i] +
-//                    mainController.getSegyTempTracesData()[166].getData()[i])/2;
-//
-//
-//        }
-    }
 
     private static void initializeFrames() {
         //
@@ -794,6 +769,126 @@ public class mainGui {
 //    public void mouseExited(MouseEvent e) {
 //
 //    }
+
+    // Changing traces with 4 seismic records
+    private void processingTraceHeader() { //TODO CHECK if 54*4 (216) traces
+        for (int i = 0; i < mainController.getSegyTempTracesData()[2].getData().length; i++) {
+            mainController.getSegyTempTracesData()[2].getData()[i] = (mainController.getSegyTempTracesData()[3].getData()[i] +
+                    mainController.getSegyTempTracesData()[4].getData()[i]) / 2;
+
+        }
+
+        //TODO for future release in 216
+
+//        for (int i = 0; i < mainController.getSegyTempTracesData()[56].getData().length; i++) {
+//            mainController.getSegyTempTracesData()[56].getData()[i] = (mainController.getSegyTempTracesData()[57].getData()[i] +
+//                    mainController.getSegyTempTracesData()[58].getData()[i])/2;
+//        }
+//
+//        for (int i = 0; i < mainController.getSegyTempTracesData()[110].getData().length; i++) {
+//            mainController.getSegyTempTracesData()[110].getData()[i] = (mainController.getSegyTempTracesData()[111].getData()[i] +
+//                    mainController.getSegyTempTracesData()[112].getData()[i])/2;
+//        }
+//
+//        for (int i = 0; i < mainController.getSegyTempTracesData()[164].getData().length; i++) {
+//            mainController.getSegyTempTracesData()[164].getData()[i] = (mainController.getSegyTempTracesData()[165].getData()[i] +
+//                    mainController.getSegyTempTracesData()[166].getData()[i])/2;
+//
+//
+//        }
+    }
+
+    private void processingDataUpperOfPicking() {
+
+        //Applying AGC with c = arithmetic average for samples above  shifted trim law
+
+
+
+        for (int i = 0; i < mainGui.getSettings_singl().getFullTrimShifted().size();
+             i++)
+        {
+            int tempTraceNumber, tempSampleNumber;
+            tempTraceNumber = getSettings_singl().getFullTrimShifted().get(i).getDatasetValue();
+            tempSampleNumber = getSettings_singl().getFullTrimShifted().get(i).getSampleValue();
+
+            //Copying array above trimShiftedLaw
+            float[] tempTrimDataArray = new float[tempSampleNumber];
+            for (int j = 0; j < tempTrimDataArray.length; j++) {
+                tempTrimDataArray[j] = getMainController().getSegyTempTracesData()[tempTraceNumber].getData()[j];
+            }
+
+            //Calculating summary of array from 0 to trimShifted point and deviding to sample number (average value)
+            float regLevel; //regulation level
+            float sum = 0;
+            for (int j = 0; j < tempTrimDataArray.length; j++) {
+                sum = sum + tempTrimDataArray[j];
+            }
+
+            regLevel = sum/tempTrimDataArray.length;
+
+            int shift = (int) getSettings_singl().getAgcWindowSizeInTraces()/2;
+            System.out.println("Shift: " + shift);
+
+            //First stem of AGC - calculating array of summary value in window from settings of input array[window/2; size-window/2]
+            float[] tempAvarage = new float[tempTrimDataArray.length];
+            for (int j = 0; j < shift; j++) {
+                tempAvarage[j] = Math.abs(tempTrimDataArray[j]);
+            }
+
+            for (int j = tempTrimDataArray.length-shift; j < tempTrimDataArray.length; j++) {
+                tempAvarage[j] = Math.abs(tempTrimDataArray[j]);
+            }
+            for (int j = shift; j < tempTrimDataArray.length-shift; j++) { //
+                sum = Math.abs(tempTrimDataArray[j]);
+                for (int k = 1; k <= shift; k++) {
+                    sum = sum + Math.abs(tempTrimDataArray[j+k]);
+                    sum = sum + Math.abs(tempTrimDataArray[j-k]);
+                }
+
+                tempAvarage[j] = sum/getSettings_singl().getAgcWindowSizeInTraces();
+
+
+
+            }
+
+            //Calculating AGC coefficients
+            float[] tempKoef = new float[tempAvarage.length];
+
+            for (int j = 0; j < tempKoef.length; j++) {
+                tempKoef[j] = regLevel/tempAvarage[j];
+
+            }
+
+            // Rewrite seismic data
+
+            for (int j = 0; j < tempKoef.length; j++) {
+                getMainController().getSegyTempTracesData()[tempTraceNumber].getData()[j] = tempTrimDataArray[j] * tempKoef[j];
+            }
+
+
+            //Output in console for debug
+            System.out.println("********Result og AGC*********");
+            for (int j = 0; j < tempTrimDataArray.length; j++) {
+                System.out.printf(":" + j + ":");
+                System.out.print(" -1- ");
+                System.out.printf("%4f",tempTrimDataArray[j]);
+                System.out.print(" -2- " + shift);
+                System.out.print(" -3- ");
+                System.out.printf("%4f", tempAvarage[j]);
+                System.out.print(" -4- " + regLevel);
+                System.out.print(" -5- " );
+                System.out.printf("%4f", tempKoef[j]);
+                System.out.print(" -6- " );
+                System.out.printf("%4f",getMainController().getSegyTempTracesData()[tempTraceNumber].getData()[j]);
+                System.out.println();
+            }
+
+
+        }
+
+
+    }
+
 
 }
 

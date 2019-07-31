@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class MyDrawingGlassPane extends JComponent implements MouseInputListener {
+
     Point point,pointOnScreen;
     JPanel buttonJPanel;
     JPanel tempJPanel;
@@ -67,7 +68,33 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
                 }
 
             }
+//            if (mainGui.getSettings_singl().ge)
         }
+
+        if (mainGui.getSettings_singl().getFullTrimLaw().size()>1) {
+            g.setColor(Color.green);
+            g.setPaintMode();
+            for (int i = 0; i < mainGui.getSettings_singl().getFullTrimLaw().size(); i++) {
+                g.drawOval(
+                        (int)mainGui.getSettings_singl().getFullTrimLaw().get(i).getX()-3,
+                        (int)mainGui.getSettings_singl().getFullTrimLaw().get(i).getY()-3,
+                        6,
+                        6);
+            }
+         }
+
+        if (mainGui.getSettings_singl().getFullTrimShifted().size()>1) {
+            g.setColor(Color.BLUE);
+            g.setPaintMode();
+            for (int i = 0; i < mainGui.getSettings_singl().getFullTrimShifted().size(); i++) {
+                g.drawOval(
+                        (int)mainGui.getSettings_singl().getFullTrimShifted().get(i).getX()-3,
+                        (int)mainGui.getSettings_singl().getFullTrimShifted().get(i).getY()-3,
+                        6,
+                        6);
+            }
+        }
+
 
 //        if (point != null) {
 //            g.setColor(Color.red);
@@ -370,9 +397,15 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
     }
 
     private void updateUIMuteLawLabels() {
-        for (int i = 0; i < muteLaw.size(); i++) {
-//            JL_PointsLabelsString[i] = Integer.toString(muteLaw.get(i).x) + "  ::  " + Integer.toString(muteLaw.get(i).y);
-            mainController.defineJLabelText(""+muteLaw.get(i).getX() + " :: " + muteLaw.get(i).getY(),i);
+        for (int i = 0; i < mainGui.getSettings_singl().getTrimLaw().size(); i++) {
+//            mainController.defineJLabelText(""+muteLaw.get(i).getX() + " :: " + muteLaw.get(i).getY(),i);
+            mainController.defineJLabelText(
+                    mainGui.getSettings_singl().getTrimLaw().get(i).getDatasetValue()
+                            + " :: "
+                            + mainGui.getSettings_singl().getTrimLaw().get(i).getSampleValue(),
+                    i);
+
+
 
         }
 
