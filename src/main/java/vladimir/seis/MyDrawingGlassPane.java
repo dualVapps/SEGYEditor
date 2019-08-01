@@ -248,9 +248,16 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
                 if (muteLaw.size() == 0) {   //Checking if point aright from previous
                     muteLaw.add(point);
                     System.out.println("!!!! First point added");
-                } else if (muteLaw.get(muteLaw.size() - 1).x < point.x) {
-                    muteLaw.add(point);
-                    System.out.println("!!! Second+ point added");
+                }
+//                else if ((muteLaw.get(muteLaw.size() - 1).x < point.x)) {
+//                    if (mainGui.getSettings_singl().getTrimLaw().get(mainGui.getSettings_singl().getTrimLaw().size()-1).getDatasetValue()
+//                            != mainGui.getSettings_singl().getTrimLaw().get(mainGui.getSettings_singl().getTrimLaw().size()-2).getDatasetValue())
+                else if (mainGui.getSettings_singl().getTrimLaw().size()>
+                    muteLaw.size())
+                    {
+                        muteLaw.add(point);
+                        System.out.println("!!! Second+ point added");
+                    }
                 }
 
 
@@ -261,7 +268,7 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
                 debugMuteLawOutput(); //TODO Only for debug
 
 
-            }
+
 
 //        for(int i=0; i<component.length; i++)
 //        {

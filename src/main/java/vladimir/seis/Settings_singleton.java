@@ -16,6 +16,7 @@ public class Settings_singleton {
     private int sample_sizeInBytes;
     private int agcWindowSizeInTraces;
     private boolean isFromNegToPos;
+    private boolean isInPickingMode = false;
     private Range initialFileScaleRange;
 
 
@@ -25,6 +26,14 @@ public class Settings_singleton {
         if (settings_singleton == null)
             settings_singleton = new Settings_singleton();
         return settings_singleton;
+    }
+
+    public boolean isInPickingMode() {
+        return isInPickingMode;
+    }
+
+    public void setInPickingMode(boolean inPickingMode) {
+        isInPickingMode = inPickingMode;
     }
 
     public Range getInitialFileScaleRange() {
@@ -171,11 +180,13 @@ public class Settings_singleton {
             for (int i = 0; i < fullTrimLaw.size(); i++) {
                 boolean isSearchingSuccess = false;
                 int shift = 0;
+                System.out.println(isFromNegToPos);
                 while (!isSearchingSuccess) {   //100 - maximum searching shift value
 
                     if (isFromNegToPos) {
+                        System.out.println("Path 1");
                         if (segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift] < 0 &&
-                                segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] > 0)
+                                segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] >= 0)
                         //                      segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue()-shift-2]>0)
                         {
                             isSearchingSuccess = true;
@@ -183,7 +194,7 @@ public class Settings_singleton {
                                     i,
                                     new TrimLawSingleValue(
                                             fullTrimLaw.get(i).getX(),
-                                            fullTrimLaw.get(i).getY() - shift * dYperSample,
+                                            fullTrimLaw.get(i).getY() - (shift+1) * dYperSample,
                                             fullTrimLaw.get(i).getDatasetValue(),
                                             fullTrimLaw.get(i).getSampleValue() - shift - 1,
                                             -1));
@@ -195,9 +206,9 @@ public class Settings_singleton {
                     }
 
                     else {
-
+                        System.out.println("Path 2");
                         if (segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift] > 0 &&
-                                segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] < 0)
+                                segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] <= 0)
                         //                      segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue()-shift-2]>0)
                         {
                             isSearchingSuccess = true;
@@ -205,7 +216,7 @@ public class Settings_singleton {
                                     i,
                                     new TrimLawSingleValue(
                                             fullTrimLaw.get(i).getX(),
-                                            fullTrimLaw.get(i).getY() - shift * dYperSample,
+                                            fullTrimLaw.get(i).getY() - (shift + 1) * dYperSample,
                                             fullTrimLaw.get(i).getDatasetValue(),
                                             fullTrimLaw.get(i).getSampleValue() - shift - 1,
                                             -1));

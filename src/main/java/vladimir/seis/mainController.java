@@ -18,6 +18,7 @@ public class mainController {
     public SegyTempFile segyTempFile;
     public SegyTempTrace[] segyTempTraces;
     public SegyTempTraceData[] segyTempTracesData;
+    public SegyTempTraceData[] segyTempTracesDataVault;
     private JButton pickButton;
 
 
@@ -35,6 +36,12 @@ public class mainController {
         segyTempTracesData = new SegyTempTraceData[54];
         for (int i = 0; i < 54; i++) {
             this.segyTempTracesData[i] = new SegyTempTraceData();
+        }
+
+        segyTempTracesDataVault = new SegyTempTraceData[54];
+        for (int i = 0; i < 54; i++) {
+            this.segyTempTracesDataVault[i] = new SegyTempTraceData();
+            this.segyTempTracesDataVault[i].data = new float[2048];
         }
 
 
@@ -87,4 +94,31 @@ public class mainController {
         mainGui.getSettings_singl().formingShiftedFullTrimLaw(segyTempTracesData);
 
     }
+
+    public void saveSeismicTraceDataToVault() {
+        System.out.println("length ............ "+ segyTempTracesData[0].getData().length);
+        System.out.println("length ............ "+ segyTempTracesDataVault[0].getData().length);
+        System.out.println("length ............ ");
+        for (int i = 0; i < segyTempTracesData.length; i++) {
+            for (int j = 0; j < segyTempTracesData[i].getData().length; j++) {
+                segyTempTracesDataVault[i].getData()[j] = segyTempTracesData[i].getData()[j];
+            }
+        }
+
+
+    }
+
+    public void restoreSeismicTraceDataToVault() {
+        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault.length);
+        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault.toString());
+        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault[0].getData().toString());
+        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault[0].getData().length);
+        for (int i = 0; i < segyTempTracesData.length; i++) {
+            for (int j = 0; j < segyTempTracesData[i].getData().length; j++) {
+                segyTempTracesData[i].getData()[j] = segyTempTracesDataVault[i].getData()[j];
+            }
+        }
+
+    }
+
 }

@@ -35,7 +35,7 @@ public class mainGui {
     //TODO make unactive if settings Change
 
     //    private final ChartPanel chartPanel1;
-    public  JPanel mainJPanel;
+    public JPanel mainJPanel;
     private JButton shooseFileButton;
     private JPanel filesPanel;
     private JPanel tempPanel;
@@ -67,8 +67,8 @@ public class mainGui {
     static private Settings_singleton settings_singl;
     static private MyDrawingGlassPane myDrawingGlassPane;
 
-    final private float[] scaleKoef = {0.125f,0.17f,0.22f, 0.33f, 0.66f, 1f, 1.5f, 3f, 4.5f, 6f, 8f};
-    int scaleKoefNumber=5;
+    final private float[] scaleKoef = {0.125f, 0.17f, 0.22f, 0.33f, 0.66f, 1f, 1.5f, 3f, 4.5f, 6f, 8f};
+    int scaleKoefNumber = 5;
 
     static public mainController mainController;
 
@@ -103,8 +103,8 @@ public class mainGui {
         settingsJFrame.setContentPane(settings.settingsPanel);
         settingsJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         settingsJFrame.pack();
-        settingsJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth()/2,
-                mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight()/2);
+        settingsJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth() / 2,
+                mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight() / 2);
         settingsJFrame.setResizable(false);
         settingsJFrame.setVisible(true);
 
@@ -118,7 +118,6 @@ public class mainGui {
 //        System.out.println("myDrawingGlassPane.getSize().width " + myDrawingGlassPane.getSize().width);
 //        System.out.println("myDrawingGlassPane.getSize().height " + myDrawingGlassPane.getSize().height);
 //        System.out.println("myDrawingGlassPane.getLocationOnScreen().x " + myDrawingGlassPane.getLocationOnScreen().x);
-
 
 
 //        setupMainController();
@@ -145,7 +144,7 @@ public class mainGui {
     public mainGui() {
         makeButtonsUnactive();
         //        getMainJPanel().addMouseListener(this);
-        mainController.init(pickingButton,lawPoint1TL,lawPoint2TL,lawPoint3TL,lawPoint4TL,lawPoint5TL,lawPoint6TL);
+        mainController.init(pickingButton, lawPoint1TL, lawPoint2TL, lawPoint3TL, lawPoint4TL, lawPoint5TL, lawPoint6TL);
         fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         shooseFileButton.addActionListener(new ActionListener() {
@@ -255,12 +254,13 @@ public class mainGui {
                 done.thenRun(() -> onFinishedreading());
 
 
-                //TODO Something weard with throwing errors from other threads;
+                //TODO Something weard with throwing errors from other threads; Dont execute
 
 //                System.out.println("11111111111111111111111");
                 reDrawChartsWithRenevalData();
 //                System.out.println("22222222222222222222222222");
                 makeButtonsActive();
+
 
 
             }
@@ -438,7 +438,7 @@ public class mainGui {
 //                    System.out.println("************ Trace# "+ 1 +" ****** Sample# "+(j+1) +"  : " + mainController.segyTempTracesData[0].data[j]);
 //                }
 
-
+                mainController.restoreSeismicTraceDataToVault();
             }
         });
 //        pickingButton.addActionListener(new ActionListener() {
@@ -460,12 +460,14 @@ public class mainGui {
                     pickingButton.setBorder(BorderFactory.createLoweredBevelBorder());
                     myDrawingGlassPane.setVisible(true);
                     isPickingMode = true;
+                    getSettings_singl().setInPickingMode(true);
                     makeButtonsUnactiveExcPicking();
                 } else {
 //                    pickingButton.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
                     pickingButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                     myDrawingGlassPane.setVisible(false);
                     isPickingMode = false;
+                    getSettings_singl().setInPickingMode(false);
                     makeButtonsActiveExcPicking();
                 }
             }
@@ -482,8 +484,8 @@ public class mainGui {
                 settingsJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 settingsJFrame.pack();
                 settingsJFrame.setResizable(false);
-                settingsJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth()/2,
-                        mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight()/2);
+                settingsJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth() / 2,
+                        mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight() / 2);
                 settingsJFrame.setVisible(true);
 
 
@@ -496,11 +498,11 @@ public class mainGui {
 //                double temp = chartExecutor.getScaleFactor();
                 if (scaleKoefNumber > 0) {
                     scaleKoefNumber--;
-                chartExecutor.setScaleFactor(scaleKoef[scaleKoefNumber]);
-                chartExecutor.setSameScale();
-                System.out.println("Scale" + chartExecutor.getScaleFactor());
-                tempPanel.revalidate();
-                tempPanel.repaint();
+                    chartExecutor.setScaleFactor(scaleKoef[scaleKoefNumber]);
+                    chartExecutor.setSameScale();
+                    System.out.println("Scale" + chartExecutor.getScaleFactor());
+                    tempPanel.revalidate();
+                    tempPanel.repaint();
                 }
 
             }
@@ -510,7 +512,7 @@ public class mainGui {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                double temp = chartExecutor.getScaleFactor();
-                if (scaleKoefNumber <10 ) {
+                if (scaleKoefNumber < 10) {
                     scaleKoefNumber++;
                     chartExecutor.setScaleFactor(scaleKoef[scaleKoefNumber]);
                     chartExecutor.setSameScale();
@@ -640,16 +642,25 @@ public class mainGui {
         chartExecutor.setInitialSameScale(); //Set initial scale separate for each file
         chartExecutor.setSameScale();   // TODO Write javadoc
 //        done.thenRunAsync(() -> onFinishedreading()
+        System.out.println("mainController.saveSeismicTraceDataToVault()");
+        mainController.saveSeismicTraceDataToVault();
+        System.out.println("mainController.saveSeismicTraceDataToVault()");
     }
 
     void setJLabelsLaw(String s1, String s2, String s3, String s4, String s5, String s6) {
 
-        if (s1!=null) lawPoint1TL.setText(s1); else  lawPoint1TL.setText("");
-        if (s2!=null) lawPoint2TL.setText(s1); else  lawPoint2TL.setText("");
-        if (s3!=null) lawPoint3TL.setText(s1); else  lawPoint3TL.setText("");
-        if (s4!=null) lawPoint4TL.setText(s1); else  lawPoint4TL.setText("");
-        if (s5!=null) lawPoint5TL.setText(s1); else  lawPoint5TL.setText("");
-        if (s6!=null) lawPoint6TL.setText(s1); else  lawPoint6TL.setText("");
+        if (s1 != null) lawPoint1TL.setText(s1);
+        else lawPoint1TL.setText("");
+        if (s2 != null) lawPoint2TL.setText(s1);
+        else lawPoint2TL.setText("");
+        if (s3 != null) lawPoint3TL.setText(s1);
+        else lawPoint3TL.setText("");
+        if (s4 != null) lawPoint4TL.setText(s1);
+        else lawPoint4TL.setText("");
+        if (s5 != null) lawPoint5TL.setText(s1);
+        else lawPoint5TL.setText("");
+        if (s6 != null) lawPoint6TL.setText(s1);
+        else lawPoint6TL.setText("");
         filesPanel.revalidate();
         filesPanel.repaint();
 
@@ -716,8 +727,8 @@ public class mainGui {
         pickingGUIJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         pickingGUIJFrame.pack();
         pickingGUIJFrame.setResizable(false);
-        pickingGUIJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth()/2,
-                mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight()/2);
+        pickingGUIJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth() / 2,
+                mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight() / 2);
         pickingGUIJFrame.setVisible(true);
 
 
@@ -726,7 +737,8 @@ public class mainGui {
     private void resetValuesWhenNewFileChoosen() {
         System.out.println("resetValuesWhenNewFileChoosen executed");
         for (int i = 0; i < 6; i++) {           //numbers of labels
-            mainController.defineJLabelText(null, i);}
+            mainController.defineJLabelText(null, i);
+        }
         settings_singl.zerodTrimLaw();
 
         myDrawingGlassPane.zeroedMuteLaw();
@@ -798,15 +810,13 @@ public class mainGui {
 //        }
     }
 
-    private void processingDataUpperOfPicking() {
+    private void processingDataUpperOfPicking() { //TODO need applying something better than average (or some transformation)
 
         //Applying AGC with c = arithmetic average for samples above  shifted trim law
 
 
-
         for (int i = 0; i < mainGui.getSettings_singl().getFullTrimShifted().size();
-             i++)
-        {
+             i++) {
             int tempTraceNumber, tempSampleNumber;
             tempTraceNumber = getSettings_singl().getFullTrimShifted().get(i).getDatasetValue();
             tempSampleNumber = getSettings_singl().getFullTrimShifted().get(i).getSampleValue();
@@ -824,9 +834,17 @@ public class mainGui {
                 sum = sum + tempTrimDataArray[j];
             }
 
-            regLevel = sum/tempTrimDataArray.length;
+            regLevel = sum / tempTrimDataArray.length;
 
-            int shift = (int) getSettings_singl().getAgcWindowSizeInTraces()/2;
+//            System.out.printf(":" + i + ":");
+//            System.out.print(" -1- ");
+//            System.out.printf("%4f", sum);
+//            System.out.print(" -2- " + tempTrimDataArray.length);
+//            System.out.print(" -3- " + regLevel);
+//
+//            System.out.println();
+
+            int shift = (int) getSettings_singl().getAgcWindowSizeInTraces() / 2;
             System.out.println("Shift: " + shift);
 
             //First stem of AGC - calculating array of summary value in window from settings of input array[window/2; size-window/2]
@@ -835,18 +853,17 @@ public class mainGui {
                 tempAvarage[j] = Math.abs(tempTrimDataArray[j]);
             }
 
-            for (int j = tempTrimDataArray.length-shift; j < tempTrimDataArray.length; j++) {
+            for (int j = tempTrimDataArray.length - shift; j < tempTrimDataArray.length; j++) {
                 tempAvarage[j] = Math.abs(tempTrimDataArray[j]);
             }
-            for (int j = shift; j < tempTrimDataArray.length-shift; j++) { //
+            for (int j = shift; j < tempTrimDataArray.length - shift; j++) { //
                 sum = Math.abs(tempTrimDataArray[j]);
                 for (int k = 1; k <= shift; k++) {
-                    sum = sum + Math.abs(tempTrimDataArray[j+k]);
-                    sum = sum + Math.abs(tempTrimDataArray[j-k]);
+                    sum = sum + Math.abs(tempTrimDataArray[j + k]);
+                    sum = sum + Math.abs(tempTrimDataArray[j - k]);
                 }
 
-                tempAvarage[j] = sum/getSettings_singl().getAgcWindowSizeInTraces();
-
+                tempAvarage[j] = sum / getSettings_singl().getAgcWindowSizeInTraces();
 
 
             }
@@ -855,7 +872,7 @@ public class mainGui {
             float[] tempKoef = new float[tempAvarage.length];
 
             for (int j = 0; j < tempKoef.length; j++) {
-                tempKoef[j] = regLevel/tempAvarage[j];
+                tempKoef[j] = regLevel / tempAvarage[j];
 
             }
 
@@ -867,27 +884,28 @@ public class mainGui {
 
 
             //Output in console for debug
-            System.out.println("********Result og AGC*********");
-            for (int j = 0; j < tempTrimDataArray.length; j++) {
-                System.out.printf(":" + j + ":");
-                System.out.print(" -1- ");
-                System.out.printf("%4f",tempTrimDataArray[j]);
-                System.out.print(" -2- " + shift);
-                System.out.print(" -3- ");
-                System.out.printf("%4f", tempAvarage[j]);
-                System.out.print(" -4- " + regLevel);
-                System.out.print(" -5- " );
-                System.out.printf("%4f", tempKoef[j]);
-                System.out.print(" -6- " );
-                System.out.printf("%4f",getMainController().getSegyTempTracesData()[tempTraceNumber].getData()[j]);
-                System.out.println();
-            }
+//            System.out.println("********Result og AGC*********");
+//            for (int j = 0; j < tempTrimDataArray.length; j++) {
+//                System.out.printf(":" + j + ":");
+//                System.out.print(" -1- ");
+//                System.out.printf("%4f", tempTrimDataArray[j]);
+//                System.out.print(" -2- " + shift);
+//                System.out.print(" -3- ");
+//                System.out.printf("%4f", tempAvarage[j]);
+//                System.out.print(" -4- " + regLevel);
+//                System.out.print(" -5- ");
+//                System.out.printf("%4f", tempKoef[j]);
+//                System.out.print(" -6- ");
+//                System.out.printf("%4f", getMainController().getSegyTempTracesData()[tempTraceNumber].getData()[j]);
+//                System.out.println();
+//            }
 
 
         }
 
 
     }
+
 
 
 }
