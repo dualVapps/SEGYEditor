@@ -29,7 +29,7 @@ case class TextHeaderPhase(cfg: SegyConfig) extends SegyPhase {
 //  mainGui.getMainController
   override def extract(bs: ByteString): (TextHeader, SegyPhase) = {
     val s = bs.decodeString(cfg.charset)
-    System.out.println("--------------"+s.length());
+//    System.out.println("--------------"+s.length());
     mainGui.getMainController().getSegyTempFile.setFileTextHeader(s); //fill file text header
     TextHeader(s) -> BinHeaderPhase(cfg)
   }
@@ -159,8 +159,8 @@ case class ExtTextHeaderPhase(cfg: SegyConfig, extHeadersLeft: Int, binHeader: B
 case class TraceHeaderPhase(cfg: SegyConfig, binHeader: BinHeader) extends SegyPhase {
   val length = 240
   override def matPromise: PromiseStrategy = COMPLETE
-  System.out.println("___***_-----___---- binHeader.fixedLengthTraceFlag  " + binHeader.fixedLengthTraceFlag)
-  System.out.println("___***_-----___---- binHeader.samplesPerDataTrace  " + binHeader.samplesPerDataTrace)
+//  System.out.println("___***_-----___---- binHeader.fixedLengthTraceFlag  " + binHeader.fixedLengthTraceFlag)
+//  System.out.println("___***_-----___---- binHeader.samplesPerDataTrace  " + binHeader.samplesPerDataTrace)
 //  System.out.println("___***_-----___---- binHeader.fixedLengthTraceFlag  " + binHeader.fixedLengthTraceFlag)
 //  System.out.println("___***_-----___---- binHeader.fixedLengthTraceFlag  " + binHeader.fixedLengthTraceFlag)
   def nextPhase(th: TraceHeader): SegyPhase = {
@@ -311,9 +311,9 @@ case class TraceHeaderPhase(cfg: SegyConfig, binHeader: BinHeader) extends SegyP
     )
 //    mainGui.mainController.formingTraceData(segy.samplesNumber)
 
-    System.out.println(mainGui.mainController.getSegyTempTraces(segy.traceNumberWithinOrigFieldRecord - 1).toString);
+//    System.out.println(mainGui.mainController.getSegyTempTraces(segy.traceNumberWithinOrigFieldRecord - 1).toString);
 
-    System.out.println("111111111111--- segy.traceNumberWithinOrigFieldRecord - 1 :" + (segy.traceNumberWithinOrigFieldRecord - 1));
+//    System.out.println("111111111111--- segy.traceNumberWithinOrigFieldRecord - 1 :" + (segy.traceNumberWithinOrigFieldRecord - 1));
 
 //    mainGui.mainController.getSegyTempTraces(segy.traceNumberWithinOrigFieldRecord - 1).setTraceBinHeader(
     mainGui.mainController.getSegyTempTraces(segy.traceSequenceNumberWithinSegyFile - 1).setTraceBinHeader(
@@ -459,16 +459,16 @@ case class TraceDataPhase(cfg: SegyConfig, binHeader: BinHeader, th: TraceHeader
 
 //    mainGui.mainController.segyTempTracesData(th.traceNumberWithinOrigFieldRecord-1).data=segy.floatData;
     mainGui.mainController.segyTempTracesData(th.traceSequenceNumberWithinSegyFile -1).data=segy.floatData;
-    System.out.println("-segy.floatData----------------------- data length" + segy.floatData.length)
-    System.out.println("-segy.floatData----------------------- data " + segy.floatData.toString)
-    System.out.println("-segy.floatData----------------------- data " + segy.floatData.toString)
-    System.out.println("-a----------------------- data " + a(0).toString)
-    System.out.println("-a----------------------- data " + a(1).toString)
+//    System.out.println("-segy.floatData----------------------- data length" + segy.floatData.length)
+//    System.out.println("-segy.floatData----------------------- data " + segy.floatData.toString)
+//    System.out.println("-segy.floatData----------------------- data " + segy.floatData.toString)
+//    System.out.println("-a----------------------- data " + a(0).toString)
+//    System.out.println("-a----------------------- data " + a(1).toString)
 
     segy -> nextPhase(segy)
   }
 
-  System.out.println("------------------------- data length" + mainGui.mainController.segyTempTracesData.length)
+//  System.out.println("------------------------- data length" + mainGui.mainController.segyTempTracesData.length)
 
 }
 

@@ -170,16 +170,16 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
 
             if (eventEntity != null) {
 
-                System.out.println("11" + event.getTrigger().toString());
-                System.out.println("12" + event.getTrigger().getY());
-                System.out.println("12" + event.getTrigger().getY());
-                System.out.println("13" + event.getEntity().toString());
+//                System.out.println("11" + event.getTrigger().toString());
+//                System.out.println("12" + event.getTrigger().getY());
+//                System.out.println("12" + event.getTrigger().getY());
+//                System.out.println("13" + event.getEntity().toString());
             }
 
             if (eventEntity != null) {
 
                 if (eventEntity instanceof PlotEntity) {
-                    System.out.println("instanceof PlotEntity");
+//                    System.out.println("instanceof PlotEntity");
 
 //        PlotEntity plE = (PlotEntity) event.getEntity();
 //        System.out.println("3" + plE.getPlot().getInsets().toString());
@@ -209,13 +209,6 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
                             (double) caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()));
 
 
-                    System.out.println();
-                    System.out.print("getDatasetValue   " + trimLawSingleValue.getDatasetValue());
-                    System.out.print("getSampleValue   " + trimLawSingleValue.getSampleValue());
-                    System.out.print("getDataValue   " + trimLawSingleValue.getDataValue());
-                    System.out.print("getX   " + trimLawSingleValue.getX());
-                    System.out.print("getY   " + trimLawSingleValue.getY());
-                    System.out.println();
 
                     if (mainGui.getSettings_singl().getTrimLaw().size() == 0) {
                         mainGui.getSettings_singl().addValueToTrimLaw(trimLawSingleValue);
@@ -223,12 +216,12 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
                             trimLawSingleValue.getDatasetValue()) &&
                             (mainGui.getSettings_singl().getTrimLaw().get(mainGui.getSettings_singl().getTrimLaw().size() - 1).getX() <
                                     trimLawSingleValue.getX())) {
-                        System.out.println("" + mainGui.getSettings_singl().toString());
+//                        System.out.println("" + mainGui.getSettings_singl().toString());
                         mainGui.getSettings_singl().addValueToTrimLaw(trimLawSingleValue); //TODO something not wrong here
-                        System.out.println("Annotation begin");
+//                        System.out.println("Annotation begin");
 //            CategoryPointerAnnotation cpa = new CategoryPointerAnnotation("First", caE.getColumnKey(),event.getTrigger().getY(),0.9);
 
-//                System.out.println("Annotation and");
+//                ystem.out.println("Annotation and");
                     }
 
 //            CategoryLineAnnotation  xYLineAnnotation = new CategoryLineAnnotation(oldxPoint, oldyPoint, newxPoint, newyPoint, new BasicStroke(1.0f), Color.blue);

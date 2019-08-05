@@ -68,7 +68,7 @@ public class PrintDebugInfo {
         // Run the stream
         CompletionStage<Done> done = segySource
                 .map(segy -> {
-                    System.out.println(segy.info()); // Print debug info
+//                    System.out.println(segy.info()); // Print debug info
                     return segy;
                 })
                 .toMat(Sink.ignore(), Keep.right()) // wait for the Sink to complete

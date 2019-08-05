@@ -23,9 +23,13 @@ public class Settings {
     private JPanel preference4;
     private JTextField AGCWindowTracesTF;
     private JLabel preference4Txt;
+    private JPanel preference5;
+    private JLabel preference5Txt;
+    private JTextField korCoefToAverageTF;
     private int numberOfSamplesInt;
     private int sizesInBytesInt;
     private int AGCWindowTraces;
+    private float korCoefToAverage;
 
 
 
@@ -37,8 +41,9 @@ public class Settings {
 
             numberOfSamplesTF.setText("2048");
             sizesInBytesTF.setText("8196");
-            isFromNegToPosCB.setSelected(true);
-            AGCWindowTracesTF.setText("7");
+            isFromNegToPosCB.setSelected(false);
+            AGCWindowTracesTF.setText("17");
+            korCoefToAverageTF.setText("2");
         }
 
         else {
@@ -46,17 +51,18 @@ public class Settings {
             sizesInBytesTF.setText(Integer.toString(mainGui.getSettings_singl().getSample_sizeInBytes()));
             isFromNegToPosCB.setSelected(mainGui.getSettings_singl().isFromNegToPos());
             AGCWindowTracesTF.setText(Integer.toString(mainGui.getSettings_singl().getAgcWindowSizeInTraces()));
+            korCoefToAverageTF.setText(Float.toString(mainGui.getSettings_singl().getKorCoefToAverage()));
         }
 
-        System.out.println(numberOfSamplesInt);
+//        System.out.println(numberOfSamplesInt);
 
 
         confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                System.out.println(""+numberOfSamplesTF.getText().equals(""));
-                System.out.println(""+sizesInBytesTF.getText().equals(""));
+//                System.out.println(""+numberOfSamplesTF.getText().equals(""));
+//                System.out.println(""+sizesInBytesTF.getText().equals(""));
 
                 if (numberOfSamplesTF.getText().equals("")||sizesInBytesTF.getText().equals("")) {
                     JOptionPane.showMessageDialog(settingsPanel,
@@ -73,11 +79,24 @@ public class Settings {
                             JOptionPane.WARNING_MESSAGE);
                 }
 
-                else {
+                else if (korCoefToAverageTF.getText().equals("")||
+                        Float.parseFloat(korCoefToAverageTF.getText())<0.5||
+                        Float.parseFloat(korCoefToAverageTF.getText())>3){
+                    JOptionPane.showMessageDialog(settingsPanel,
+                            "Неправильные данные коефициента",
+                            "Внимание",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+
+
+                else
+                    {
 
                     numberOfSamplesInt = Integer.parseInt(numberOfSamplesTF.getText());
                     sizesInBytesInt = Integer.parseInt(sizesInBytesTF.getText());
                     AGCWindowTraces = Integer.parseInt(AGCWindowTracesTF.getText());
+                    korCoefToAverage = Float.parseFloat(korCoefToAverageTF.getText());
+
 
 
 
@@ -85,6 +104,7 @@ public class Settings {
                     mainGui.getSettings_singl().setSample_sizeInBytes(sizesInBytesInt);
                     mainGui.getSettings_singl().setFromNegToPos(isFromNegToPosCB.isSelected());
                     mainGui.getSettings_singl().setAgcWindowSizeInTraces(AGCWindowTraces);
+                    mainGui.getSettings_singl().setKorCoefToAverage(korCoefToAverage);
 
 
 //                    if (numberOfSamplesInt!=0&sizesInBytesInt!=0) {
@@ -96,8 +116,8 @@ public class Settings {
 //                        mainGui.getSettings_singl().setSample_sizeInBytes(8169);
 //
 //                    }
-                    System.out.println("" + mainGui.getSettings_singl().getNumber_of_samples());
-                    System.out.println("" + mainGui.getSettings_singl().getSample_sizeInBytes());
+//                    System.out.println("" + mainGui.getSettings_singl().getNumber_of_samples());
+//                    System.out.println("" + mainGui.getSettings_singl().getSample_sizeInBytes());
  //                   settingsPanel.dispatchEvent(new WindowEvent(Settings.class, WindowEvent.WINDOW_CLOSING));
                     JComponent comp = (JComponent) e.getSource();
                     Window win = SwingUtilities.getWindowAncestor(comp);

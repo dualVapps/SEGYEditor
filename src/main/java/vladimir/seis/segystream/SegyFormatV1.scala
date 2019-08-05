@@ -313,15 +313,15 @@ case class TraceDataChunk(
 //  println(run(e2).mkString(" ")) // fred null
 
   floatData = floatIterator.toArray
-  System.out.println("floatData.length" + floatData.length)
-  System.out.println("data.0  " + floatData(0).toString);
-  System.out.println("data.1  " + floatData(1).toString);
-  System.out.println("data.2  " + floatData(2).toString);
-  System.out.println("data.3  " + floatData(3).toString);
-  System.out.println("data.4  " + floatData(4).toString);
-  System.out.println("data.5  " + floatData(5).toString);
-  System.out.println("data.6  " + floatData(6).toString);
-  System.out.println("data.7  " + floatData(7).toString);
+//  System.out.println("floatData.length" + floatData.length)
+//  System.out.println("data.0  " + floatData(0).toString);
+//  System.out.println("data.1  " + floatData(1).toString);
+//  System.out.println("data.2  " + floatData(2).toString);
+//  System.out.println("data.3  " + floatData(3).toString);
+//  System.out.println("data.4  " + floatData(4).toString);
+//  System.out.println("data.5  " + floatData(5).toString);
+//  System.out.println("data.6  " + floatData(6).toString);
+//  System.out.println("data.7  " + floatData(7).toString);
 
 //  if (pos == 0) {def sumFloatData: Array[Float];
 

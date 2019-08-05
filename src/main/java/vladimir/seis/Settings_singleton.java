@@ -15,9 +15,11 @@ public class Settings_singleton {
     private int number_of_samples = -1;
     private int sample_sizeInBytes;
     private int agcWindowSizeInTraces;
+    private float korCoefToAverage;
     private boolean isFromNegToPos;
     private boolean isInPickingMode = false;
     private Range initialFileScaleRange;
+    private Range currentFileScaleRange;
 
 
     private Settings_singleton settings_singleton = null;
@@ -26,6 +28,22 @@ public class Settings_singleton {
         if (settings_singleton == null)
             settings_singleton = new Settings_singleton();
         return settings_singleton;
+    }
+
+    public float getKorCoefToAverage() {
+        return korCoefToAverage;
+    }
+
+    public void setKorCoefToAverage(float korCoefToAverage) {
+        this.korCoefToAverage = korCoefToAverage;
+    }
+
+    public Range getCurrentFileScaleRange() {
+        return currentFileScaleRange;
+    }
+
+    public void setCurrentFileScaleRange(Range currentFileScaleRange) {
+        this.currentFileScaleRange = currentFileScaleRange;
     }
 
     public boolean isInPickingMode() {
@@ -61,9 +79,14 @@ public class Settings_singleton {
     }
 
 
-    public void zerodTrimLaw() {
+    public void zeroedTrimLaw() {
         trimLaw.clear();
     }
+
+    public void zeroedFullTrimLaw() {fullTrimLaw.clear(); }
+
+    public void zeroedFullTrimLawShofted() {fullTrimShifted.clear(); }
+
 
     public void addValueToTrimLaw(TrimLawSingleValue trimLawSingleValue) {
         trimLaw.add(trimLawSingleValue);
@@ -152,22 +175,22 @@ public class Settings_singleton {
             fullTrimLaw.clear();
             fullTrimLaw.addAll(tempFullTrimLaw);
 
-            System.out.println("*******************Short Mute Low (<=6)***************************");
+//            System.out.println("*******************Short Mute Low (<=6)***************************");
             for (int i = 0; i < trimLaw.size(); i++) {
-                System.out.println("" + trimLaw.get(i).getDatasetValue()
-                        + " :: " + trimLaw.get(i).getSampleValue()
-                        + " :: " + trimLaw.get(i).getDataValue()
-                        + " :: " + trimLaw.get(i).getX()
-                        + " :: " + trimLaw.get(i).getY());
+//                System.out.println("" + trimLaw.get(i).getDatasetValue()
+//                        + " :: " + trimLaw.get(i).getSampleValue()
+//                        + " :: " + trimLaw.get(i).getDataValue()
+//                        + " :: " + trimLaw.get(i).getX()
+//                        + " :: " + trimLaw.get(i).getY());
             }
 
-            System.out.println("*******************Full Mute Low (<=48)***************************");
+//            System.out.println("*******************Full Mute Low (<=48)***************************");
             for (int i = 0; i < fullTrimLaw.size(); i++) {
-                System.out.println("" + fullTrimLaw.get(i).getDatasetValue()
-                        + " :: " + fullTrimLaw.get(i).getSampleValue()
-                        + " :: " + fullTrimLaw.get(i).getDataValue()
-                        + " :: " + fullTrimLaw.get(i).getX()
-                        + " :: " + fullTrimLaw.get(i).getY());
+//                System.out.println("" + fullTrimLaw.get(i).getDatasetValue()
+//                        + " :: " + fullTrimLaw.get(i).getSampleValue()
+//                        + " :: " + fullTrimLaw.get(i).getDataValue()
+//                        + " :: " + fullTrimLaw.get(i).getX()
+//                        + " :: " + fullTrimLaw.get(i).getY());
             }
 
         }
@@ -180,11 +203,11 @@ public class Settings_singleton {
             for (int i = 0; i < fullTrimLaw.size(); i++) {
                 boolean isSearchingSuccess = false;
                 int shift = 0;
-                System.out.println(isFromNegToPos);
+//                System.out.println(isFromNegToPos);
                 while (!isSearchingSuccess) {   //100 - maximum searching shift value
 
                     if (isFromNegToPos) {
-                        System.out.println("Path 1");
+//                        System.out.println("Path 1");
                         if (segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift] < 0 &&
                                 segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] >= 0)
                         //                      segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue()-shift-2]>0)
@@ -206,7 +229,7 @@ public class Settings_singleton {
                     }
 
                     else {
-                        System.out.println("Path 2");
+//                        System.out.println("Path 2");
                         if (segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift] > 0 &&
                                 segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] <= 0)
                         //                      segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue()-shift-2]>0)
@@ -233,14 +256,14 @@ public class Settings_singleton {
             fullTrimShifted.clear();
             fullTrimShifted.addAll(tempShiftedFullTrimLaw);
 
-            System.out.println("*******************Shifted Full Mute Low (<=48)***************************");
+//            System.out.println("*******************Shifted Full Mute Low (<=48)***************************");
             for (int i = 0; i < fullTrimShifted.size(); i++) {
-                System.out.println("" + fullTrimShifted.get(i).getDatasetValue()
-                        + " :: " + fullTrimShifted.get(i).getSampleValue()
-                        + " :: " + fullTrimShifted.get(i).getDataValue()
-                        + " :: " + fullTrimShifted.get(i).getX()
-                        + " :: " + fullTrimShifted.get(i).getY()
-                        + " :: " + (fullTrimLaw.get(i).getSampleValue() - fullTrimShifted.get(i).getSampleValue()));
+//                System.out.println("" + fullTrimShifted.get(i).getDatasetValue()
+//                        + " :: " + fullTrimShifted.get(i).getSampleValue()
+//                        + " :: " + fullTrimShifted.get(i).getDataValue()
+//                        + " :: " + fullTrimShifted.get(i).getX()
+//                        + " :: " + fullTrimShifted.get(i).getY()
+//                        + " :: " + (fullTrimLaw.get(i).getSampleValue() - fullTrimShifted.get(i).getSampleValue()));
             }
 
 

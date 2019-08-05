@@ -28,8 +28,6 @@ public class MyCategoryPlot extends CategoryPlot implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("X   :" +e.getX());
-        System.out.println("Y   :" +e.getY());
 
 
     }

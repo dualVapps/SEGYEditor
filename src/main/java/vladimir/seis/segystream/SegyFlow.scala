@@ -35,7 +35,7 @@ class SegyFlow(cfg: SegyConfig)
   val in: Inlet[ByteString] = Inlet("SegyIn")
   val out: Outlet[SegyPart] = Outlet("SegyOut")
   override val shape: FlowShape[ByteString, SegyPart] = FlowShape(in, out)
-  System.out.println("SegyConfig configuration"+ cfg.charset + " " + cfg.dataChunkSize)
+//  System.out.println("SegyConfig configuration"+ cfg.charset + " " + cfg.dataChunkSize)
 
   override def createLogicAndMaterializedValue(attrs: Attributes): (GraphStageLogic, Future[SegyHeaders]) = {
     val promise = Promise[SegyHeaders]()

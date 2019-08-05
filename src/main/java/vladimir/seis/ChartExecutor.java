@@ -43,8 +43,8 @@ public class ChartExecutor {
 
     //    private ChartPanelRewrite[] chartPanel;
     /* Инициализация основных обьектов
-    *   Определение класса типа синглетон с двойной проверкой для хранения настроек
-    *  */
+     *   Определение класса типа синглетон с двойной проверкой для хранения настроек
+     *  */
     private ChartPanelRewrite[] chartPanel;
     private DefaultCategoryDatasetRewrite[] categoryDatasets;
     private CategoryPlotRewrite[] categoryPlots;
@@ -72,9 +72,9 @@ public class ChartExecutor {
 
 
         /* Конструктор класса выполнения графопостроений
-        * Реврайт классы - переписанные со стандартных
-        * с дополнительным функционалом
-        *  */
+         * Реврайт классы - переписанные со стандартных
+         * с дополнительным функционалом
+         *  */
 //        super(title);
 //        chartPanel = new ChartPanel[54];
 //        categoryDatasets = new DefaultCategoryDataset[54];
@@ -89,7 +89,6 @@ public class ChartExecutor {
         categoryPlots = new CategoryPlotRewrite[54];
 
 
-
 //            dataset = createDataset(j); TODO replace
         chartAdd = createAddChart(null);
         chartData = createDateChart(null);
@@ -99,7 +98,7 @@ public class ChartExecutor {
 //            chartPanel[1] = new ChartPanelRewrite(chartData);
 
         chartPanel[0] = new ChartPanelRewrite(chartAdd, settings_singleton);
-        chartPanel[1] = new ChartPanelRewrite(chartData, 12.288,settings_singleton);
+        chartPanel[1] = new ChartPanelRewrite(chartData, 12.288, settings_singleton);
         chartPanel[1].setChartExecutor(this);
 
 
@@ -116,7 +115,6 @@ public class ChartExecutor {
     public void setCurrentMuteLaw(ArrayList<Point> currentMuteLaw) {
         this.currentMuteLaw = currentMuteLaw;
     }
-
 
 
     private CategoryDataset createDataset(int index) { //Не исспользуется????
@@ -234,7 +232,7 @@ public class ChartExecutor {
             NumberAxis rangeAxis1 = new NumberAxis();
             rangeAxis1.setVisible(false); //disable range axis labels
 
-            categoryPlots[i] = new CategoryPlotRewrite(datasetTemp, null, rangeAxis1, subplotRenderer,i);
+            categoryPlots[i] = new CategoryPlotRewrite(datasetTemp, null, rangeAxis1, subplotRenderer, i);
             plot.add(categoryPlots[i]);
 
         }
@@ -263,9 +261,9 @@ public class ChartExecutor {
         }
 
 
-       if (!chartPanel[1].isHasSubcharts()){
-           chartPanel[1].setHasSubcharts(true);
-       }
+        if (!chartPanel[1].isHasSubcharts()) {
+            chartPanel[1].setHasSubcharts(true);
+        }
 
 //        for (int i = 0; i < 48; i++) {
 //            System.out.println(":: Dataset number -  " + ((DefaultCategoryDatasetRewrite)((CategoryPlot)((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot())
@@ -281,14 +279,10 @@ public class ChartExecutor {
     public void setSameScale() {
 
 
-
-
         for (int i = 0; i < 48; i++) {
             ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(i)).getRangeAxis()
-                    .setRange(mainGui.getSettings_singl().getInitialFileScaleRange().getLowerBound()*1*scaleFactor,
-                            mainGui.getSettings_singl().getInitialFileScaleRange().getLowerBound()*-1 * scaleFactor); //Maybe change to upper bound value
-
-
+                    .setRange(mainGui.getSettings_singl().getInitialFileScaleRange().getLowerBound() * 1 * scaleFactor,
+                            mainGui.getSettings_singl().getInitialFileScaleRange().getLowerBound() * -1 * scaleFactor); //Maybe change to upper bound value
 
 
             //            ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(i)).setRangeAxis(
@@ -312,23 +306,34 @@ public class ChartExecutor {
 //        System.out.println("Affords to drew Something");
 //    }
 
-    public void setInitialSameScale(){
+    public void setInitialSameScale() {
 
-        ValueAxis tempValueAxis0 =  ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(12)).getRangeAxis();
-        ValueAxis tempValueAxis1 =  ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(36)).getRangeAxis();
-        Range tempRange0 =  tempValueAxis0.getRange();
-        Range tempRange1 =  tempValueAxis1.getRange();
+        ValueAxis tempValueAxis0 = ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(12)).getRangeAxis();
+        ValueAxis tempValueAxis1 = ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(36)).getRangeAxis();
+        Range tempRange0 = tempValueAxis0.getRange();
+        Range tempRange1 = tempValueAxis1.getRange();
+
+
         mainGui.getSettings_singl().setInitialFileScaleRange(
-                new Range((tempRange0.getLowerBound() + tempRange1.getLowerBound())/2,
-                        (tempRange0.getUpperBound()+tempRange1.getUpperBound())/2));
-        System.out.println(" 0000000000000000 --"+mainGui.getSettings_singl().getInitialFileScaleRange().toString());
-
+                new Range((tempRange0.getLowerBound() + tempRange1.getLowerBound()) / 2,
+                        (tempRange0.getUpperBound() + tempRange1.getUpperBound()) / 2));
+        mainGui.getSettings_singl().setCurrentFileScaleRange(
+                new Range((tempRange0.getLowerBound() + tempRange1.getLowerBound()) / 2,
+                        (tempRange0.getUpperBound() + tempRange1.getUpperBound()) / 2));
+//        System.out.println(" 0000000000000000 --" + mainGui.getSettings_singl().getInitialFileScaleRange().toString());
 
 
     }
 
     public void setSettings_singleton(Settings_singleton settings_singleton) {
         this.settings_singleton = settings_singleton;
+    }
+
+    public void resetPlotsRange() {
+        for (int i = 0; i < 48; i++) {
+            ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(i)).getRangeAxis()
+                    .setRange(mainGui.getSettings_singl().getInitialFileScaleRange());
+        }
     }
 }
 

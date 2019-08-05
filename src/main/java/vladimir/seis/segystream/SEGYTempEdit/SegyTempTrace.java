@@ -804,18 +804,18 @@ public class SegyTempTrace {
     }
 
     public void printHeader() {
-        System.out.println("-------------------------Trace" + traceNumberWithinOrigFieldRecord.toString() + " Bin");
-        System.out.println(traceSequenceNumberWithinLine.toString());
-        System.out.println(traceSequenceNumberWithinSegyFile.toString());
-        System.out.println(origFieldRecordNumber.toString());
-        System.out.println(traceNumberWithinOrigFieldRecord.toString());
-        System.out.println(energySourcePointNumber.toString());
-        System.out.println(ensembleNumber.toString());
-        System.out.println(traceNumberWithinEnsemble.toString());
-        System.out.println(traceIdCode.toString());
-        System.out.println(vertSummedTracesYieldingThisTrace.toString());
-        System.out.println(horizStackedTracesYieldingThisTrace.toString());
-        System.out.println(dataUse.toString());
+//        System.out.println("-------------------------Trace" + traceNumberWithinOrigFieldRecord.toString() + " Bin");
+//        System.out.println(traceSequenceNumberWithinLine.toString());
+//        System.out.println(traceSequenceNumberWithinSegyFile.toString());
+//        System.out.println(origFieldRecordNumber.toString());
+//        System.out.println(traceNumberWithinOrigFieldRecord.toString());
+//        System.out.println(energySourcePointNumber.toString());
+//        System.out.println(ensembleNumber.toString());
+//        System.out.println(traceNumberWithinEnsemble.toString());
+//        System.out.println(traceIdCode.toString());
+//        System.out.println(vertSummedTracesYieldingThisTrace.toString());
+//        System.out.println(horizStackedTracesYieldingThisTrace.toString());
+//        System.out.println(dataUse.toString());
 
 
 

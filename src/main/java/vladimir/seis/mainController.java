@@ -96,9 +96,9 @@ public class mainController {
     }
 
     public void saveSeismicTraceDataToVault() {
-        System.out.println("length ............ "+ segyTempTracesData[0].getData().length);
-        System.out.println("length ............ "+ segyTempTracesDataVault[0].getData().length);
-        System.out.println("length ............ ");
+//        System.out.println("length ............ "+ segyTempTracesData[0].getData().length);
+//        System.out.println("length ............ "+ segyTempTracesDataVault[0].getData().length);
+//        System.out.println("length ............ ");
         for (int i = 0; i < segyTempTracesData.length; i++) {
             for (int j = 0; j < segyTempTracesData[i].getData().length; j++) {
                 segyTempTracesDataVault[i].getData()[j] = segyTempTracesData[i].getData()[j];
@@ -109,10 +109,10 @@ public class mainController {
     }
 
     public void restoreSeismicTraceDataToVault() {
-        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault.length);
-        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault.toString());
-        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault[0].getData().toString());
-        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault[0].getData().length);
+//        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault.length);
+//        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault.toString());
+//        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault[0].getData().toString());
+//        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault[0].getData().length);
         for (int i = 0; i < segyTempTracesData.length; i++) {
             for (int j = 0; j < segyTempTracesData[i].getData().length; j++) {
                 segyTempTracesData[i].getData()[j] = segyTempTracesDataVault[i].getData()[j];
