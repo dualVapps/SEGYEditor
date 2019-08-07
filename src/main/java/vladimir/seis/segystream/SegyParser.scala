@@ -8,7 +8,6 @@ package main.java.vladimir.seis.segystream
 import java.nio.ByteOrder
 
 import akka.util.ByteString
-import com.sun.xml.internal.messaging.saaj.util.LogDomainConstants
 import main.java.vladimir.seis.mainGui
 
 sealed trait PromiseStrategy

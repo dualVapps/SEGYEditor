@@ -207,9 +207,10 @@ public class Settings_singleton {
                 while (!isSearchingSuccess) {   //100 - maximum searching shift value
 
                     if (isFromNegToPos) {
-//                        System.out.println("Path 1");
-                        if (segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift] < 0 &&
-                                segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] >= 0)
+                        System.out.println("Path 1");
+                        if (shift < fullTrimLaw.get(i).getSampleValue() &&
+                            segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift] < 0 &&
+                            segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] >= 0)
                         //                      segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue()-shift-2]>0)
                         {
                             isSearchingSuccess = true;
@@ -225,13 +226,19 @@ public class Settings_singleton {
                             shift++;
                         }
 
-                        if (shift > 100) tempShiftedFullTrimLaw.add(i, fullTrimLaw.get(i));
+                        if (shift > 100) {
+                            isSearchingSuccess = true;
+                            tempShiftedFullTrimLaw.add(i, fullTrimLaw.get(i));}
                     }
 
                     else {
 //                        System.out.println("Path 2");
-                        if (segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift] > 0 &&
-                                segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] <= 0)
+
+
+                        if (
+                            shift < fullTrimLaw.get(i).getSampleValue() &&
+                            segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift] > 0 &&
+                            segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] <= 0)
                         //                      segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue()-shift-2]>0)
                         {
                             isSearchingSuccess = true;
@@ -247,7 +254,9 @@ public class Settings_singleton {
                             shift++;
                         }
 
-                        if (shift > 100) tempShiftedFullTrimLaw.add(i, fullTrimLaw.get(i));
+                        if (shift > 100) {
+                            isSearchingSuccess = true;
+                            tempShiftedFullTrimLaw.add(i, fullTrimLaw.get(i));}
 
                     }
                 }

@@ -1,6 +1,5 @@
 package main.java.vladimir.seis;
 
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
 import org.jfree.chart.ChartMouseEvent;
 import main.java.vladimir.seis.segystream.ChartPanelRewrite;
 import org.jfree.chart.entity.CategoryItemEntity;

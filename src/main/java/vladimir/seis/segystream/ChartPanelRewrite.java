@@ -10,7 +10,6 @@ package main.java.vladimir.seis.segystream;
  * */
 
 
-import com.sun.org.apache.bcel.internal.generic.IADD;
 import org.jfree.chart.ChartMouseEvent;
 import org.jfree.chart.ChartMouseListener;
 import org.jfree.chart.ChartPanel;

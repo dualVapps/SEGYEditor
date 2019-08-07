@@ -201,7 +201,7 @@ public class ChartExecutor {
         JFreeChart chart = new JFreeChart(
                 null, null, plot, false);
 
-        chart.setBackgroundPaint(new Color(0xDD, 0xDD, 0xFF));
+        chart.setBackgroundPaint(new Color(0xFF, 0xFF, 0xFF));
 
 
         return chart;
@@ -242,23 +242,18 @@ public class ChartExecutor {
         JFreeChart chart = new JFreeChart(
                 null, null, plot, false);
 
-        chart.setBackgroundPaint(new Color(249, 255, 253));
+        chart.setBackgroundPaint(new Color(255, 255, 255));
 //        chart.setBackgroundImageAlpha(0.1f);
         return chart;
     }
 
     // Заполнение графиков данными
-    public void updateWithDataset(int index) {  //TODO 4 executing need change to one ???? Somewhere hire java.lang.IllegalArgumentException: Invalid category index:
+    public void updateWithDataset(int index){  //TODO 4 executing need change to one ???? Somewhere hire java.lang.IllegalArgumentException: Invalid category index:
         String series1 = "First";
         for (int i = 0; i < mainGui.getMainController().segyTempTracesData[index].getData().length; i++) {   //TODO Change to display a 1/8 of trace
             categoryDatasets[index].addValue(mainGui.getMainController().segyTempTracesData[index].getData()[i], series1, Integer.toString(i));
         }
-        for (int i = 0; i < 6; i++) {
-            ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[0].getChart().getPlot()).getSubplots().get(i)).setDataset(categoryDatasets[i]);
-        }
-        for (int i = 0; i < 48; i++) {
-            ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(i)).setDataset(categoryDatasets[i + 6]);
-        }
+
 
 
         if (!chartPanel[1].isHasSubcharts()) {
@@ -275,6 +270,15 @@ public class ChartExecutor {
     }
 
     //TODO Change scale to 0.8 of current, Needs changes if 4*54 files
+
+    public void redefineDatasets() {
+        for (int i = 0; i < 6; i++) {
+            ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[0].getChart().getPlot()).getSubplots().get(i)).setDataset(categoryDatasets[i]);
+        }
+        for (int i = 0; i < 48; i++) {
+            ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(i)).setDataset(categoryDatasets[i + 6]);
+        }
+    }
 
     public void setSameScale() {
 

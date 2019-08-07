@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Class-Path: config-1.2.1.jar akka-cluster_2.12-2.5.15.jar akka-stream_
+ 2.12-2.5.15.jar config-1.2.1.jar akka-actor_2.12-2.5.15.jar reactive-
+ streams-1.0.2.jar akka-remote_2.12-2.5.15.jar akka-stream_2.12-2.5.15
+ .jar akka-cluster_2.12-2.5.15.jar akka-protobuf_2.12-2.5.15.jar scala
+ -java8-compat_2.12-0.8.0.jar reactive-streams-1.0.2.jar akka-protobuf
+ _2.12-2.5.15.jar akka-actor_2.12-2.5.15.jar scala-library-2.12.6.jar 
+ scala-reflect-2.12.6.jar scala-library-2.12.6-sources.jar scala-refle
+ ct-2.12.6-sources.jar jfreesvg-2.0.jar jcommon-1.0.19.jar jfreechart-
+ 1.0.19.jar jfreechart-1.0.19-swt.jar jfreechart-1.0.19-experimental.j
+ ar scala-java8-compat_2.12-0.8.0.jar scala-library-2.12.0.jar akka-re
+ mote_2.12-2.5.15.jar
+Main-Class: main.java.vladimir.seis.mainGui
+

@@ -620,9 +620,15 @@ public class mainGui {
 //        System.out.println("******************************************************");
 //        System.out.println("******************************************************" + chartExecutor.toString());
         for (int j = 0; j < 54; j++) {
-            chartExecutor.updateWithDataset(j);
+            try {chartExecutor.updateWithDataset(j);}
+            catch (IllegalArgumentException e) {}
 
         }
+
+        chartExecutor.redefineDatasets();
+
+        tempPanel.revalidate();
+        tempPanel.repaint();
 
 //        System.out.println("******************************************************");
 
@@ -632,16 +638,19 @@ public class mainGui {
 //                    tempPanel.add(chartPanel[j]);
 //                    System.out.println("Add chart: " + j);
 //                }
-        tempPanel.revalidate();
-        tempPanel.repaint();
+
     }
 
     void onFinishedreading() {
 //        system::terminate;
+//        System.out.println("mainController.onFinishedReading()");
         reDrawChartsWithRenevalData();
         makeButtonsActive();
         chartExecutor.setInitialSameScale(); //Set initial scale separate for each file
         chartExecutor.setSameScale();   // TODO Write javadoc
+
+
+
 //        done.thenRunAsync(() -> onFinishedreading()
 //        System.out.println("mainController.saveSeismicTraceDataToVault()");
         mainController.saveSeismicTraceDataToVault();
