@@ -197,7 +197,7 @@
               </grid>
             </constraints>
             <properties>
-              <text value="Корректирующий k к среднему (0.5 ... 3)"/>
+              <text value="Корректирующий k к среднему (0.5 ... 5)"/>
             </properties>
           </component>
           <component id="295d2" class="javax.swing.JTextField" binding="korCoefToAverageTF">

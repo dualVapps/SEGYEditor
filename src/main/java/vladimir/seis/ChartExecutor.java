@@ -338,6 +338,8 @@ public class ChartExecutor {
             ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(i)).getRangeAxis()
                     .setRange(mainGui.getSettings_singl().getInitialFileScaleRange());
         }
+
+        mainGui.getSettings_singl().resetFileScales();
     }
 }
 

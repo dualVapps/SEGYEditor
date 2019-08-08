@@ -43,7 +43,7 @@ public class Settings {
             sizesInBytesTF.setText("8196");
             isFromNegToPosCB.setSelected(false);
             AGCWindowTracesTF.setText("17");
-            korCoefToAverageTF.setText("2");
+            korCoefToAverageTF.setText("4");
         }
 
         else {
@@ -81,7 +81,7 @@ public class Settings {
 
                 else if (korCoefToAverageTF.getText().equals("")||
                         Float.parseFloat(korCoefToAverageTF.getText())<0.5||
-                        Float.parseFloat(korCoefToAverageTF.getText())>3){
+                        Float.parseFloat(korCoefToAverageTF.getText())>5){
                     JOptionPane.showMessageDialog(settingsPanel,
                             "Неправильные данные коефициента",
                             "Внимание",

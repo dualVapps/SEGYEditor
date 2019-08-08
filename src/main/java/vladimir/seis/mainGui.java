@@ -73,6 +73,7 @@ public class mainGui {
     static public mainController mainController;
 
     private boolean isPickingMode = false;
+    private boolean isNewFolderSelected = false;
 
     static JFrame mainJFrame;
 
@@ -139,6 +140,9 @@ public class mainGui {
 
     public mainGui() {
 
+        final ActorSystem system = ActorSystem.create("111");
+        final Materializer materializer = ActorMaterializer.create(system);
+
         makeButtonsUnactive();
         //        getMainJPanel().addMouseListener(this);
         mainController.init(pickingButton, lawPoint1TL, lawPoint2TL, lawPoint3TL, lawPoint4TL, lawPoint5TL, lawPoint6TL);
@@ -148,6 +152,9 @@ public class mainGui {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Handle open button action.
+                isNewFolderSelected = false;
+                directory = null;
+                choosenFiles = null;
 
                 int returnVal = fc.showOpenDialog(tempPanel);
 
@@ -160,6 +167,7 @@ public class mainGui {
                     });
 
                     if (choosenFiles.length != 0) {
+
 
                         for (File file : choosenFiles) {
                             if (file.isFile()) {
@@ -181,7 +189,7 @@ public class mainGui {
 
                             @Override
                             public void valueChanged(ListSelectionEvent event) {
-                                if (!event.getValueIsAdjusting()) {
+                                if (!event.getValueIsAdjusting()&&isNewFolderSelected) {
                                     JList source = (JList) event.getSource();
                                     choosenIndex = source.getSelectedIndex();
                                     makeButtonsUnactive(); //TODO Check
@@ -197,6 +205,7 @@ public class mainGui {
                         });
 
                         filesList.setListData(choosenFileNames);
+                        isNewFolderSelected = true;
                     } else {
                         JOptionPane.showMessageDialog(mainJPanel,
                                 "Файлы sgy не найдены",
@@ -217,10 +226,11 @@ public class mainGui {
             }
 
             private void startReading() { // Исспользование класса реактивной (RxJava) акка
-                final ActorSystem system = ActorSystem.create("111");
-                final Materializer materializer = ActorMaterializer.create(system);
+//                final ActorSystem system = ActorSystem.create("111");
+//                final Materializer materializer = ActorMaterializer.create(system);
 
                 // Construct stream source from file
+
                 Source<ByteString, CompletionStage<IOResult>> fileSource = FileIO.fromFile(choosenFiles[choosenIndex]);
 
                 // Configure and declare the stream    //Previous version
@@ -702,7 +712,7 @@ public class mainGui {
     }
 
     private void makeButtonsActiveExcPicking() {
-        shooseFileButton.setEnabled(true);
+//        shooseFileButton.setEnabled(true);
         showFileTxtButton.setEnabled(true);
         showFileBinButton.setEnabled(true);
         showTraceBinButton.setEnabled(true);
@@ -717,7 +727,7 @@ public class mainGui {
     }
 
     private void makeButtonsUnactiveExcPicking() {
-        shooseFileButton.setEnabled(false);
+//        shooseFileButton.setEnabled(false);
         showFileTxtButton.setEnabled(false);
         showFileBinButton.setEnabled(false);
         showTraceBinButton.setEnabled(false);

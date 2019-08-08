@@ -124,6 +124,11 @@ public class Settings_singleton {
         return fullTrimShifted;
     }
 
+    public void resetFileScales() {
+        initialFileScaleRange=null;
+        currentFileScaleRange = null;
+    }
+
     //    public void setFullTrimLaw(ArrayList<TrimLawSingleValue> fullTrimLaw) {
 //        this.fullTrimLaw = fullTrimLaw;
 //    }
@@ -207,7 +212,7 @@ public class Settings_singleton {
                 while (!isSearchingSuccess) {   //100 - maximum searching shift value
 
                     if (isFromNegToPos) {
-                        System.out.println("Path 1");
+//                        System.out.println("Path 1");
                         if (shift < fullTrimLaw.get(i).getSampleValue() &&
                             segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift] < 0 &&
                             segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] >= 0)
