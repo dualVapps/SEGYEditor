@@ -1,12 +1,12 @@
 /*Контроллер в моделе котроллер модель отображение
 * */
 
-package main.java.vladimir.seis;
+package vladimir.seis;
 
 
-import main.java.vladimir.seis.segystream.SEGYTempEdit.SegyTempFile;
-import main.java.vladimir.seis.segystream.SEGYTempEdit.SegyTempTrace;
-import main.java.vladimir.seis.segystream.SEGYTempEdit.SegyTempTraceData;
+import vladimir.seis.segystream.SEGYTempEdit.SegyTempFile;
+import vladimir.seis.segystream.SEGYTempEdit.SegyTempTrace;
+import vladimir.seis.segystream.SEGYTempEdit.SegyTempTraceData;
 
 import javax.swing.*;
 

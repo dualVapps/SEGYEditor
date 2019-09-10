@@ -1,7 +1,7 @@
-package main.java.vladimir.seis;
+package vladimir.seis;
 
-import main.java.vladimir.seis.segystream.SEGYTempEdit.SegyTempTraceData;
-import main.java.vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue;
+import vladimir.seis.segystream.SEGYTempEdit.SegyTempTraceData;
+import vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue;
 import org.jfree.data.Range;
 
 import java.util.ArrayList;

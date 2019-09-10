@@ -1,4 +1,4 @@
-package main.java.vladimir.seis.segystream.SEGYTempEdit;
+package vladimir.seis.segystream.SEGYTempEdit;
 
 /*
 * Класс который записываютя данные (заголовки трасс) из прочитанного файла

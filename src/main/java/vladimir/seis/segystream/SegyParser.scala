@@ -1,4 +1,4 @@
-package main.java.vladimir.seis.segystream
+package vladimir.seis.segystream
 
 /* Класс непосредственно считывающий данные из файла
     и записывающий во временные классы для работы
@@ -8,7 +8,7 @@ package main.java.vladimir.seis.segystream
 import java.nio.ByteOrder
 
 import akka.util.ByteString
-import main.java.vladimir.seis.mainGui
+import vladimir.seis.mainGui
 
 sealed trait PromiseStrategy
 case object KEEP extends PromiseStrategy

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="main.java.vladimir.seis.Settings">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="vladimir.seis.Settings">
   <grid id="27dc6" binding="settingsPanel" layout-manager="GridLayoutManager" row-count="6" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="0" vgap="0">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>

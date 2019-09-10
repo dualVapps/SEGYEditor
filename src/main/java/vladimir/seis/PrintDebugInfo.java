@@ -1,4 +1,4 @@
-package main.java.vladimir.seis;
+package vladimir.seis;
 
 
 // TODO Application of this class is question.....
@@ -15,10 +15,10 @@ import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import akka.util.ByteString;
 
-import main.java.vladimir.seis.segystream.SegyConfig;
-import main.java.vladimir.seis.segystream.SegyFlow;
-import main.java.vladimir.seis.segystream.SegyHeaders;
-import main.java.vladimir.seis.segystream.SegyPart;
+import vladimir.seis.segystream.SegyConfig;
+import vladimir.seis.segystream.SegyFlow;
+import vladimir.seis.segystream.SegyHeaders;
+import vladimir.seis.segystream.SegyPart;
 import scala.concurrent.Future;
 
 import javax.swing.*;

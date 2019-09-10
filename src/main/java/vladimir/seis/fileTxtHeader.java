@@ -1,4 +1,4 @@
-package main.java.vladimir.seis;
+package vladimir.seis;
 
 import javax.swing.*;
 

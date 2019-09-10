@@ -1,4 +1,4 @@
-package main.java.vladimir.seis.segystream
+package vladimir.seis.segystream
 
 /*   ласс определ€ющий пор€док чтение данных из файлв
 

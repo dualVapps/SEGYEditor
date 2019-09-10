@@ -1,7 +1,7 @@
-package main.java.vladimir.seis;
+package vladimir.seis;
 
 import org.jfree.chart.ChartMouseEvent;
-import main.java.vladimir.seis.segystream.ChartPanelRewrite;
+import vladimir.seis.segystream.ChartPanelRewrite;
 import org.jfree.chart.entity.CategoryItemEntity;
 
 import javax.swing.*;

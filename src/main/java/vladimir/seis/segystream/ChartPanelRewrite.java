@@ -1,4 +1,4 @@
-package main.java.vladimir.seis.segystream;
+package vladimir.seis.segystream;
 
 //TODO Not nessecarily
 /*
@@ -23,13 +23,13 @@ import org.jfree.chart.entity.PlotEntity;
 import org.jfree.chart.entity.XYAnnotationEntity;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.CombinedDomainCategoryPlot;
-import main.java.vladimir.seis.ChartExecutor;
-import main.java.vladimir.seis.Settings;
+import vladimir.seis.ChartExecutor;
+import vladimir.seis.Settings;
 
 
-import main.java.vladimir.seis.Settings_singleton;
-import main.java.vladimir.seis.mainGui;
-import main.java.vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue;
+import vladimir.seis.Settings_singleton;
+import vladimir.seis.mainGui;
+import vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue;
 
 import javax.xml.bind.SchemaOutputResolver;
 import java.awt.*;

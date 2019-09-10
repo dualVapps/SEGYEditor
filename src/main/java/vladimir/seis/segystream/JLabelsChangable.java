@@ -1,4 +1,4 @@
-package main.java.vladimir.seis.segystream;
+package vladimir.seis.segystream;
 
 import javax.swing.*;
 

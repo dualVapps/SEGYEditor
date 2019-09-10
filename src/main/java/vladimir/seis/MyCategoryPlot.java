@@ -1,4 +1,4 @@
-package main.java.vladimir.seis;
+package vladimir.seis;
 
 // TODO Applying of this class is question.....
 

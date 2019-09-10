@@ -1,4 +1,4 @@
-package main.java.vladimir.seis;
+package vladimir.seis;
 
 /*
 *   Контроллер в моделе (модель данных - отображение - котроллер)
@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.data.Range;
-import main.java.vladimir.seis.segystream.CategoryPlotRewrite;
+import vladimir.seis.segystream.CategoryPlotRewrite;
 
-import main.java.vladimir.seis.segystream.ChartPanelRewrite;
+import vladimir.seis.segystream.ChartPanelRewrite;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.NumberAxis;
@@ -27,8 +27,8 @@ import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.chart.plot.CombinedDomainCategoryPlot;
-import main.java.vladimir.seis.segystream.DefaultCategoryDatasetRewrite;
-import main.java.vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue;
+import vladimir.seis.segystream.DefaultCategoryDatasetRewrite;
+import vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue;
 
 import javax.swing.*;
 //    import org.jfree.chart.renderer.ItemLabelPosition;

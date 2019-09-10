@@ -1,4 +1,4 @@
-package main.java.vladimir.seis.segystream;
+package vladimir.seis.segystream;
 
 import org.jfree.chart.ChartMouseEvent;
 import org.jfree.chart.ChartMouseListener;

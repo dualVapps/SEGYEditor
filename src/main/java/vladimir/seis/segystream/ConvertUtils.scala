@@ -1,4 +1,4 @@
-package main.java.vladimir.seis.segystream
+package vladimir.seis.segystream
 
 import java.lang.{Float => JavaFloat}
 import java.nio.ByteOrder

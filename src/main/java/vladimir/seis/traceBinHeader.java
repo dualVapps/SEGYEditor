@@ -1,6 +1,6 @@
-package main.java.vladimir.seis;
+package vladimir.seis;
 
-import main.java.vladimir.seis.segystream.SEGYTempEdit.SegyTempTrace;
+import vladimir.seis.segystream.SEGYTempEdit.SegyTempTrace;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
