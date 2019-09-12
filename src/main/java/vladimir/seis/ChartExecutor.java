@@ -30,6 +30,7 @@ import org.jfree.chart.plot.CombinedDomainCategoryPlot;
 import vladimir.seis.segystream.DefaultCategoryDatasetRewrite;
 import vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue;
 
+
 import javax.swing.*;
 //    import org.jfree.chart.renderer.ItemLabelPosition;
 //    import org.jfree.chart.renderer.LineAndShapeRenderer;
@@ -179,7 +180,7 @@ public class ChartExecutor {
         CombinedDomainCategoryPlot plot = new CombinedDomainCategoryPlot(domainAxis);
         CategoryDataset datasetTemp = new DefaultCategoryDataset();
         ((DefaultCategoryDataset) datasetTemp).addValue(0.0, "", "");
-        LineAndShapeRenderer subplotRenderer = new LineAndShapeRenderer(true, false); //TODO change shapes
+        LineAndShapeRenderer subplotRenderer = new MyLineAndFillRenderer(true, true); //TODO change fill
         subplotRenderer.setSeriesPaint(0, new Color(0x000000));
 
         for (int i = 0; i < 6; i++) {
@@ -225,7 +226,7 @@ public class ChartExecutor {
         ((DefaultCategoryDataset) datasetTemp).addValue(0.0, "", "");
 
 
-        LineAndShapeRenderer subplotRenderer = new LineAndShapeRenderer(true, false);
+        LineAndShapeRenderer subplotRenderer = new MyLineAndFillRenderer(true, true);
         subplotRenderer.setSeriesPaint(0, new Color(0x000000));
 
         for (int i = 6; i < categoryPlots.length; i++) {
