@@ -13,8 +13,10 @@ import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 
+import org.jfree.chart.axis.Axis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.data.Range;
+import org.jfree.data.general.DatasetUtilities;
 import vladimir.seis.segystream.CategoryPlotRewrite;
 
 import vladimir.seis.segystream.ChartPanelRewrite;
@@ -317,15 +319,23 @@ public class ChartExecutor {
         ValueAxis tempValueAxis1 = ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(36)).getRangeAxis();
         Range tempRange0 = tempValueAxis0.getRange();
         Range tempRange1 = tempValueAxis1.getRange();
+        Range dataRange = DatasetUtilities.findRangeBounds(  ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(12)).getDataset()  );
+        Range dataRange1 = DatasetUtilities.findRangeBounds(  ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(36)).getDataset()  );
+//        ((CombinedDomainCategoryPlot)chartPanel[1].getChart().getPlot()).getDataRange(axis);
+
+
 
 
         mainGui.getSettings_singl().setInitialFileScaleRange(
-                new Range((tempRange0.getLowerBound() + tempRange1.getLowerBound()) / 2,
-                        (tempRange0.getUpperBound() + tempRange1.getUpperBound()) / 2));
+                new Range((dataRange.getLowerBound() + dataRange1.getLowerBound()) / 2,
+                        (-1 * (dataRange.getLowerBound() + dataRange1.getLowerBound())) / 2));
         mainGui.getSettings_singl().setCurrentFileScaleRange(
-                new Range((tempRange0.getLowerBound() + tempRange1.getLowerBound()) / 2,
-                        (tempRange0.getUpperBound() + tempRange1.getUpperBound()) / 2));
-//        System.out.println(" 0000000000000000 --" + mainGui.getSettings_singl().getInitialFileScaleRange().toString());
+                new Range((dataRange.getLowerBound() + dataRange1.getLowerBound()) / 2,
+                          (-1 * (dataRange.getLowerBound() + dataRange1.getLowerBound())) / 2));
+//        System.out.println(" Init Scale 0000000000000000 -- " + mainGui.getSettings_singl().getInitialFileScaleRange().toString());
+//        System.out.println(" Curr Scale 0000000000000000 -- " + mainGui.getSettings_singl().getInitialFileScaleRange().toString());
+//        System.out.println(" Temp1 Range 111 -- " + dataRange);
+//        System.out.println(" Temp1 Range 111 -- " + dataRange1);
 
 
     }

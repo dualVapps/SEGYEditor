@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class mainController {
 
-//    private  mainGui mainGui;
+    //    private  mainGui mainGui;
     private JPanel mainJPanel;
     private JLabel[] lawJLs = new JLabel[6];
     public SegyTempFile segyTempFile;
@@ -20,8 +20,7 @@ public class mainController {
     public SegyTempTraceData[] segyTempTracesData;
     public SegyTempTraceData[] segyTempTracesDataVault;
     private JButton pickButton;
-
-
+    private  float[] currentBalancingCorrKoef = new float[54];
 
 
     public mainController() {
@@ -45,12 +44,11 @@ public class mainController {
         }
 
 
-
     }
 
     public void init(JButton pickButton, JLabel label_1, JLabel label_2, JLabel label_3,
                      JLabel label_4, JLabel label_5, JLabel label_6) {
-        this.pickButton=pickButton;
+        this.pickButton = pickButton;
         this.lawJLs[0] = label_1;
         this.lawJLs[1] = label_2;
         this.lawJLs[2] = label_3;
@@ -77,13 +75,14 @@ public class mainController {
 //        mainController.mainGui = mainGui;
 //    }
 
-    public void defineJLabelText (String s1, int index) {
+    public void defineJLabelText(String s1, int index) {
 
-        if ((s1 != null)&&(index<6)) { lawJLs[index].setText(s1);} else lawJLs[index].setText("  ----------");
+        if ((s1 != null) && (index < 6)) {
+            lawJLs[index].setText(s1);
+        } else lawJLs[index].setText("  ----------");
 
 
     }
-
 
 
     public void clickPickingButtonSuccess() {
@@ -121,4 +120,62 @@ public class mainController {
 
     }
 
+    public void balancingTempData() { //TODO rewrite AGN to balancing
+        calcBalancingKoef();
+        applyBalancingToTempData();
+
+
+    }
+
+    public void calcBalancingKoef () {
+//        System.out.println("CalcBalancingKoef ->> Start");
+
+        final int balancedAmpl = 1;
+
+        for (int i = 6; i < segyTempTracesData.length; i++) {
+            int  tempSampleNumber = 1000;
+
+
+            //Calculating summary of array from 0 to trimShifted point and deviding to sample number (average value)
+            float regLevel = balancedAmpl; //regulation level
+            float sum = 0;
+            for (int j = 0; j < tempSampleNumber; j++) {
+                sum = sum + Math.abs(segyTempTracesData[i].getData()[j]);
+            }
+
+//            System.out.println("sum ->>> "+ i+ " ---- " +sum);
+
+            float averageSum = sum / tempSampleNumber;
+
+//            System.out.println("averageSum ->>> "+ i+ " ---- " +averageSum);
+
+            currentBalancingCorrKoef[i] = regLevel/averageSum;
+
+//            System.out.println("averageSum ->>> "+ i+ " ---- " +averageSum);
+
+
+        }
+//        System.out.println("CalcBalancingKoef ->> Finish");
+    }
+
+    public void applyBalancingToTempData() {
+//        System.out.println("applyBalancingToTempData ->> start");
+        for (int i = 6; i < segyTempTracesData.length; i++) {
+            for (int j = 0; j < segyTempTracesData[i].getData().length; j++) {
+                segyTempTracesData[i].getData()[j] = segyTempTracesData[i].getData()[j] * currentBalancingCorrKoef[i];
+            }
+        }
+
+    }
+
+    public void resetBalancing() {
+
+        for (int i = 6; i < segyTempTracesData.length; i++) {
+            for (int j = 0; j < segyTempTracesData[i].getData().length; j++) {
+
+                segyTempTracesData[i].getData()[j] = segyTempTracesDataVault[i].getData()[j];
+            }
+        }
+
+    }
 }

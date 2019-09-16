@@ -57,6 +57,7 @@ public class mainGui {
     private JLabel lawPoint5TL;
     private JLabel lawPoint6TL;
     private JButton clearButton;
+    private JToggleButton balanceToggle;
     JFileChooser fc;
     static private File directory;
     static private File savePath;
@@ -86,6 +87,7 @@ public class mainGui {
 
         settings_singl = new Settings_singleton().getSettings_singleton();
         mainJFrame = new JFrame("SEGYMpvEditor v0.01");
+
 
 //        shooseFileButton.setIc;
 //        showFileTxtButton;
@@ -142,6 +144,8 @@ public class mainGui {
 
         final ActorSystem system = ActorSystem.create("111");
         final Materializer materializer = ActorMaterializer.create(system);
+
+        balanceToggle.setSelected(true);
 
         makeButtonsUnactive();
         //        getMainJPanel().addMouseListener(this);
@@ -551,6 +555,23 @@ public class mainGui {
 
             }
         });
+        balanceToggle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if (balanceToggle.isSelected()) {
+                    getMainController().balancingTempData();
+//                    System.out.println("Balanced");
+                }
+                else {
+                    getMainController().resetBalancing();  //TODO Fix: need different behavior on first open and button click
+                    chartExecutor.resetPlotsRange();
+//                    System.out.println("Notbalanced");
+                }
+
+                redrawCharts();
+            }
+        });
     }
 
     private void makeProccesing() { //TODO Changing in SEGY FIle
@@ -654,17 +675,31 @@ public class mainGui {
     void onFinishedreading() {
 //        system::terminate;
 //        System.out.println("mainController.onFinishedReading()");
-        reDrawChartsWithRenevalData();
+
+        mainController.saveSeismicTraceDataToVault();// TODO replace out of on finish
+
+        if (balanceToggle.isSelected()) {
+            getMainController().balancingTempData();
+//            System.out.println("Balanced");
+        }
+
+        redrawCharts();
+
         makeButtonsActive();
-        chartExecutor.setInitialSameScale(); //Set initial scale separate for each file
-        chartExecutor.setSameScale();   // TODO Write javadoc
 
 
 
 //        done.thenRunAsync(() -> onFinishedreading()
 //        System.out.println("mainController.saveSeismicTraceDataToVault()");
-        mainController.saveSeismicTraceDataToVault();
+
 //        System.out.println("mainController.saveSeismicTraceDataToVault()");
+    }
+
+    private void redrawCharts() {
+
+        reDrawChartsWithRenevalData();
+        chartExecutor.setInitialSameScale(); //Set initial scale separate for each file
+        chartExecutor.setSameScale();   // TODO Write javadoc
     }
 
     void setJLabelsLaw(String s1, String s2, String s3, String s4, String s5, String s6) {
