@@ -40,7 +40,7 @@ public class Settings {
         {
 
             numberOfSamplesTF.setText("2048");
-            sizesInBytesTF.setText("8196");
+            sizesInBytesTF.setText("8192");
             isFromNegToPosCB.setSelected(false);
             AGCWindowTracesTF.setText("17");
             korCoefToAverageTF.setText("4");

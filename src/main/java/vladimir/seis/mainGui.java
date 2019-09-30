@@ -11,15 +11,15 @@ import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import akka.util.ByteString;
 import vladimir.seis.segystream.*;
-import org.jfree.chart.panel.CrosshairOverlay;
-import org.jfree.chart.plot.Crosshair;
 import org.jfree.chart.ChartPanel;
 import scala.concurrent.Future;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicArrowButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,11 +27,11 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.concurrent.CompletionStage;
 
 public class mainGui {
+
+
     //TODO make unactive if settings Change
 
     //    private final ChartPanel chartPanel1;
@@ -58,6 +58,9 @@ public class mainGui {
     private JLabel lawPoint6TL;
     private JButton clearButton;
     private JToggleButton balanceToggle;
+    private JSpinner reelSpinner;
+    private JLabel seqHelperTF;
+    private JLabel seqHelperTFToolTip;
     JFileChooser fc;
     static private File directory;
     static private File savePath;
@@ -86,19 +89,20 @@ public class mainGui {
     public static void main(String[] args) { //TODO make another method of starting (see book)
 
         settings_singl = new Settings_singleton().getSettings_singleton();
-        mainJFrame = new JFrame("SEGYMpvEditor v0.01");
+        mainJFrame = new JFrame("SEGYMpvEditor v0.02 TC");
+        mainController = new mainController();
 
 
 //        shooseFileButton.setIc;
 //        showFileTxtButton;
 //        showFileBinButton;
 //        showTraceBinButton;
-        mainController = new mainController();
+
         mainJFrame.setContentPane(new mainGui().mainJPanel);
         mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        myDrawingGlassPane = new MyDrawingGlassPane(mainController);
-        mainJFrame.setGlassPane(myDrawingGlassPane);
+
+
         mainJFrame.pack();
         mainJFrame.setVisible(true);
         mainJFrame.setResizable(false); // Lock size change
@@ -112,7 +116,9 @@ public class mainGui {
         settingsJFrame.setResizable(false);
         settingsJFrame.setVisible(true);
 
-        myDrawingGlassPane.init(); //TODO Rewrite with trasfer GUI elements throw maincontroller
+
+
+        initAfterReading();
 
         //Checking size
 
@@ -121,7 +127,17 @@ public class mainGui {
 
 //        setupMainController();
 //        initializeFrames();
+
     }
+
+    private static void initAfterReading() {
+
+        myDrawingGlassPane = new MyDrawingGlassPane(mainController);
+        mainJFrame.setGlassPane(myDrawingGlassPane);
+        myDrawingGlassPane.init(); //TODO Rewrite with trasfer GUI elements throw maincontroller
+//        mainController.initReadingParameters();
+    }
+
 
     public static Settings_singleton getSettings_singl() {
         return settings_singl;
@@ -144,6 +160,42 @@ public class mainGui {
 
         final ActorSystem system = ActorSystem.create("111");
         final Materializer materializer = ActorMaterializer.create(system);
+
+        //Set spinner initial parameters
+        {
+            JSpinner.DefaultEditor rsEditor = ( JSpinner.DefaultEditor ) reelSpinner.getEditor();
+            rsEditor.getTextField().setEditable(false);
+            reelSpinner.setLayout(null);
+            Component c = reelSpinner.getComponent(0);
+            if (c instanceof BasicArrowButton) {
+//                System.out.println("SetSpinnerButtonSize 1");
+                BasicArrowButton b = (BasicArrowButton) c;
+                b.setBounds(26, 0, 1, 1);
+                b.setSize(25, 25);
+            }
+            Component c2 = reelSpinner.getComponent(1);
+            if (c2 instanceof BasicArrowButton) {
+//                System.out.println("SetSpinnerButtonSize 2");
+                BasicArrowButton b = (BasicArrowButton) c2;
+                b.setBounds(26, 26, 1, 1);
+                b.setSize(25, 25);
+            }
+//            Component c3 = reelSpinner.getComponent(2);
+//            if (c3 instanceof JSpinner.NumberEditor || c3 instanceof JSpinner.ListEditor) {
+//                JSpinner.DefaultEditor ne = (JSpinner.DefaultEditor) c3;
+//                ne.setBounds(1, 1, 10, 10);
+//            }
+            rsEditor.setBounds(1,1,25,50);
+            rsEditor.setAlignmentX(0.5f);
+            rsEditor.setAlignmentY(0.5f);
+//            rsEditor.setFont(new Font("Arial",Font.PLAIN,16));
+
+
+
+            reelSpinner.setVisible(false);
+            seqHelperTFToolTip.setVisible(false);
+            seqHelperTF.setVisible(false);
+        }
 
         balanceToggle.setSelected(true);
 
@@ -242,10 +294,11 @@ public class mainGui {
 //                        Charset.forName("CP037"), //textual data charset
 //                        8192 //data chunk size, bytes
 //                );
-
+//                settings_singl.setSample_sizeInBytes();
+//                System.out.println();
                 SegyConfig config = new SegyConfig(
                         Charset.forName("CP037"), //textual data charset
-                        settings_singl.getSample_sizeInBytes()  //data chunk size, bytes
+                        settings_singl.getCfgEachSampleSizeBytes()  //data chunk size, bytes
                 );
                 Source<SegyPart, Future<SegyHeaders>> segySource = fileSource.viaMat(new SegyFlow(config), Keep.right());
 
@@ -279,6 +332,9 @@ public class mainGui {
 
             }
         });
+
+        initChartPanels(); //Метод инициализации
+
         showFileTxtButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -372,6 +428,7 @@ public class mainGui {
 //                System.out.println(choosenFiles[choosenIndex].getName());
 //                System.out.println(choosenFiles[choosenIndex].getAbsolutePath());
 
+                fillDataToAfterProcessing(); // For Saving also
                 makeProccesing();
 
                 FileOutputStream fos = null;
@@ -382,13 +439,16 @@ public class mainGui {
                         DataOutputStream dos = new DataOutputStream(fos);
                         mainController.segyTempFile.writeToDataOutputStream(dos);
 
-                        for (int i = 0; i < 54; i++) { //TODO change to variable (216)
+                        for (int i = 0; i < settings_singl.getCfgTraceNumber(); i++) { //TODO change to variable (216)
 //                            System.out.println(" *** mainController.segyTempTraces[i].getTraceSequenceNumberWithinLine() " + mainController.segyTempTraces[i].getTraceSequenceNumberWithinLine());
                             mainController.segyTempTraces[i].writeToDataOutputStream(dos);
-//                            mainController.segyTempTracesData[i].writeToDataOutputStream(dos,settings_singl.getSample_sizeInBytes());
-                            mainController.segyTempTracesData[i].writeToDataOutputStream(dos, settings_singl.getSample_sizeInBytes() - 4); // -1*4 (4*2047)
+//                            mainController.segyTempTracesDataForDisplaying[i].writeToDataOutputStream(dos,settings_singl.getSample_sizeInBytes());
+                            System.out.println("Saving...getSample_sizeInBytes -->" + settings_singl.getSample_sizeInBytes());
+                            System.out.println("Saving...getCfgTraceSizeBytes -->" + settings_singl.getCfgTraceSizeBytes());
+
+                            mainController.segyTempTracesDataAfterProcessing[i].writeToDataOutputStream(dos, settings_singl.getCfgTraceSizeBytes());
 //                            System.out.println("mainController.segyTempTraces.length  " + mainController.segyTempTraces.length);
-//                            System.out.println("mainController.segyTempTracesData.length  " + mainController.segyTempTracesData.length);
+//                            System.out.println("mainController.segyTempTracesDataForDisplaying.length  " + mainController.segyTempTracesDataForDisplaying.length);
                         }
 
                         dos.flush();
@@ -445,14 +505,14 @@ public class mainGui {
 
 
 //                    for (int j = 0; j < 6; j++) {
-//                        System.out.println("************ Trace# "+ 1 +" ****** Sample# "+(j+1) +"  : " + mainController.segyTempTracesData[0].data[j]);
+//                        System.out.println("************ Trace# "+ 1 +" ****** Sample# "+(j+1) +"  : " + mainController.segyTempTracesDataForDisplaying[0].data[j]);
 //                    }
 //
 //                for (int j = 2020; j < 2048; j++) {
-//                    System.out.println("************ Trace# "+ 1 +" ****** Sample# "+(j+1) +"  : " + mainController.segyTempTracesData[0].data[j]);
+//                    System.out.println("************ Trace# "+ 1 +" ****** Sample# "+(j+1) +"  : " + mainController.segyTempTracesDataForDisplaying[0].data[j]);
 //                }
 
-                mainController.restoreSeismicTraceDataToVault();
+                mainController.restoreSeismicTraceDataFromVault();
             }
         });
 //        pickingButton.addActionListener(new ActionListener() {
@@ -461,7 +521,7 @@ public class mainGui {
 //                for (int i = 0; i < 2048; i++) {
 //
 //
-////                System.out.println("**************** Trace 0 *** Sample#: "+i+" : " +mainController.segyTempTracesData[0].getData()[i]);
+////                System.out.println("**************** Trace 0 *** Sample#: "+i+" : " +mainController.segyTempTracesDataForDisplaying[0].getData()[i]);
 //                }
 //            }
 //        });
@@ -487,7 +547,7 @@ public class mainGui {
             }
         });
 
-        initChartPanels(); //Метод инициализации
+
 
         settingsBotton.addActionListener(new ActionListener() {
             @Override
@@ -585,6 +645,19 @@ public class mainGui {
 
     }
 
+    private void fillDataToAfterProcessing(){
+        //PrepareData for processing and saving
+
+
+        for (int i = 0; i < getSettings_singl().getCfgTraceNumber(); i++) {
+            for (int j = 0; j < getSettings_singl().getCfgSamplesNumber(); j++) {
+//                System.out.println("i = " + i + " j = " + j);
+                getMainController().getSegyTempTracesDataAfterProcessing()[i].getData()[j] = getMainController().getSegyTempTracesDataFromVault()[i].getData()[j];
+            }
+
+        }
+    }
+
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
@@ -634,6 +707,7 @@ public class mainGui {
     }
 
     void reDrawChartsWithRenevalData() {
+        int CURRENT_FILE_SEQ_NUMBER = settings_singl.getCfgCurrentFileSeqNumber();
 
         //                chartExecutor = new ChartExecutor("Line Chart Demo");  //Previous version of code
 //                ChartPanel[] chartPanel = chartExecutor.getChartPanel();
@@ -649,14 +723,16 @@ public class mainGui {
 //                    System.out.println("Add chart: " + j);
 //                }
 //        System.out.println("******************************************************");
-//        System.out.println("******************************************************" + chartExecutor.toString());
+        System.out.println("reDrawChartsWithRenevalData CURRENT_FILE_SEQ_NUMBER ->>" + CURRENT_FILE_SEQ_NUMBER);
+        System.out.println("reDrawChartsWithRenevalData single singl ->>" + getSettings_singl().getCfgFilesNumber());
+
         for (int j = 0; j < 54; j++) {
-            try {chartExecutor.updateWithDataset(j);}
+            try {chartExecutor.updateWithDataset(j,CURRENT_FILE_SEQ_NUMBER);}
             catch (IllegalArgumentException e) {}
 
         }
 
-        chartExecutor.redefineDatasets();
+        chartExecutor.redefineDatasets(CURRENT_FILE_SEQ_NUMBER);
 
         tempPanel.revalidate();
         tempPanel.repaint();
@@ -677,15 +753,20 @@ public class mainGui {
 //        System.out.println("mainController.onFinishedReading()");
 
         mainController.saveSeismicTraceDataToVault();// TODO replace out of on finish
+        System.out.println("saveSeismicTraceDataToVault");
 
-        if (balanceToggle.isSelected()) {
-            getMainController().balancingTempData();
-//            System.out.println("Balanced");
-        }
+        System.out.println("balancingTempData");
 
         redrawCharts();
+        System.out.println("redrawCharts");
+
+        if (getSettings_singl().getCfgTraceNumber()>54) {
+            activateReelSpinner();
+        }
+        else deactivateReelSpinner();
 
         makeButtonsActive();
+        System.out.println("makeButtonsActive");
 
 
 
@@ -697,6 +778,10 @@ public class mainGui {
 
     private void redrawCharts() {
 
+        if (balanceToggle.isSelected()) {
+           getMainController().balancingTempData();
+//            System.out.println("Balanced");
+        }
         reDrawChartsWithRenevalData();
         chartExecutor.setInitialSameScale(); //Set initial scale separate for each file
         chartExecutor.setSameScale();   // TODO Write javadoc
@@ -849,27 +934,32 @@ public class mainGui {
 
     // Changing traces with 4 seismic records
     private void processingTraceHeader() { //TODO CHECK if 54*4 (216) traces
-        for (int i = 0; i < mainController.getSegyTempTracesData()[2].getData().length; i++) {
-            mainController.getSegyTempTracesData()[2].getData()[i] = (mainController.getSegyTempTracesData()[3].getData()[i] +
-                    mainController.getSegyTempTracesData()[4].getData()[i]) / 2;
+        int reelNumber = settings_singl.getCfgFilesNumber();
+        for (int j = 0; j < reelNumber; j++) {
 
+
+            for (int i = 0; i < mainController.getSegyTempTracesDataFromVault()[2+j*54].getData().length; i++) {
+                mainController.getSegyTempTracesDataAfterProcessing()[2+j*54].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[3].getData()[i] +
+                        mainController.getSegyTempTracesDataForDisplaying()[4+j*54].getData()[i]) / 2;
+
+            }
         }
 
         //TODO for future release in 216
 
-//        for (int i = 0; i < mainController.getSegyTempTracesData()[56].getData().length; i++) {
-//            mainController.getSegyTempTracesData()[56].getData()[i] = (mainController.getSegyTempTracesData()[57].getData()[i] +
-//                    mainController.getSegyTempTracesData()[58].getData()[i])/2;
+//        for (int i = 0; i < mainController.getSegyTempTracesDataForDisplaying()[56].getData().length; i++) {
+//            mainController.getSegyTempTracesDataForDisplaying()[56].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[57].getData()[i] +
+//                    mainController.getSegyTempTracesDataForDisplaying()[58].getData()[i])/2;
 //        }
 //
-//        for (int i = 0; i < mainController.getSegyTempTracesData()[110].getData().length; i++) {
-//            mainController.getSegyTempTracesData()[110].getData()[i] = (mainController.getSegyTempTracesData()[111].getData()[i] +
-//                    mainController.getSegyTempTracesData()[112].getData()[i])/2;
+//        for (int i = 0; i < mainController.getSegyTempTracesDataForDisplaying()[110].getData().length; i++) {
+//            mainController.getSegyTempTracesDataForDisplaying()[110].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[111].getData()[i] +
+//                    mainController.getSegyTempTracesDataForDisplaying()[112].getData()[i])/2;
 //        }
 //
-//        for (int i = 0; i < mainController.getSegyTempTracesData()[164].getData().length; i++) {
-//            mainController.getSegyTempTracesData()[164].getData()[i] = (mainController.getSegyTempTracesData()[165].getData()[i] +
-//                    mainController.getSegyTempTracesData()[166].getData()[i])/2;
+//        for (int i = 0; i < mainController.getSegyTempTracesDataForDisplaying()[164].getData().length; i++) {
+//            mainController.getSegyTempTracesDataForDisplaying()[164].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[165].getData()[i] +
+//                    mainController.getSegyTempTracesDataForDisplaying()[166].getData()[i])/2;
 //
 //
 //        }
@@ -878,6 +968,7 @@ public class mainGui {
     private void processingDataUpperOfPicking() { //TODO need applying something better than average (or some transformation)
 
         //Applying AGC with c = arithmetic average for samples above  shifted trim law
+
 
 
         for (int i = 0; i < mainGui.getSettings_singl().getFullTrimShifted().size();
@@ -889,7 +980,7 @@ public class mainGui {
             //Copying array above trimShiftedLaw
             float[] tempTrimDataArray = new float[tempSampleNumber];
             for (int j = 0; j < tempTrimDataArray.length; j++) {
-                tempTrimDataArray[j] = getMainController().getSegyTempTracesData()[tempTraceNumber].getData()[j];
+                tempTrimDataArray[j] = getMainController().getSegyTempTracesDataAfterProcessing()[tempTraceNumber].getData()[j];
             }
 
             //Calculating summary of array from 0 to trimShifted point and deviding to sample number (average value)
@@ -947,7 +1038,7 @@ public class mainGui {
             // Rewrite seismic data
 
             for (int j = 0; j < tempKoef.length; j++) {
-                getMainController().getSegyTempTracesData()[tempTraceNumber].getData()[j] = tempTrimDataArray[j] * tempKoef[j];
+                getMainController().getSegyTempTracesDataAfterProcessing()[tempTraceNumber].getData()[j] = tempTrimDataArray[j] * tempKoef[j];
             }
 
 
@@ -964,7 +1055,7 @@ public class mainGui {
 //                System.out.print(" -5- ");
 //                System.out.printf("%4f", tempKoef[j]);
 //                System.out.print(" -6- ");
-//                System.out.printf("%4f", getMainController().getSegyTempTracesData()[tempTraceNumber].getData()[j]);
+//                System.out.printf("%4f", getMainController().getSegyTempTracesDataForDisplaying()[tempTraceNumber].getData()[j]);
 //                System.out.println();
 //            }
 
@@ -972,6 +1063,40 @@ public class mainGui {
         }
 
 
+    }
+
+    public void activateReelSpinner() {
+        SpinnerNumberModel model1 = new SpinnerNumberModel(1, 1, mainGui.getSettings_singl().getCfgFilesNumber(), 1);
+        reelSpinner.setModel(model1);
+
+        reelSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                settings_singl.setCfgCurrentFileSeqNumber((int) reelSpinner.getValue() - 1);
+                System.out.println("CURRENT_FILE_SEQ_NUMBER -> "+ settings_singl.getCfgCurrentFileSeqNumber());
+                seqHelperTF.setText(reelSpinner.getValue().toString() + " of " + Integer.toString(settings_singl.getCfgFilesNumber()));
+                redrawCharts();
+
+            }
+        });
+
+        JSpinner.DefaultEditor rsEditor = ( JSpinner.DefaultEditor ) reelSpinner.getEditor();
+        rsEditor.getTextField().setEditable(false);
+        rsEditor.setBounds(1,1,25,50);
+        reelSpinner.setVisible(true);
+        seqHelperTFToolTip.setVisible(true);
+        seqHelperTF.setVisible(true);
+    }
+    public void deactivateReelSpinner() {
+        reelSpinner.setVisible(false);
+        seqHelperTFToolTip.setVisible(false);
+        seqHelperTF.setVisible(false);
+    }
+
+    public int calculateTraceLengthInBytes() {
+
+
+        return 0;
     }
 
 

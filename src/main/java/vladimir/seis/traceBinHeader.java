@@ -128,7 +128,8 @@ public class traceBinHeader { //TODO rewrite Segy1 class
     private JTextField dataModBit;
 
     public traceBinHeader() {
-        SpinnerNumberModel model1 = new SpinnerNumberModel(1, 1, 216, 1);
+
+        SpinnerNumberModel model1 = new SpinnerNumberModel(1, 1, mainGui.getSettings_singl().getCfgTraceNumber(), 1);
         traceSelector.setModel(model1);
         JSpinner.DefaultEditor editor = ( JSpinner.DefaultEditor ) traceSelector.getEditor();
         editor.getTextField().setEditable(false);

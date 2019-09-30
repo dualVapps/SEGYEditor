@@ -206,7 +206,7 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
                             sCDR.getNumberDataset(),
                             Integer.parseInt(caE.getColumnKey().toString()),
                             (double) caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()));
-                            System.out.println("Pick value------>" +(double) caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()));
+//                            System.out.println("Pick value------>" +(double) caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()));
 
 
 

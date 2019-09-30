@@ -8,6 +8,13 @@ import java.util.ArrayList;
 
 public class Settings_singleton {
     final float dYperSample = 0.4706f; //TODO Only for debug
+    //Segy cfg from bin header
+    private int cfgCurrentFileSeqNumber = -1;
+    private int cfgSamplesNumber = -1;
+    private int cfgEachSampleSizeBytes = -1;
+    private int cfgTraceSizeBytes = -1;
+    private int cfgTraceNumber = -1;
+    private int cfgFilesNumber = -1;
 
     private ArrayList<TrimLawSingleValue> trimLaw = new ArrayList<>();
     private ArrayList<TrimLawSingleValue> fullTrimLaw = new ArrayList<>(48); //MaybeChange to simple array
@@ -24,10 +31,58 @@ public class Settings_singleton {
 
     private Settings_singleton settings_singleton = null;
 
-    public Settings_singleton getSettings_singleton() {
+        public Settings_singleton getSettings_singleton() {
         if (settings_singleton == null)
             settings_singleton = new Settings_singleton();
         return settings_singleton;
+    }
+
+    public int getCfgCurrentFileSeqNumber() {
+        return cfgCurrentFileSeqNumber;
+    }
+
+    public void setCfgCurrentFileSeqNumber(int cfgCurrentFileSeqNumber) {
+        this.cfgCurrentFileSeqNumber = cfgCurrentFileSeqNumber;
+    }
+
+    public int getCfgFilesNumber() {
+        return cfgFilesNumber;
+    }
+
+    public void setCfgFilesNumber(int cfgFilesNumber) {
+        this.cfgFilesNumber = cfgFilesNumber;
+    }
+
+    public int getCfgTraceNumber() {
+        return cfgTraceNumber;
+    }
+
+    public void setCfgTraceNumber(int cfgTraceNumber) {
+        this.cfgTraceNumber = cfgTraceNumber;
+    }
+
+    public int getCfgSamplesNumber() {
+        return cfgSamplesNumber;
+    }
+
+    public void setCfgSamplesNumber(int cfgSamplesNumber) {
+        this.cfgSamplesNumber = cfgSamplesNumber;
+    }
+
+    public int getCfgEachSampleSizeBytes() {
+        return cfgEachSampleSizeBytes;
+    }
+
+    public void setCfgEachSampleSizeBytes(int cfgEachSampleSizeBytes) {
+        this.cfgEachSampleSizeBytes = cfgEachSampleSizeBytes;
+    }
+
+    public int getCfgTraceSizeBytes() {
+        return cfgTraceSizeBytes;
+    }
+
+    public void setCfgTraceSizeBytes(int cfgTraceSizeBytes) {
+        this.cfgTraceSizeBytes = cfgTraceSizeBytes;
     }
 
     public float getKorCoefToAverage() {

@@ -8,15 +8,13 @@ package vladimir.seis;
 
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 
-import org.jfree.chart.axis.Axis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.data.Range;
 import org.jfree.data.general.DatasetUtilities;
+import org.jfree.ui.RectangleInsets;
+import vladimir.seis.segystream.CategoryAxisSkipLabels;
 import vladimir.seis.segystream.CategoryPlotRewrite;
 
 import vladimir.seis.segystream.ChartPanelRewrite;
@@ -30,10 +28,6 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.chart.plot.CombinedDomainCategoryPlot;
 import vladimir.seis.segystream.DefaultCategoryDatasetRewrite;
-import vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue;
-
-
-import javax.swing.*;
 //    import org.jfree.chart.renderer.ItemLabelPosition;
 //    import org.jfree.chart.renderer.LineAndShapeRenderer;
 //    import org.jfree.data.CategoryDataset;
@@ -48,6 +42,7 @@ public class ChartExecutor {
     /* Инициализация основных обьектов
      *   Определение класса типа синглетон с двойной проверкой для хранения настроек
      *  */
+    private int TRACES_NUMBER;
     private ChartPanelRewrite[] chartPanel;
     private DefaultCategoryDatasetRewrite[] categoryDatasets;
     private CategoryPlotRewrite[] categoryPlots;
@@ -101,7 +96,7 @@ public class ChartExecutor {
 //            chartPanel[1] = new ChartPanelRewrite(chartData);
 
         chartPanel[0] = new ChartPanelRewrite(chartAdd, settings_singleton);
-        chartPanel[1] = new ChartPanelRewrite(chartData, 12.288, settings_singleton);
+        chartPanel[1] = new ChartPanelRewrite(chartData, 12.288, settings_singleton); //traceLength dont use
         chartPanel[1].setChartExecutor(this);
 
 
@@ -153,9 +148,9 @@ public class ChartExecutor {
 //        dataset.addValue(2.0, series2, type7);
 //        dataset.addValue(1.0, series2, type8);
 
-//        for (int i = 0; i < mainGui.getMainController().segyTempTracesData[index].getData().length; i++) {   //TODO Display a 1/8 of trace
-//            dataset.addValue(mainGui.getMainController().segyTempTracesData[index].getData()[i], series1, Integer.toString(i));
-//            System.out.println("Samples in graphics :" +mainGui.getMainController().segyTempTracesData[index].getData().length );
+//        for (int i = 0; i < mainGui.getMainController().segyTempTracesDataForDisplaying[index].getData().length; i++) {   //TODO Display a 1/8 of trace
+//            dataset.addValue(mainGui.getMainController().segyTempTracesDataForDisplaying[index].getData()[i], series1, Integer.toString(i));
+//            System.out.println("Samples in graphics :" +mainGui.getMainController().segyTempTracesDataForDisplaying[index].getData().length );
 //        }
 
 //        dataset.addValue(4.0, series3, type1);
@@ -177,8 +172,14 @@ public class ChartExecutor {
         // create the chart...
 
 
-        CategoryAxis domainAxis = new CategoryAxis();
-        domainAxis.setVisible(false); //trying to disable domain (down) axis labels on additional traces
+        CategoryAxis domainAxis = new CategoryAxisSkipLabels(100);
+        domainAxis.setVisible(true); //trying to disable domain (down) axis labels on additional traces
+//        domainAxis.setTickLabelFont(new Font("Arial", Font.PLAIN,18));
+        domainAxis.setTickLabelsVisible(true);
+        domainAxis.setTickLabelInsets(new RectangleInsets(30,30,30,30));
+
+
+
         CombinedDomainCategoryPlot plot = new CombinedDomainCategoryPlot(domainAxis);
         CategoryDataset datasetTemp = new DefaultCategoryDataset();
         ((DefaultCategoryDataset) datasetTemp).addValue(0.0, "", "");
@@ -188,11 +189,14 @@ public class ChartExecutor {
         for (int i = 0; i < 6; i++) {
 
             NumberAxis rangeAxis1 = new NumberAxis();
-            rangeAxis1.setVisible(false); //trying do turn off axis labels
+            rangeAxis1.setVisible(true); //disable range axis labels
+            rangeAxis1.setTickLabelsVisible(false);
 
 
 //            xyPlots[i] = new XYPlot(categoryDatasets[i], null, rangeAxisX, subplotRenderer);
             categoryPlots[i] = new CategoryPlotRewrite(datasetTemp, null, rangeAxis1, subplotRenderer, i);
+            categoryPlots[i].getRangeAxis().setLabelFont (new Font("Arial",Font.PLAIN,10));
+            categoryPlots[i].getRangeAxis().setLabel(" ");
             plot.add(categoryPlots[i]);
 
         }
@@ -217,7 +221,7 @@ public class ChartExecutor {
     private JFreeChart createDateChart(CategoryDataset dataset) {
 
         // create the chart...
-        CategoryAxis domainAxis = new CategoryAxis();// reinitialising domain for toward appearance changing
+        CategoryAxis domainAxis = new CategoryAxisSkipLabels(10);// reinitialising domain for toward appearance changing
         domainAxis.setVisible(false);//
 
         CombinedDomainCategoryPlot plot = new CombinedDomainCategoryPlot(domainAxis);
@@ -233,9 +237,13 @@ public class ChartExecutor {
 
         for (int i = 6; i < categoryPlots.length; i++) {
             NumberAxis rangeAxis1 = new NumberAxis();
-            rangeAxis1.setVisible(false); //disable range axis labels
+
+            rangeAxis1.setVisible(true); //disable range axis labels
+            rangeAxis1.setTickLabelsVisible(false);
 
             categoryPlots[i] = new CategoryPlotRewrite(datasetTemp, null, rangeAxis1, subplotRenderer, i);
+            categoryPlots[i].getRangeAxis().setLabelFont (new Font("Arial",Font.PLAIN,10));
+            categoryPlots[i].getRangeAxis().setLabel(" ");
             plot.add(categoryPlots[i]);
 
         }
@@ -251,11 +259,17 @@ public class ChartExecutor {
     }
 
     // Заполнение графиков данными
-    public void updateWithDataset(int index){  //TODO 4 executing need change to one ???? Somewhere hire java.lang.IllegalArgumentException: Invalid category index:
+    public void updateWithDataset(int index, int FILE_SEQ_NUM){  //TODO 4 executing need change to one ???? Somewhere hire java.lang.IllegalArgumentException: Invalid category index:
         String series1 = "First";
-        for (int i = 0; i < mainGui.getMainController().segyTempTracesData[index].getData().length; i++) {   //TODO Change to display a 1/8 of trace
-            categoryDatasets[index].addValue(mainGui.getMainController().segyTempTracesData[index].getData()[i], series1, Integer.toString(i));
+
+        for (int i = 0; i < mainGui.getMainController().segyTempTracesDataForDisplaying[index].getData().length; i++) {   //TODO Change to display a 1/8 of trace
+            categoryDatasets[index].addValue(mainGui.getMainController().segyTempTracesDataForDisplaying[index+FILE_SEQ_NUM*54].getData()[i], series1, Integer.toString(i));
+
         }
+
+
+
+
 
 
 
@@ -272,15 +286,26 @@ public class ChartExecutor {
 
     }
 
-    //TODO Change scale to 0.8 of current, Needs changes if 4*54 files
+    //TODO Change scale to 0.8 of current, Needs changes if 4*54 traces
 
-    public void redefineDatasets() {
-        for (int i = 0; i < 6; i++) {
+    public void redefineDatasets(int FILE_SEQ_NUM) {
+        for (int i = 0; i < 6; i++) { //TODO Number of addition traces graphs
             ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[0].getChart().getPlot()).getSubplots().get(i)).setDataset(categoryDatasets[i]);
+
         }
-        for (int i = 0; i < 48; i++) {
+        for (int i = 0; i < 48; i++) { //TODO Number of data traces graphs
             ((CategoryPlot) ((CombinedDomainCategoryPlot) chartPanel[1].getChart().getPlot()).getSubplots().get(i)).setDataset(categoryDatasets[i + 6]);
+
         }
+
+        for (int i = 0; i < 54; i++) {//TODO Number of addition+data traces graphs
+//            System.out.println("cur trace index -> " + (i+FILE_SEQ_NUM*54));
+//            System.out.println(Integer.toString(mainGui.getMainController().segyTempTraces[i+FILE_SEQ_NUM*54].getTraceNumberWithinOrigFieldRecord()));
+            categoryPlots[i].getRangeAxis().setLabel(Integer.toString(mainGui.getMainController().segyTempTraces[i+FILE_SEQ_NUM*54].getTraceSequenceNumberWithinSegyFile()));
+
+        }
+
+
     }
 
     public void setSameScale() {

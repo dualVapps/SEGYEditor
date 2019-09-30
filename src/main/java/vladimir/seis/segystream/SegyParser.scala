@@ -6,6 +6,7 @@ package vladimir.seis.segystream
 
 
 import java.nio.ByteOrder
+import java.nio.charset.Charset
 
 import akka.util.ByteString
 import vladimir.seis.mainGui
@@ -42,7 +43,8 @@ case class BinHeaderPhase(cfg: SegyConfig) extends SegyPhase {
       //TODO: Add support for variable number of ext text headers
       throw new UnsupportedOperationException("Variable number of Extended Text Headers not supported yet!")
     case extHeaders if extHeaders == 0 => TraceHeaderPhase(cfg, binHeader) //skip extended text header
-    case extHeadersLeft => ExtTextHeaderPhase(cfg, extHeadersLeft, binHeader)
+    case extHeadersLeft => ExtTextHeaderPhase(new SegyConfig(Charset.forName("CP037"), mainGui.getSettings_singl.getCfgTraceSizeBytes),
+      extHeadersLeft, binHeader)
   }
   override def extract(bs: ByteString): (BinHeader, SegyPhase) = {
     var it = bs.iterator // Var!!!
@@ -138,6 +140,26 @@ case class BinHeaderPhase(cfg: SegyConfig) extends SegyPhase {
       it.getShort
     )
     mainGui.getMainController.getSegyTempFile.printFileHeader()
+
+    val eachSampleSize:Int = mainGui.mainController.segyTempFile.getDataSampleFormatCode.toInt match {
+      case 1 => 4
+      case 2 => 4
+      case 3 => 2
+      case 4 => 4
+      case 5 => 4
+      case _ => 4
+    }
+
+
+
+
+    mainGui.getSettings_singl.setCfgEachSampleSizeBytes(eachSampleSize)
+    mainGui.getSettings_singl.setCfgSamplesNumber(mainGui.mainController.segyTempFile.getSamplesPerDataTraceOrig.toInt)
+    mainGui.getSettings_singl.setCfgTraceSizeBytes(mainGui.getSettings_singl.getCfgEachSampleSizeBytes * mainGui.getSettings_singl.getCfgSamplesNumber)
+    mainGui.getSettings_singl.setCfgTraceNumber(mainGui.mainController.segyTempFile.getNumOfTraces)
+    mainGui.getSettings_singl.setCfgFilesNumber(mainGui.mainController.segyTempFile.getNumOfFiles)
+    mainGui.getSettings_singl.setCfgCurrentFileSeqNumber(0)
+    mainGui.mainController.initReadingParameters()
     segy -> nextPhase(segy)
   }
 }
@@ -147,7 +169,8 @@ case class ExtTextHeaderPhase(cfg: SegyConfig, extHeadersLeft: Int, binHeader: B
   override def matPromise: PromiseStrategy = KEEP
   def nextPhase: SegyPhase = extHeadersLeft match {
     case headers if headers > 0 => ExtTextHeaderPhase(cfg, headers - 1, binHeader)
-    case _ => TraceHeaderPhase(cfg, binHeader)
+    case _ => TraceHeaderPhase(new SegyConfig(Charset.forName("CP037"), mainGui.getSettings_singl.getCfgTraceSizeBytes),
+      binHeader)
   }
   override def extract(bs: ByteString): (ExtTextHeader, SegyPhase) = {
     val s = bs.decodeString(cfg.charset)
@@ -171,7 +194,7 @@ case class TraceHeaderPhase(cfg: SegyConfig, binHeader: BinHeader) extends SegyP
       }
     }
     val bytesLeft = nSamples * binHeader.getDataFormat.length
-    TraceDataPhase(cfg, binHeader, th, 0, bytesLeft)
+    TraceDataPhase(new SegyConfig(Charset.forName("CP037"), mainGui.getSettings_singl.getCfgTraceSizeBytes), binHeader, th, 0, bytesLeft)
   }
   override def extract(bs: ByteString): (TraceHeader, SegyPhase) = {
     var it = bs.iterator //original val
@@ -429,6 +452,8 @@ case class TraceHeaderPhase(cfg: SegyConfig, binHeader: BinHeader) extends SegyP
 //    mainGui.getMainController.getSegyTempTraces(segy.traceNumberWithinOrigFieldRecord - 1) .printHeader()
     mainGui.getMainController.getSegyTempTraces(segy.traceSequenceNumberWithinSegyFile - 1) .printHeader()
 
+
+
     segy -> nextPhase(segy)
   }
 }
@@ -446,8 +471,8 @@ case class TraceDataPhase(cfg: SegyConfig, binHeader: BinHeader, th: TraceHeader
     val bytesUsed = td.bs.length
     val curPos = pos + bytesUsed / binHeader.getDataFormat.length
     bytesLeft - bytesUsed match {
-      case left if left > 0 => TraceDataPhase(cfg, binHeader, th, curPos, left)
-      case left if left == 0 => TraceHeaderPhase(cfg, binHeader)
+      case left if left > 0 => TraceDataPhase(new SegyConfig(Charset.forName("CP037"), mainGui.getSettings_singl.getCfgTraceSizeBytes), binHeader, th, curPos, left)
+      case left if left == 0 => TraceHeaderPhase(new SegyConfig(Charset.forName("CP037"), mainGui.getSettings_singl.getCfgTraceSizeBytes), binHeader)
       case left if left < 0 => throw new SegyException(s"Something went wrong, negative offset reading SegY Data: $left")
     }
   }
@@ -456,8 +481,8 @@ case class TraceDataPhase(cfg: SegyConfig, binHeader: BinHeader, th: TraceHeader
     val segy = TraceDataChunk(bs, pos, th.segyHedRev, th.traceIdCode, a)(binHeader.getDataFormat)// , shotPointLine, shotPointSta
 
 
-//    mainGui.mainController.segyTempTracesData(th.traceNumberWithinOrigFieldRecord-1).data=segy.floatData;
-    mainGui.mainController.segyTempTracesData(th.traceSequenceNumberWithinSegyFile -1).data=segy.floatData;
+//    mainGui.mainController.segyTempTracesDataForDisplaying(th.traceNumberWithinOrigFieldRecord-1).data=segy.floatData;
+    mainGui.mainController.segyTempTracesDataForDisplaying(th.traceSequenceNumberWithinSegyFile -1).data=segy.floatData;
 //    System.out.println("-segy.floatData----------------------- data length" + segy.floatData.length)
 //    System.out.println("-segy.floatData----------------------- data " + segy.floatData.toString)
 //    System.out.println("-segy.floatData----------------------- data " + segy.floatData.toString)
@@ -467,7 +492,7 @@ case class TraceDataPhase(cfg: SegyConfig, binHeader: BinHeader, th: TraceHeader
     segy -> nextPhase(segy)
   }
 
-//  System.out.println("------------------------- data length" + mainGui.mainController.segyTempTracesData.length)
+//  System.out.println("------------------------- data length" + mainGui.mainController.segyTempTracesDataForDisplaying.length)
 
 }
 

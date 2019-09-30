@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SEGYMpvEditor.iml" filepath="$PROJECT_DIR$/SEGYMpvEditor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SEGYMpvEditorTC.iml" filepath="$PROJECT_DIR$/SEGYMpvEditorTC.iml" />
     </modules>
   </component>
 </project>

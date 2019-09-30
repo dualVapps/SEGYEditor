@@ -22,7 +22,7 @@ import scala.concurrent.{Future, Promise}
 case class SegyConfig(
   charset: Charset = Charset.forName("CP037"), //textual data charset
 //  dataChunkSize: Int = 8192 //bytes //TODO Fix to variable
-  dataChunkSize: Int =  8192  //bytes //TODO Fix to variable
+  dataChunkSize: Int =  -1  //bytes //TODO Fix to variable
 )
 
 object SegyFlow {
