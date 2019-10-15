@@ -55,6 +55,7 @@ public class mainController {
     }
 
     public void initReadingParameters() {
+
         if ((settings_singleton.getCfgTraceNumber() > 1)&&(settings_singleton.getCfgSamplesNumber()>1))
         {
             CURRENT_TRACE_NUMBER = settings_singleton.getCfgTraceNumber();
@@ -120,7 +121,7 @@ public class mainController {
 
         if ((s1 != null) && (index < 6)) {
             lawJLs[index].setText(s1);
-        } else lawJLs[index].setText("  ----------");
+        } else if (index < 6) lawJLs[index].setText("  ----------");
 
 
     }
@@ -130,6 +131,7 @@ public class mainController {
 //        System.out.println("Picking Button" + mainGui.getPickingButton().toString());
 //        mainGui.getPickingButton().doClick();
         pickButton.doClick();
+        if (mainGui.getSettings_singl().getCfgTrimLawDescrBegs()[mainGui.getSettings_singl().getCfgCurrentFileSeqNumber()]!=-1) mainGui.getSettings_singl().saveTrimLawEndsDescr();
         mainGui.getSettings_singl().formingFullLengthLaw();
         mainGui.getSettings_singl().formingShiftedFullTrimLaw(segyTempTracesDataForDisplaying);
 
@@ -226,4 +228,5 @@ public class mainController {
         }
 
     }
+
 }

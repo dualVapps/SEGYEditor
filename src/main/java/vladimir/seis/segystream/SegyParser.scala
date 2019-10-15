@@ -159,6 +159,7 @@ case class BinHeaderPhase(cfg: SegyConfig) extends SegyPhase {
     mainGui.getSettings_singl.setCfgTraceNumber(mainGui.mainController.segyTempFile.getNumOfTraces)
     mainGui.getSettings_singl.setCfgFilesNumber(mainGui.mainController.segyTempFile.getNumOfFiles)
     mainGui.getSettings_singl.setCfgCurrentFileSeqNumber(0)
+    mainGui.getSettings_singl.initTrimLawDescr(mainGui.getSettings_singl.getCfgFilesNumber)
     mainGui.mainController.initReadingParameters()
     segy -> nextPhase(segy)
   }

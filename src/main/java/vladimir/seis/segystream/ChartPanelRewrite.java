@@ -203,15 +203,36 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
                     TrimLawSingleValue trimLawSingleValue = new TrimLawSingleValue(
                             event.getTrigger().getX(),
                             event.getTrigger().getY(),
+                            mainGui.getSettings_singl().getCfgCurrentFileSeqNumber(),
                             sCDR.getNumberDataset(),
                             Integer.parseInt(caE.getColumnKey().toString()),
                             (double) caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()));
 //                            System.out.println("Pick value------>" +(double) caE.getDataset().getValue(caE.getRowKey(), caE.getColumnKey()));
 
+                    int tempNumber = 0;
+                    boolean isFirstInReel = false;
+                    System.out.println("start");
+                    for (int i = 0; i< mainGui.getSettings_singl().getTrimLaw().size(); i++) {
+                        System.out.print(mainGui.getSettings_singl().getTrimLaw().get(i).getReelNumber() + " : " + mainGui.getSettings_singl().getTrimLaw().get(i).getSampleValue() + "|| ");
+                    }
+                    System.out.println();
+                    for (int i = 0; i < mainGui.getSettings_singl().getTrimLaw().size(); i++) {
+                        System.out.println("tempNumber1 " + tempNumber);
+                        if (mainGui.getSettings_singl().getTrimLaw().get(i).getReelNumber() == mainGui.getSettings_singl().getCfgCurrentFileSeqNumber()) tempNumber++;
+                        System.out.println("tempNumber2 " + tempNumber);
+                    }
 
+                    if (tempNumber == 0) {
+                        mainGui.getSettings_singl().getCfgTrimLawDescrBegs()[mainGui.getSettings_singl().getCfgCurrentFileSeqNumber()] = trimLawSingleValue.getDatasetValue();
+                        isFirstInReel = true;
+                    }
 
-                    if (mainGui.getSettings_singl().getTrimLaw().size() == 0) {
+                    if (isFirstInReel) {
                         mainGui.getSettings_singl().addValueToTrimLaw(trimLawSingleValue);
+                        mainGui.getSettings_singl().getCfgTrimLawDescrBegs()[mainGui.getSettings_singl().getCfgCurrentFileSeqNumber()] = trimLawSingleValue.getDatasetValue();
+
+
+
                     } else if ((mainGui.getSettings_singl().getTrimLaw().get(mainGui.getSettings_singl().getTrimLaw().size() - 1).getDatasetValue() !=
                             trimLawSingleValue.getDatasetValue()) &&
                             (mainGui.getSettings_singl().getTrimLaw().get(mainGui.getSettings_singl().getTrimLaw().size() - 1).getX() <

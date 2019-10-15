@@ -2,6 +2,7 @@ package vladimir.seis.segystream.SEGYTempEdit;
 
 
 public class TrimLawSingleValue{
+    int reelNumber;
     int  datasetValue;
     int sampleValue;
     double dataValue;
@@ -9,20 +10,22 @@ public class TrimLawSingleValue{
     double y;
 
 
-    public TrimLawSingleValue( double x, double y, int datasetValue, int sampleValue, double dataValue) {
+    public TrimLawSingleValue( double x, double y, int reelNumber, int datasetValue, int sampleValue, double dataValue) {
 
         this.x = x;
         this.y = y;
+        this.reelNumber = reelNumber;
         this.datasetValue = datasetValue;
         this.sampleValue = sampleValue;
         this.dataValue = dataValue;
 
     }
 
-    public TrimLawSingleValue(int datasetValue, int sampleValue) {
+    public TrimLawSingleValue(int reelNumber,int datasetValue, int sampleValue) {
 
         this.x = -1;
         this.y = -1;
+        this.reelNumber = reelNumber;
         this.datasetValue = datasetValue;
         this.sampleValue = sampleValue;
         this.dataValue = -1;
@@ -33,11 +36,20 @@ public class TrimLawSingleValue{
     public TrimLawSingleValue(double x, double y) {
         this.x = x;
         this.y = y;
+        this.reelNumber = -1;
         this.datasetValue = -1;
         this.sampleValue = -1;
         this.dataValue = -1;
 
 
+    }
+
+    public int getReelNumber() {
+        return reelNumber;
+    }
+
+    public void setReelNumber(int reelNumber) {
+        this.reelNumber = reelNumber;
     }
 
     public int getDatasetValue() {

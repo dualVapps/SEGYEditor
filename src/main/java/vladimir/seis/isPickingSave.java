@@ -4,15 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class isOutPicking extends JDialog {
+public class isPickingSave extends JDialog {
     public JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
-    private JLabel isOutPickingText;
-    private mainGui mainGui;
+    private JLabel isPickingSaveText;
 
-    public isOutPicking() {
-         setContentPane(contentPane);
+
+    public isPickingSave(Frame owner) {
+        super(owner);
+        setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
@@ -32,8 +33,7 @@ public class isOutPicking extends JDialog {
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
-                Window w = e.getWindow();
-                w.dispose();
+                onCancel(e);
             }
         });
 
@@ -43,31 +43,40 @@ public class isOutPicking extends JDialog {
                 onCancel(e);
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
     }
 
     private void onOK(ActionEvent e) {
         // add your code here
-//        System.out.println("main controller -- "+mainGui.getMainController().toString());
-        mainGui.getMainController().clickPickingButtonSuccess();
+        System.out.println("isPicking - ");
+        System.out.println(((mainGui) getOwner()).getClass().getSimpleName());
+
+        ((mainGui) getOwner()).pickingModeSpinActionOk();
+//        mainGui.pickingModeSpinAction();
         JComponent comp = (JComponent) e.getSource();
         Window win = SwingUtilities.getWindowAncestor(comp);
         win.dispose();
-
-
-        //        dispose();
     }
 
-    private void onCancel(ActionEvent e) {
+    private void onCancel(AWTEvent e) {
         // add your code here if necessary
 
-        JComponent comp = (JComponent) e.getSource();
-        Window win = SwingUtilities.getWindowAncestor(comp);
-        win.dispose();
-//        dispose();
+        if (e instanceof ActionEvent) {
+
+            JComponent comp = (JComponent) e.getSource();
+            Window win = SwingUtilities.getWindowAncestor(comp);
+            win.dispose();
+        }
+        if (e instanceof WindowEvent) {
+            Window win = ((WindowEvent) e).getWindow();
+            win.dispose();
+        }
+
+        ((mainGui) getOwner()).pickingModeSpinActionCancel();
     }
 
 //    public static void main(String[] args) {
-//        isOutPicking dialog = new isOutPicking();
+//        isPickingSave dialog = new isPickingSave();
 //        dialog.pack();
 //        dialog.setVisible(true);
 //        System.exit(0);

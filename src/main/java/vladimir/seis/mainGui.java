@@ -10,6 +10,8 @@ import akka.stream.javadsl.Keep;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import akka.util.ByteString;
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
 import vladimir.seis.segystream.*;
 import org.jfree.chart.ChartPanel;
 import scala.concurrent.Future;
@@ -20,6 +22,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.plaf.basic.BasicSpinnerUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,11 +32,11 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.concurrent.CompletionStage;
 
-public class mainGui {
+public class mainGui extends JFrame {
 
 
     //TODO make unactive if settings Change
-
+    static private JSpinner reelsp = new JSpinner();
     //    private final ChartPanel chartPanel1;
     public JPanel mainJPanel;
     private JButton shooseFileButton;
@@ -46,7 +49,6 @@ public class mainGui {
     private JButton showTraceBinButton;
     private JButton pickingButton;
     private JButton saveFileButton;
-    private JButton settingsBotton;
     private JButton scaleUp;
     private JButton scaleDown;
     private JButton scaleZero;
@@ -58,9 +60,15 @@ public class mainGui {
     private JLabel lawPoint6TL;
     private JButton clearButton;
     private JToggleButton balanceToggle;
-    private JSpinner reelSpinner;
+    JSpinner.DefaultEditor rsEditor;
+
+    SpinnerNumberModel model1;
+    JSpinner.NumberEditor ne;
+
     private JLabel seqHelperTF;
     private JLabel seqHelperTFToolTip;
+    private JButton muteLawTableBotton;
+    private JPanel spinnerPanel;
     JFileChooser fc;
     static private File directory;
     static private File savePath;
@@ -70,16 +78,17 @@ public class mainGui {
     private ChartPanel[] chartPanel;
     static private Settings_singleton settings_singl;
     static private MyDrawingGlassPane myDrawingGlassPane;
+    public static BasicArrowButton bUp, bDown; //spinner arrows
 
     final private float[] scaleKoef = {0.125f, 0.17f, 0.22f, 0.33f, 0.66f, 1f, 1.5f, 3f, 4.5f, 6f, 8f};
     int scaleKoefNumber = 5;
 
     static public mainController mainController;
 
-    private boolean isPickingMode = false;
+    public boolean isPickingMode = false;
     private boolean isNewFolderSelected = false;
 
-    static JFrame mainJFrame;
+    static mainGui mainJFrame;
 
 
     public JButton getPickingButton() {
@@ -89,8 +98,9 @@ public class mainGui {
     public static void main(String[] args) { //TODO make another method of starting (see book)
 
         settings_singl = new Settings_singleton().getSettings_singleton();
-        mainJFrame = new JFrame("SEGYMpvEditor v0.02 TC");
         mainController = new mainController();
+
+        mainJFrame = new mainGui();
 
 
 //        shooseFileButton.setIc;
@@ -98,31 +108,28 @@ public class mainGui {
 //        showFileBinButton;
 //        showTraceBinButton;
 
-        mainJFrame.setContentPane(new mainGui().mainJPanel);
+        mainJFrame.setContentPane(mainJFrame.mainJPanel);
         mainJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        mainJFrame.setTitle("SEGYMpvEditor v0.02 TC");
 
 
         mainJFrame.pack();
         mainJFrame.setVisible(true);
         mainJFrame.setResizable(false); // Lock size change
-        JFrame settingsJFrame = new JFrame("settings");
-        Settings settings = new Settings();
-        settingsJFrame.setContentPane(settings.settingsPanel);
-        settingsJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        settingsJFrame.pack();
-        settingsJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth() / 2 - settingsJFrame.getWidth()/2,
-                mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight() / 2 - settingsJFrame.getHeight()/2);
-        settingsJFrame.setResizable(false);
-        settingsJFrame.setVisible(true);
-
+//        JFrame settingsJFrame = new JFrame("settings");
+//        Settings settings = new Settings();
+//        settingsJFrame.setContentPane(settings.settingsPanel);
+//        settingsJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+//        settingsJFrame.pack();
+//        settingsJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth() / 2 - settingsJFrame.getWidth()/2,
+//                mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight() / 2 - settingsJFrame.getHeight()/2);
+//        settingsJFrame.setResizable(false);
+//        settingsJFrame.setVisible(true);
 
 
         initAfterReading();
 
         //Checking size
-
-
 
 
 //        setupMainController();
@@ -132,9 +139,9 @@ public class mainGui {
 
     private static void initAfterReading() {
 
-        myDrawingGlassPane = new MyDrawingGlassPane(mainController);
+        myDrawingGlassPane = new MyDrawingGlassPane(mainController, bUp, bDown, reelsp);
         mainJFrame.setGlassPane(myDrawingGlassPane);
-        myDrawingGlassPane.init(); //TODO Rewrite with trasfer GUI elements throw maincontroller
+        myDrawingGlassPane.init(); //TODO Rewrite with trasfer GUI elements throug maincontroller
 //        mainController.initReadingParameters();
     }
 
@@ -162,40 +169,69 @@ public class mainGui {
         final Materializer materializer = ActorMaterializer.create(system);
 
         //Set spinner initial parameters
-        {
-            JSpinner.DefaultEditor rsEditor = ( JSpinner.DefaultEditor ) reelSpinner.getEditor();
-            rsEditor.getTextField().setEditable(false);
-            reelSpinner.setLayout(null);
-            Component c = reelSpinner.getComponent(0);
-            if (c instanceof BasicArrowButton) {
-//                System.out.println("SetSpinnerButtonSize 1");
-                BasicArrowButton b = (BasicArrowButton) c;
-                b.setBounds(26, 0, 1, 1);
-                b.setSize(25, 25);
-            }
-            Component c2 = reelSpinner.getComponent(1);
-            if (c2 instanceof BasicArrowButton) {
-//                System.out.println("SetSpinnerButtonSize 2");
-                BasicArrowButton b = (BasicArrowButton) c2;
-                b.setBounds(26, 26, 1, 1);
-                b.setSize(25, 25);
-            }
-//            Component c3 = reelSpinner.getComponent(2);
-//            if (c3 instanceof JSpinner.NumberEditor || c3 instanceof JSpinner.ListEditor) {
-//                JSpinner.DefaultEditor ne = (JSpinner.DefaultEditor) c3;
-//                ne.setBounds(1, 1, 10, 10);
-//            }
-            rsEditor.setBounds(1,1,25,50);
-            rsEditor.setAlignmentX(0.5f);
-            rsEditor.setAlignmentY(0.5f);
-//            rsEditor.setFont(new Font("Arial",Font.PLAIN,16));
 
-
-
-            reelSpinner.setVisible(false);
-            seqHelperTFToolTip.setVisible(false);
-            seqHelperTF.setVisible(false);
+        for (int i = 0; i < reelsp.getComponents().length; i++) {
+            System.out.println(reelsp.getComponent(i));
         }
+
+
+        rsEditor = ( JSpinner.DefaultEditor ) reelsp.getEditor();
+        rsEditor.getTextField().setEditable(false);
+
+//        reelsp.setLayout(null);
+//
+
+        Component c = reelsp.getComponent(0);
+        if (c instanceof BasicArrowButton) {
+                System.out.println("SetSpinnerButtonSize 1");
+            bUp = (BasicArrowButton) c;
+            bUp.setBounds(26, 0, 25, 25);
+
+
+        }
+        Component c2 = reelsp.getComponent(1);
+        if (c2 instanceof BasicArrowButton) {
+            bDown = (BasicArrowButton) c2;
+            bDown.setBounds(26, 26, 25, 25);
+
+        }
+
+        rsEditor.setBounds(1,1,25,50);
+        rsEditor.setAlignmentX(0.5f);
+        rsEditor.setAlignmentY(0.5f);
+
+
+
+
+
+
+
+
+        try {
+            spinnerPanel.add(reelsp, new GridConstraints(0,
+                    0,
+                    1,
+                    1,
+                    0,
+                    0,
+                    GridConstraints.SIZEPOLICY_WANT_GROW,
+                    GridConstraints.SIZEPOLICY_WANT_GROW,
+                    new Dimension(53, 53),
+                    new Dimension(53, 53),
+                    new Dimension(53, 53)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        reelsp.setVisible(false);
+        seqHelperTFToolTip.setVisible(false);
+        seqHelperTF.setVisible(false);
+
+
+//            buttonPanel.add(reelSpinner,  new GridConstraints());
+//            reelSpinner.setVisible(true);
+
 
         balanceToggle.setSelected(true);
 
@@ -245,7 +281,7 @@ public class mainGui {
 
                             @Override
                             public void valueChanged(ListSelectionEvent event) {
-                                if (!event.getValueIsAdjusting()&&isNewFolderSelected) {
+                                if (!event.getValueIsAdjusting() && isNewFolderSelected) {
                                     JList source = (JList) event.getSource();
                                     choosenIndex = source.getSelectedIndex();
                                     makeButtonsUnactive(); //TODO Check
@@ -327,7 +363,6 @@ public class mainGui {
 //                reDrawChartsWithRenevalData();
 ////                System.out.println("22222222222222222222222222");
 //                makeButtonsActive();
-
 
 
             }
@@ -428,7 +463,7 @@ public class mainGui {
 //                System.out.println(choosenFiles[choosenIndex].getName());
 //                System.out.println(choosenFiles[choosenIndex].getAbsolutePath());
 
-                fillDataToAfterProcessing(); // For Saving also
+                fillDataToAfterProcessing(); // For Saving only
                 makeProccesing();
 
                 FileOutputStream fos = null;
@@ -533,6 +568,7 @@ public class mainGui {
                 if (!isPickingMode) {
                     pickingButton.setBorder(BorderFactory.createLoweredBevelBorder());
                     myDrawingGlassPane.setVisible(true);
+                    myDrawingGlassPane.checkPickingStatus();
                     isPickingMode = true;
                     getSettings_singl().setInPickingMode(true);
                     makeButtonsUnactiveExcPicking();
@@ -548,18 +584,19 @@ public class mainGui {
         });
 
 
-
-        settingsBotton.addActionListener(new ActionListener() {
+        muteLawTableBotton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame settingsJFrame = new JFrame("settings");
-                Settings settings = new Settings();
-                settingsJFrame.setContentPane(settings.settingsPanel);
+
+
+                JFrame settingsJFrame = new JFrame("Mute Law");
+                muteLawTable muteLawTable = new muteLawTable();
+                settingsJFrame.setContentPane(muteLawTable.muteLawTableMainPanel);
                 settingsJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
                 settingsJFrame.pack();
                 settingsJFrame.setResizable(false);
-                settingsJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth() / 2 -settingsJFrame.getWidth()/2,
-                        mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight() / 2 - settingsJFrame.getHeight()/2);
+//                settingsJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth() / 2 -settingsJFrame.getWidth()/2,
+//                        mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight() / 2 - settingsJFrame.getHeight()/2);
                 settingsJFrame.setVisible(true);
 
 
@@ -622,8 +659,7 @@ public class mainGui {
                 if (balanceToggle.isSelected()) {
                     getMainController().balancingTempData();
 //                    System.out.println("Balanced");
-                }
-                else {
+                } else {
                     getMainController().resetBalancing();  //TODO Fix: need different behavior on first open and button click
                     chartExecutor.resetPlotsRange();
 //                    System.out.println("Notbalanced");
@@ -632,6 +668,8 @@ public class mainGui {
                 redrawCharts();
             }
         });
+
+
     }
 
     private void makeProccesing() { //TODO Changing in SEGY FIle
@@ -639,13 +677,13 @@ public class mainGui {
 //        for (int i = 0; i < 54; i++) {
 //            mainController.segyTempTraces[i].setAuxChanType((byte)0x01);
 //        }
-        processingTraceHeader();
+//        processingTraceHeader(); //No need for TC version
         processingDataUpperOfPicking();
 
 
     }
 
-    private void fillDataToAfterProcessing(){
+    private void fillDataToAfterProcessing() {
         //PrepareData for processing and saving
 
 
@@ -727,8 +765,10 @@ public class mainGui {
         System.out.println("reDrawChartsWithRenevalData single singl ->>" + getSettings_singl().getCfgFilesNumber());
 
         for (int j = 0; j < 54; j++) {
-            try {chartExecutor.updateWithDataset(j,CURRENT_FILE_SEQ_NUMBER);}
-            catch (IllegalArgumentException e) {}
+            try {
+                chartExecutor.updateWithDataset(j, CURRENT_FILE_SEQ_NUMBER);
+            } catch (IllegalArgumentException e) {
+            }
 
         }
 
@@ -760,14 +800,16 @@ public class mainGui {
         redrawCharts();
         System.out.println("redrawCharts");
 
-        if (getSettings_singl().getCfgTraceNumber()>54) {
-            activateReelSpinner();
-        }
-        else deactivateReelSpinner();
+        if (getSettings_singl().getCfgTraceNumber() > 54) {
+            System.out.println("mainGui.getSettings_singl().getCfgFilesNumber()" + mainGui.getSettings_singl().getCfgFilesNumber());
+            try {
+                reelsp.setValue(1);
+            activateReelSpinner();}
+            catch (Exception e) {e.printStackTrace();}
+        } else deactivateReelSpinner();
 
         makeButtonsActive();
         System.out.println("makeButtonsActive");
-
 
 
 //        done.thenRunAsync(() -> onFinishedreading()
@@ -779,12 +821,13 @@ public class mainGui {
     private void redrawCharts() {
 
         if (balanceToggle.isSelected()) {
-           getMainController().balancingTempData();
+            getMainController().balancingTempData();
 //            System.out.println("Balanced");
         }
         reDrawChartsWithRenevalData();
         chartExecutor.setInitialSameScale(); //Set initial scale separate for each file
         chartExecutor.setSameScale();   // TODO Write javadoc
+        myDrawingGlassPane.reloadTrimLaw();
     }
 
     void setJLabelsLaw(String s1, String s2, String s3, String s4, String s5, String s6) {
@@ -813,7 +856,7 @@ public class mainGui {
         pickingButton.setEnabled(false);
         saveFileButton.setEnabled(false);
         clearButton.setEnabled(false);
-//          settingsBotton.setEnabled(false);
+//          muteLawTableBotton.setEnabled(false);
         scaleUp.setEnabled(false);
         scaleDown.setEnabled(false);
         scaleZero.setEnabled(false);
@@ -825,7 +868,7 @@ public class mainGui {
         showTraceBinButton.setEnabled(true);
         pickingButton.setEnabled(true);
         saveFileButton.setEnabled(true);
-//          settingsBotton.setEnabled(false);
+//          muteLawTableBotton.setEnabled(false);
         scaleUp.setEnabled(true);
         scaleDown.setEnabled(true);
         scaleZero.setEnabled(true);
@@ -838,7 +881,7 @@ public class mainGui {
         showTraceBinButton.setEnabled(true);
         pickingButton.setEnabled(true);
         saveFileButton.setEnabled(true);
-        settingsBotton.setEnabled(true);
+        muteLawTableBotton.setEnabled(true);
         scaleUp.setEnabled(true);
         scaleDown.setEnabled(true);
         scaleZero.setEnabled(true);
@@ -854,10 +897,10 @@ public class mainGui {
         clearButton.setEnabled(true);
 //          pickingButton.setEnabled(false);
         saveFileButton.setEnabled(false);
-        settingsBotton.setEnabled(false);
-        scaleUp.setEnabled(false);
-        scaleDown.setEnabled(false);
-        scaleZero.setEnabled(false);
+        muteLawTableBotton.setEnabled(false);
+        scaleUp.setEnabled(true);
+        scaleDown.setEnabled(true);
+        scaleZero.setEnabled(true);
     }
 
     public static void pickingDisablerGui() {
@@ -867,8 +910,8 @@ public class mainGui {
         pickingGUIJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         pickingGUIJFrame.pack();
         pickingGUIJFrame.setResizable(false);
-        pickingGUIJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth() / 2 -pickingGUIJFrame.getWidth()/2,
-                mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight() / 2 - pickingGUIJFrame.getHeight()/2);
+        pickingGUIJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth() / 2 - pickingGUIJFrame.getWidth() / 2,
+                mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight() / 2 - pickingGUIJFrame.getHeight() / 2);
         pickingGUIJFrame.setVisible(true);
 
 
@@ -881,13 +924,13 @@ public class mainGui {
         }
         settings_singl.zeroedTrimLaw();
         settings_singl.zeroedFullTrimLaw();
-        settings_singl.zeroedFullTrimLawShofted();
+        settings_singl.zeroedFullTrimLawShifted();
 
         myDrawingGlassPane.zeroedMuteLaw();
 
         scaleKoefNumber = 5;
         chartExecutor.setScaleFactor(1.0);
-        if (mainGui.getSettings_singl().getInitialFileScaleRange()!=null) chartExecutor.resetPlotsRange();
+        if (mainGui.getSettings_singl().getInitialFileScaleRange() != null) chartExecutor.resetPlotsRange();
 
 //        chartExecutor.setInitialSameScale();
 //        chartExecutor.setSameScale();
@@ -938,9 +981,9 @@ public class mainGui {
         for (int j = 0; j < reelNumber; j++) {
 
 
-            for (int i = 0; i < mainController.getSegyTempTracesDataFromVault()[2+j*54].getData().length; i++) {
-                mainController.getSegyTempTracesDataAfterProcessing()[2+j*54].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[3].getData()[i] +
-                        mainController.getSegyTempTracesDataForDisplaying()[4+j*54].getData()[i]) / 2;
+            for (int i = 0; i < mainController.getSegyTempTracesDataFromVault()[2 + j * 54].getData().length; i++) {
+                mainController.getSegyTempTracesDataAfterProcessing()[2 + j * 54].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[3].getData()[i] +
+                        mainController.getSegyTempTracesDataForDisplaying()[4 + j * 54].getData()[i]) / 2;
 
             }
         }
@@ -968,30 +1011,29 @@ public class mainGui {
     private void processingDataUpperOfPicking() { //TODO need applying something better than average (or some transformation)
 
         //Applying AGC with c = arithmetic average for samples above  shifted trim law
+        try {
+            System.out.println("Saving");
+            for (int i = 0; i < mainGui.getSettings_singl().getFullTrimShifted().size();
+                 i++) {
+                int tempTraceNumber, tempSampleNumber;
+                tempTraceNumber = getSettings_singl().getFullTrimShifted().get(i).getDatasetValue();
+                tempSampleNumber = getSettings_singl().getFullTrimShifted().get(i).getSampleValue();
 
+                //Copying array above trimShiftedLaw
+                float[] tempTrimDataArray = new float[tempSampleNumber];
+                for (int j = 0; j < tempTrimDataArray.length; j++) {
+                    tempTrimDataArray[j] = getMainController().getSegyTempTracesDataAfterProcessing()[tempTraceNumber].getData()[j];
+                }
 
+                //Calculating summary of array from 0 to trimShifted point and deviding to sample number (average value)
+                float regLevel; //regulation level
+                float sum = 0;
+                for (int j = 0; j < tempTrimDataArray.length; j++) {
+                    sum = sum + tempTrimDataArray[j];
+                }
 
-        for (int i = 0; i < mainGui.getSettings_singl().getFullTrimShifted().size();
-             i++) {
-            int tempTraceNumber, tempSampleNumber;
-            tempTraceNumber = getSettings_singl().getFullTrimShifted().get(i).getDatasetValue();
-            tempSampleNumber = getSettings_singl().getFullTrimShifted().get(i).getSampleValue();
-
-            //Copying array above trimShiftedLaw
-            float[] tempTrimDataArray = new float[tempSampleNumber];
-            for (int j = 0; j < tempTrimDataArray.length; j++) {
-                tempTrimDataArray[j] = getMainController().getSegyTempTracesDataAfterProcessing()[tempTraceNumber].getData()[j];
-            }
-
-            //Calculating summary of array from 0 to trimShifted point and deviding to sample number (average value)
-            float regLevel; //regulation level
-            float sum = 0;
-            for (int j = 0; j < tempTrimDataArray.length; j++) {
-                sum = sum + tempTrimDataArray[j];
-            }
-
-            regLevel = sum / tempTrimDataArray.length;
-            regLevel = regLevel * getSettings_singl().getKorCoefToAverage(); // Applying correction coefficient
+                regLevel = sum / tempTrimDataArray.length;
+                regLevel = regLevel * getSettings_singl().getKorCoefToAverage(); // Applying correction coefficient
 
 //            System.out.printf(":" + i + ":");
 //            System.out.print(" -1- ");
@@ -1001,48 +1043,51 @@ public class mainGui {
 //
 //            System.out.println();
 
-            int shift = (int) getSettings_singl().getAgcWindowSizeInTraces() / 2;
+                int shift = (int) getSettings_singl().getAgcWindowSizeInTraces() / 2;
 //            System.out.println("Shift: " + shift);
 
-            //First stem of AGC - calculating array of summary value in window from settings of input array[window/2; size-window/2]
-            float[] tempAvarage = new float[tempTrimDataArray.length];
+                //First stem of AGC - calculating array of summary value in window from settings of input array[window/2; size-window/2]
+                float[] tempAvarage = new float[tempTrimDataArray.length];
 
-            for (int j = shift; j < tempTrimDataArray.length - shift; j++) { //
-                sum = Math.abs(tempTrimDataArray[j]);
-                for (int k = 1; k <= shift; k++) {
-                    sum = sum + Math.abs(tempTrimDataArray[j + k]);
-                    sum = sum + Math.abs(tempTrimDataArray[j - k]);
+                for (int j = shift; j < tempTrimDataArray.length - shift; j++) { //
+
+                    sum = Math.abs(tempTrimDataArray[j]);
+                    for (int k = 1; k <= shift; k++) {
+                        sum = sum + Math.abs(tempTrimDataArray[j + k]);
+                        sum = sum + Math.abs(tempTrimDataArray[j - k]);
+                    }
+
+                    tempAvarage[j] = sum / 21; //AGC window in samples
                 }
 
-                tempAvarage[j] = sum / getSettings_singl().getAgcWindowSizeInTraces();
-            }
+                for (int j = 0; j < shift; j++) {                       //Execution on AGC boundaries
+                    tempAvarage[j] = tempAvarage[shift];
+                }
 
-            for (int j = 0; j < shift; j++) {                       //Execution on AGC boundaries
-                tempAvarage[j] = tempAvarage[shift];
-            }
-
-            for (int j = tempTrimDataArray.length - shift; j < tempTrimDataArray.length; j++) {
-                tempAvarage[j] = tempAvarage[tempTrimDataArray.length-shift-1];
-            }
+                for (int j = tempTrimDataArray.length - shift; j < tempTrimDataArray.length; j++) {
+                    tempAvarage[j] = tempAvarage[tempTrimDataArray.length - shift - 1];
+                }
 
 
+                //Calculating AGC coefficients
+                float[] tempKoef = new float[tempAvarage.length];
 
-            //Calculating AGC coefficients
-            float[] tempKoef = new float[tempAvarage.length];
+                for (int j = 0; j < tempKoef.length; j++) {
+                    System.out.print("000 " + regLevel + " | " + tempAvarage[j]);
+                    tempKoef[j] = regLevel / tempAvarage[j];
 
-            for (int j = 0; j < tempKoef.length; j++) {
-                tempKoef[j] = regLevel / tempAvarage[j];
+                }
 
-            }
+                // Rewrite seismic data
 
-            // Rewrite seismic data
+                for (int j = 0; j < tempKoef.length; j++) {
 
-            for (int j = 0; j < tempKoef.length; j++) {
-                getMainController().getSegyTempTracesDataAfterProcessing()[tempTraceNumber].getData()[j] = tempTrimDataArray[j] * tempKoef[j];
-            }
+                    System.out.print(tempKoef[j] + " | " + tempTrimDataArray[j]);
+                    getMainController().getSegyTempTracesDataAfterProcessing()[tempTraceNumber].getData()[j] = tempTrimDataArray[j] * tempKoef[j];
+                }
 
 
-            //Output in console for debug
+//                Output in console for debug
 //            System.out.println("********Result og AGC*********");
 //            for (int j = 0; j < tempTrimDataArray.length; j++) {
 //                System.out.printf(":" + j + ":");
@@ -1060,35 +1105,101 @@ public class mainGui {
 //            }
 
 
-        }
+            }
 
-
+        } catch (Exception e) {e.printStackTrace();}
     }
 
     public void activateReelSpinner() {
+        {//Add spinner programmatically
+//            System.out.println("spinner");
+        }
         SpinnerNumberModel model1 = new SpinnerNumberModel(1, 1, mainGui.getSettings_singl().getCfgFilesNumber(), 1);
-        reelSpinner.setModel(model1);
+        reelsp.setModel(model1);
+        rsEditor = ( JSpinner.DefaultEditor ) reelsp.getEditor();
+        rsEditor.getTextField().setEditable(false);
 
-        reelSpinner.addChangeListener(new ChangeListener() {
+
+        reelsp.setVisible(true);
+        seqHelperTFToolTip.setVisible(true);
+        seqHelperTF.setVisible(true);
+        reelsp.addChangeListener(new ChangeListener() {
             @Override
-            public void stateChanged(ChangeEvent e) {
-                settings_singl.setCfgCurrentFileSeqNumber((int) reelSpinner.getValue() - 1);
-                System.out.println("CURRENT_FILE_SEQ_NUMBER -> "+ settings_singl.getCfgCurrentFileSeqNumber());
-                seqHelperTF.setText(reelSpinner.getValue().toString() + " of " + Integer.toString(settings_singl.getCfgFilesNumber()));
-                redrawCharts();
+            public void stateChanged(ChangeEvent e) { //Logic for mute law with multireel tape
+
+
+                if (isPickingMode) {
+                    System.out.println("getCfgTrimLawDescrBegs value " + (int) reelsp.getValue() +" : "+settings_singl.getCfgTrimLawDescrBegs()[(int) reelsp.getValue()-1]);
+                    System.out.println("getCfgTrimLawDescrBegs ss " + settings_singl.getCfgCurrentFileSeqNumber() +" : "  +settings_singl.getCfgTrimLawDescrBegs()[settings_singl.getCfgCurrentFileSeqNumber()]);
+                    System.out.println("getCfgTrimLawDescrEnds valur " + (int) reelsp.getValue() +" : " +settings_singl.getCfgTrimLawDescrEnds()[(int) reelsp.getValue()-1]);
+                    System.out.println("getCfgTrimLawDescrEnds ss " + settings_singl.getCfgCurrentFileSeqNumber() +" : " +settings_singl.getCfgTrimLawDescrEnds()[settings_singl.getCfgCurrentFileSeqNumber()]);
+
+                    if (settings_singl.getCfgTrimLawDescrBegs()[(int)  settings_singl.getCfgCurrentFileSeqNumber()] != -1 &&
+                        settings_singl.getCfgTrimLawDescrEnds()[(int)  settings_singl.getCfgCurrentFileSeqNumber()] == -1 &&
+                        settings_singl.getCfgCurrentFileSeqNumber()+1 != (int) reelsp.getValue()) {
+
+                        JFrame pickingGUIJFrame = new JFrame("Save picking?");
+                        isPickingSave isPickingSave = new isPickingSave(mainJFrame); //Test
+                        pickingGUIJFrame.setContentPane(isPickingSave.contentPane);
+                        pickingGUIJFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+                        pickingGUIJFrame.pack();
+                        pickingGUIJFrame.setResizable(false);
+                        pickingGUIJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth() / 2 - pickingGUIJFrame.getWidth() / 2,
+                                mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight() / 2 - pickingGUIJFrame.getHeight() / 2);
+                        pickingGUIJFrame.setVisible(true);
+                        System.out.println("Spinner value -" + reelsp.getValue());
+                        System.out.println("Spinner value -" + reelsp);
+                        System.out.println("Spinner value -" + reelsp.getModel().toString());
+                        myDrawingGlassPane.reloadTrimLaw();
+                    }
+                    else {
+                        settings_singl.setCfgCurrentFileSeqNumber((int) reelsp.getValue() - 1);
+                        System.out.println("CURRENT_FILE_SEQ_NUMBER -> " + settings_singl.getCfgCurrentFileSeqNumber());
+                        seqHelperTF.setText(reelsp.getValue().toString() + " of " + Integer.toString(settings_singl.getCfgFilesNumber()));
+                        redrawCharts();
+                        myDrawingGlassPane.checkPickingStatus();}
+                } else {
+                    myDrawingGlassPane.reloadTrimLaw();
+                    settings_singl.setCfgCurrentFileSeqNumber((int) reelsp.getValue() - 1);
+                    System.out.println("CURRENT_FILE_SEQ_NUMBER -> " + settings_singl.getCfgCurrentFileSeqNumber());
+                    seqHelperTF.setText(reelsp.getValue().toString() + " of " + Integer.toString(settings_singl.getCfgFilesNumber()));
+                    myDrawingGlassPane.checkAndAddLawEnd();
+                    redrawCharts();
+                }
+
 
             }
         });
+//        System.out.println("spinner 2 --> " +reelsp.getSize());
+//        System.out.println(bUp.getSize());
+//        System.out.println(bDown.getSize());
+//        System.out.println(spinnerPanel.getSize());
+//        System.out.println(rsEditor.getSize());
 
-        JSpinner.DefaultEditor rsEditor = ( JSpinner.DefaultEditor ) reelSpinner.getEditor();
-        rsEditor.getTextField().setEditable(false);
-        rsEditor.setBounds(1,1,25,50);
-        reelSpinner.setVisible(true);
-        seqHelperTFToolTip.setVisible(true);
-        seqHelperTF.setVisible(true);
+
+//        try {
+//            spinnerPanel.add(reelsp, new GridConstraints(0,
+//                    0,
+//                    1,
+//                    1,
+//                    0,
+//                    0,
+//                    GridConstraints.SIZEPOLICY_WANT_GROW,
+//                    GridConstraints.SIZEPOLICY_WANT_GROW,
+//                    new Dimension(53, 53),
+//                    new Dimension(53, 53),
+//                    new Dimension(53, 53)));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+//        System.out.println("spinner --> " +reelsp.getSize());
+
+
     }
+
     public void deactivateReelSpinner() {
-        reelSpinner.setVisible(false);
+        reelsp.setVisible(false);
         seqHelperTFToolTip.setVisible(false);
         seqHelperTF.setVisible(false);
     }
@@ -1099,6 +1210,36 @@ public class mainGui {
         return 0;
     }
 
+    public void pickingModeSpinActionOk() {
+        myDrawingGlassPane.checkAndAddLawEnd();
+        settings_singl.setCfgCurrentFileSeqNumber((int) reelsp.getValue() - 1);
+        myDrawingGlassPane.reloadTrimLaw();
+        getMyDrawingGlassPane().checkPickingStatus();
+        seqHelperTF.setText(reelsp.getValue().toString() + " of " + Integer.toString(settings_singl.getCfgFilesNumber()));
+        redrawCharts();
+
+        System.out.println();
+        for (int i = 0; i < getSettings_singl().getCfgTrimLawDescrBegs().length; i++) {
+            System.out.print(getSettings_singl().getCfgTrimLawDescrBegs()[i]+ " ");
+        }
+        System.out.println();
+        for (int i = 0; i < getSettings_singl().getCfgTrimLawDescrEnds().length; i++) {
+            System.out.print(getSettings_singl().getCfgTrimLawDescrEnds()[i]+ " ");
+        }
+        System.out.println();
+    }
+
+    public void pickingModeSpinActionCancel() {
+        myDrawingGlassPane.reloadTrimLaw();
+        getSettings_singl().deleteTrimLawSpec(getSettings_singl().getCfgCurrentFileSeqNumber());
+        getMyDrawingGlassPane().zeroedMuteLaw();
+        getMyDrawingGlassPane().checkPickingStatus();
+        reelsp.setValue(settings_singl.getCfgCurrentFileSeqNumber()+1);
+        seqHelperTF.setText(reelsp.getValue().toString() + " of " + Integer.toString(settings_singl.getCfgFilesNumber()));
+        getSettings_singl().getCfgTrimLawDescrBegs()[getSettings_singl().getCfgCurrentFileSeqNumber()] = -1;
+        getSettings_singl().getCfgTrimLawDescrEnds()[getSettings_singl().getCfgCurrentFileSeqNumber()] = -1;
+        redrawCharts(); //TODO No need change, redraw glass pane
+    }
 
 
 }
