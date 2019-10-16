@@ -11,7 +11,6 @@ import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import akka.util.ByteString;
 import com.intellij.uiDesigner.core.GridConstraints;
-import com.intellij.uiDesigner.core.GridLayoutManager;
 import vladimir.seis.segystream.*;
 import org.jfree.chart.ChartPanel;
 import scala.concurrent.Future;
@@ -22,7 +21,6 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.plaf.basic.BasicSpinnerUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +28,8 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.SQLOutput;
+import java.util.Random;
 import java.util.concurrent.CompletionStage;
 
 public class mainGui extends JFrame {
@@ -678,7 +678,8 @@ public class mainGui extends JFrame {
 //            mainController.segyTempTraces[i].setAuxChanType((byte)0x01);
 //        }
 //        processingTraceHeader(); //No need for TC version
-        processingDataUpperOfPicking();
+//        processingDataUpperOfPickingAGC();
+        processingDataUpperOfPickingRandom();
 
 
     }
@@ -1008,7 +1009,7 @@ public class mainGui extends JFrame {
 //        }
     }
 
-    private void processingDataUpperOfPicking() { //TODO need applying something better than average (or some transformation)
+    private void processingDataUpperOfPickingAGC() { //TODO need applying something better than average (or some transformation)
 
         //Applying AGC with c = arithmetic average for samples above  shifted trim law
         try {
@@ -1108,6 +1109,88 @@ public class mainGui extends JFrame {
             }
 
         } catch (Exception e) {e.printStackTrace();}
+    }
+
+    private void processingDataUpperOfPickingRandom() {
+        System.out.println("Saving");
+        for (int i = 0; i < mainGui.getSettings_singl().getFullTrimShifted().size();
+             i++) {
+
+
+            int tempDatasetValue = mainGui.getSettings_singl().getFullTrimShifted().get(i).getDatasetValue();
+            int tempReelValue = mainGui.getSettings_singl().getFullTrimShifted().get(i).getReelNumber();
+            int currentTraceNumberFromLaw = tempDatasetValue + tempReelValue *54;
+
+            System.out.println("Trace number comparison");
+            System.out.println(currentTraceNumberFromLaw); // Begins from 0
+            System.out.println(getMainController().getSegyTempTraces(currentTraceNumberFromLaw).getTraceSequenceNumberWithinSegyFile()); //Begins grom 1
+
+            float sum = 0;
+            for (int j = 0; j < 1000; j++) { //Calculate average for first 1000 samples
+                sum = sum + Math.abs(getMainController().getSegyTempTracesDataAfterProcessing()[currentTraceNumberFromLaw].getData()[j]);
+            }
+
+            float traceCorrKoef;
+            traceCorrKoef = sum/1000; //Average
+
+            traceCorrKoef = traceCorrKoef/100; //Divide average by 1000 - level to random
+
+            Random generator = new Random();
+
+            for (int j = 0; j < mainGui.getSettings_singl().getFullTrimShifted().get(i).getSampleValue() ; j++) {
+
+                float fTemp = 0;
+                int sign = generator.nextInt(2);
+
+
+                    fTemp = traceCorrKoef * generator.nextFloat();
+
+
+                if (sign ==0 ) {
+                    getMainController().getSegyTempTracesDataAfterProcessing()[currentTraceNumberFromLaw].getData()[j] = fTemp;
+                }
+                else if (sign == 1) getMainController().getSegyTempTracesDataAfterProcessing()[currentTraceNumberFromLaw].getData()[j] = fTemp* -1;
+
+            }
+
+            System.out.println("Processing info");
+            System.out.println(currentTraceNumberFromLaw);
+            System.out.println(traceCorrKoef);
+            int sign = generator.nextInt(2);
+            System.out.println(sign);
+            System.out.println("Processing info /End");
+
+
+//            final int balancedAmpl = 1;
+//
+//            System.out.println("segyTempTracesDataForDisplaying ->" + segyTempTracesDataForDisplaying.length);
+//
+//                int  tempSampleNumber = 1000;
+//
+//
+//                //Calculating summary of array from 0 to trimShifted point and deviding to sample number (average value)
+//                float regLevel = balancedAmpl; //regulation level
+//                float sum = 0;
+//                for (int j = 0; j < tempSampleNumber; j++) {
+//                    sum = sum + Math.abs(segyTempTracesDataForDisplaying[i].getData()[j]);
+//                }
+//
+////            System.out.println("sum ->>> "+ i+ " ---- " +sum);
+//
+//                float averageSum = sum / tempSampleNumber;
+//
+////            System.out.println("averageSum ->>> "+ i+ " ---- " +averageSum);
+//
+//                currentBalancingCorrKoef[i] = regLevel/averageSum;
+//
+//            System.out.println("averageSum ->>> "+ i+ " ---- " +averageSum);
+//
+
+
+
+
+
+        }
     }
 
     public void activateReelSpinner() {

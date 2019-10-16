@@ -102,7 +102,7 @@ public class Settings {
 
                     mainGui.getSettings_singl().setNumber_of_samples(numberOfSamplesInt);
                     mainGui.getSettings_singl().setSample_sizeInBytes(sizesInBytesInt);
-                    mainGui.getSettings_singl().setFromNegToPos(isFromNegToPosCB.isSelected());
+//                    mainGui.getSettings_singl().setFromNegToPos(isFromNegToPosCB.isSelected());
                     mainGui.getSettings_singl().setAgcWindowSizeInTraces(AGCWindowTraces);
                     mainGui.getSettings_singl().setKorCoefToAverage(korCoefToAverage);
 

@@ -29,7 +29,7 @@ public class Settings_singleton {
     private int sample_sizeInBytes;
     private int agcWindowSizeInTraces;
     private float korCoefToAverage;
-    private boolean isFromNegToPos;
+    private boolean isFromNegToPos = true;
     private boolean isInPickingMode = false;
     private Range initialFileScaleRange;
     private Range currentFileScaleRange;
@@ -252,13 +252,15 @@ public class Settings_singleton {
                 boolean isSearchingSuccess = false;
                 int shift = 0;
 //                System.out.println(isFromNegToPos);
+                int tempTraceNumber = fullTrimLaw.get(i).getDatasetValue()+(fullTrimLaw.get(i).getReelNumber()* 54);
+                System.out.println("tempTraceNumber " + tempTraceNumber);
                 while (!isSearchingSuccess) {   //100 - maximum searching shift value
 
                     if (isFromNegToPos) {
 //                        System.out.println("Path 1");
                         if (shift < fullTrimLaw.get(i).getSampleValue() &&
-                                segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift] < 0 &&
-                                segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] >= 0)
+                                segyTempTraceData[tempTraceNumber].getData()[fullTrimLaw.get(i).getSampleValue() - shift] < 0 &&
+                                segyTempTraceData[tempTraceNumber].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] >= 0)
                         //                      segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue()-shift-2]>0)
                         {
                             isSearchingSuccess = true;
@@ -266,10 +268,10 @@ public class Settings_singleton {
                                     i,
                                     new TrimLawSingleValue(
                                             fullTrimLaw.get(i).getX(),
-                                            fullTrimLaw.get(i).getY() - (shift + 1) * dYperSample,
+                                            fullTrimLaw.get(i).getY() - shift * dYperSample,
                                             fullTrimLaw.get(i).getReelNumber(),
                                             fullTrimLaw.get(i).getDatasetValue(),
-                                            fullTrimLaw.get(i).getSampleValue() - shift - 1,
+                                            fullTrimLaw.get(i).getSampleValue() - shift,
                                             -1));
                         } else {
                             shift++;
@@ -279,14 +281,15 @@ public class Settings_singleton {
                             isSearchingSuccess = true;
                             tempShiftedFullTrimLaw.add(i, fullTrimLaw.get(i));
                         }
-                    } else {
+                    }
+                    else {
 //                        System.out.println("Path 2");
 
 
                         if (
                                 shift < fullTrimLaw.get(i).getSampleValue() &&
-                                        segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift] > 0 &&
-                                        segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] <= 0)
+                                        segyTempTraceData[tempTraceNumber].getData()[fullTrimLaw.get(i).getSampleValue() - shift] > 0 &&
+                                        segyTempTraceData[tempTraceNumber].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] <= 0)
                         //                      segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue()-shift-2]>0)
                         {
                             isSearchingSuccess = true;
@@ -297,7 +300,7 @@ public class Settings_singleton {
                                             fullTrimLaw.get(i).getY() - (shift + 1) * dYperSample,
                                             fullTrimLaw.get(i).getReelNumber(),
                                             fullTrimLaw.get(i).getDatasetValue(),
-                                            fullTrimLaw.get(i).getSampleValue() - shift - 1,
+                                            fullTrimLaw.get(i).getSampleValue(),
                                             -1));
                         } else {
                             shift++;
