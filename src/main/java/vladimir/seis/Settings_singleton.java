@@ -12,6 +12,7 @@ public class Settings_singleton {
     //Segy cfg from bin header
     private int cfgCurrentFileSeqNumber = -1;
 
+    private int cfgCurrentFileAddTraceNumber = -1;
 
     private int cfgSamplesNumber = -1;
     private int cfgEachSampleSizeBytes = -1;
@@ -41,6 +42,15 @@ public class Settings_singleton {
         if (settings_singleton == null)
             settings_singleton = new Settings_singleton();
         return settings_singleton;
+    }
+
+
+    public int getCfgCurrentFileAddTraceNumber() {
+        return cfgCurrentFileAddTraceNumber;
+    }
+
+    public void setCfgCurrentFileAddTraceNumber(int cfgCurrentFileAddTraceNumber) {
+        this.cfgCurrentFileAddTraceNumber = cfgCurrentFileAddTraceNumber;
     }
 
     public int getCfgCurrentFileSeqNumber() {
@@ -252,7 +262,7 @@ public class Settings_singleton {
                 boolean isSearchingSuccess = false;
                 int shift = 0;
 //                System.out.println(isFromNegToPos);
-                int tempTraceNumber = fullTrimLaw.get(i).getDatasetValue()+(fullTrimLaw.get(i).getReelNumber()* 54);
+                int tempTraceNumber = fullTrimLaw.get(i).getDatasetValue()+(fullTrimLaw.get(i).getReelNumber()* (48 + getCfgCurrentFileAddTraceNumber()));
                 System.out.println("tempTraceNumber " + tempTraceNumber);
                 while (!isSearchingSuccess) {   //100 - maximum searching shift value
 

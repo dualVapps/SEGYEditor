@@ -298,10 +298,10 @@ public class ChartExecutor {
 
         }
 
-        for (int i = 0; i < 54; i++) {//TODO Number of addition+data traces graphs
+        for (int i = settings_singleton.getCfgCurrentFileAddTraceNumber(); i < 48 + settings_singleton.getCfgCurrentFileAddTraceNumber(); i++) {//TODO Number of addition+data traces graphs
 //            System.out.println("cur trace index -> " + (i+FILE_SEQ_NUM*54));
 //            System.out.println(Integer.toString(mainGui.getMainController().segyTempTraces[i+FILE_SEQ_NUM*54].getTraceNumberWithinOrigFieldRecord()));
-            categoryPlots[i].getRangeAxis().setLabel(Integer.toString(mainGui.getMainController().segyTempTraces[i+FILE_SEQ_NUM*54].getTraceSequenceNumberWithinSegyFile()));
+            categoryPlots[i].getRangeAxis().setLabel(Integer.toString(mainGui.getMainController().segyTempTraces[i+FILE_SEQ_NUM*(48 +settings_singleton.getCfgCurrentFileAddTraceNumber())].getTraceSequenceNumberWithinSegyFile()));
 
         }
 

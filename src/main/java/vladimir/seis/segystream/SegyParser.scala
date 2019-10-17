@@ -18,12 +18,14 @@ case object NOOP extends PromiseStrategy
 
 sealed trait SegyPhase {
 
+
   def length: Int
   def matPromise: PromiseStrategy
   def extract(bs: ByteString): (SegyPart, SegyPhase) // (segy, nextPhase)
 }
 
 case class TextHeaderPhase(cfg: SegyConfig) extends SegyPhase {
+
   val length = 3200
   override def matPromise: PromiseStrategy = KEEP
 //  mainGui.getMainController
@@ -452,6 +454,13 @@ case class TraceHeaderPhase(cfg: SegyConfig, binHeader: BinHeader) extends SegyP
 
 //    mainGui.getMainController.getSegyTempTraces(segy.traceNumberWithinOrigFieldRecord - 1) .printHeader()
     mainGui.getMainController.getSegyTempTraces(segy.traceSequenceNumberWithinSegyFile - 1) .printHeader()
+
+    if (segy.traceIdCode != 1 && segy.traceSequenceNumberWithinSegyFile < 48)
+    {
+      System.out.println("before " + mainGui.getSettings_singl.getCfgCurrentFileAddTraceNumber)
+      mainGui.getSettings_singl.setCfgCurrentFileAddTraceNumber(mainGui.getSettings_singl.getCfgCurrentFileAddTraceNumber()+1)
+      System.out.println("after " + mainGui.getSettings_singl.getCfgCurrentFileAddTraceNumber)
+    }
 
 
 

@@ -58,8 +58,11 @@ public class mainController {
 
         if ((settings_singleton.getCfgTraceNumber() > 1)&&(settings_singleton.getCfgSamplesNumber()>1))
         {
-            CURRENT_TRACE_NUMBER = settings_singleton.getCfgTraceNumber();
+            System.out.println("CURRENT_TRACE_NUMBER --------------------------------------->" +  settings_singleton.getCfgCurrentFileAddTraceNumber());
+            System.out.println("CURRENT_TRACE_NUMBER --------------------------------------->" +  settings_singleton.getCfgFilesNumber());
+            CURRENT_TRACE_NUMBER = settings_singleton.getCfgTraceNumber() - (settings_singleton.getCfgCurrentFileAddTraceNumber()*settings_singleton.getCfgFilesNumber());
             CURRENT_SAMPLE_NUMBER = settings_singleton.getCfgSamplesNumber();
+            System.out.println("CURRENT_TRACE_NUMBER --------------------------------------->" +  CURRENT_TRACE_NUMBER);
             currentBalancingCorrKoef = new float[CURRENT_TRACE_NUMBER];
 //            System.out.println("CURRENT_TRACE_NUMBER " + CURRENT_TRACE_NUMBER);
 //            System.out.println("CURRENT_SAMPLE_NUMBER " + CURRENT_SAMPLE_NUMBER);
@@ -141,6 +144,7 @@ public class mainController {
 //        System.out.println("length ............ "+ segyTempTracesDataForDisplaying[0].getData().length);
 //        System.out.println("length ............ "+ segyTempTracesDataVault[0].getData().length);
 //        System.out.println("length ............ ");
+        System.out.println(segyTempTracesDataForDisplaying.length);
         for (int i = 0; i < segyTempTracesDataForDisplaying.length; i++) {
             for (int j = 0; j < segyTempTracesDataForDisplaying[i].getData().length; j++) {
                 segyTempTracesDataVault[i].getData()[j] = segyTempTracesDataForDisplaying[i].getData()[j];
@@ -182,7 +186,9 @@ public class mainController {
         final int balancedAmpl = 1;
 
         System.out.println("segyTempTracesDataForDisplaying ->" + segyTempTracesDataForDisplaying.length);
-        for (int i = 6+CURRENT_FILE_SEQ_NUMBER*54; i < 54+CURRENT_FILE_SEQ_NUMBER*54; i++) { //TODO Fix for zero add trace number
+        for (int i = settings_singleton.getCfgCurrentFileAddTraceNumber()+CURRENT_FILE_SEQ_NUMBER*(48 + settings_singleton.getCfgCurrentFileAddTraceNumber());
+             i < 48 +settings_singleton.getCfgCurrentFileAddTraceNumber()+CURRENT_FILE_SEQ_NUMBER*(48 + settings_singleton.getCfgCurrentFileAddTraceNumber());
+             i++) { //TODO Fix for zero add trace number
             int  tempSampleNumber = 1000;
 
 
@@ -210,7 +216,9 @@ public class mainController {
 
     public void applyBalancingToTempData() {
 //        System.out.println("applyBalancingToTempData ->> start");
-        for (int i = 6+CURRENT_FILE_SEQ_NUMBER*54; i < 54+CURRENT_FILE_SEQ_NUMBER*54; i++) {
+        for (int i = settings_singleton.getCfgCurrentFileAddTraceNumber()+CURRENT_FILE_SEQ_NUMBER*(48+ settings_singleton.getCfgCurrentFileAddTraceNumber());
+             i < settings_singleton.getCfgCurrentFileAddTraceNumber()+48+CURRENT_FILE_SEQ_NUMBER*(48+settings_singleton.getCfgCurrentFileAddTraceNumber());
+             i++) {
             for (int j = 0; j < segyTempTracesDataForDisplaying[i].getData().length; j++) {
                 segyTempTracesDataForDisplaying[i].getData()[j] = segyTempTracesDataForDisplaying[i].getData()[j] * currentBalancingCorrKoef[i];
             }
@@ -220,7 +228,7 @@ public class mainController {
 
     public void resetBalancing() {
 
-        for (int i = 6; i < segyTempTracesDataForDisplaying.length; i++) {
+        for (int i = settings_singleton.getCfgCurrentFileAddTraceNumber(); i < segyTempTracesDataForDisplaying.length; i++) {
             for (int j = 0; j < segyTempTracesDataForDisplaying[i].getData().length; j++) {
 
                 segyTempTracesDataForDisplaying[i].getData()[j] = segyTempTracesDataVault[i].getData()[j];

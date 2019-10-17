@@ -745,7 +745,7 @@ public class mainGui extends JFrame {
 
     }
 
-    void reDrawChartsWithRenevalData() {
+    void reDrawChartsWithRenevalData() { //TODO Check why execute twice
         int CURRENT_FILE_SEQ_NUMBER = settings_singl.getCfgCurrentFileSeqNumber();
 
         //                chartExecutor = new ChartExecutor("Line Chart Demo");  //Previous version of code
@@ -790,33 +790,45 @@ public class mainGui extends JFrame {
     }
 
     void onFinishedreading() {
+        try {
+
+
 //        system::terminate;
 //        System.out.println("mainController.onFinishedReading()");
 
-        mainController.saveSeismicTraceDataToVault();// TODO replace out of on finish
-        System.out.println("saveSeismicTraceDataToVault");
+            System.out.println("onFinish AddTrace" + getSettings_singl().getCfgCurrentFileAddTraceNumber());
+            mainController.saveSeismicTraceDataToVault();// TODO replace out of on finish
+            System.out.println("saveSeismicTraceDataToVault");
 
-        System.out.println("balancingTempData");
+            System.out.println("balancingTempData");
 
-        redrawCharts();
-        System.out.println("redrawCharts");
+            redrawCharts();
+            System.out.println("redrawCharts");
 
-        if (getSettings_singl().getCfgTraceNumber() > 54) {
-            System.out.println("mainGui.getSettings_singl().getCfgFilesNumber()" + mainGui.getSettings_singl().getCfgFilesNumber());
-            try {
-                reelsp.setValue(1);
-            activateReelSpinner();}
-            catch (Exception e) {e.printStackTrace();}
-        } else deactivateReelSpinner();
+            if (getSettings_singl().getCfgTraceNumber() > 48 + getSettings_singl().getCfgCurrentFileAddTraceNumber()) {
+                System.out.println("mainGui.getSettings_singl().getCfgFilesNumber()" + mainGui.getSettings_singl().getCfgFilesNumber());
+                try {
+                    reelsp.setValue(1);
+                    activateReelSpinner();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else deactivateReelSpinner();
 
-        makeButtonsActive();
-        System.out.println("makeButtonsActive");
+            makeButtonsActive();
+            System.out.println("makeButtonsActive");
+            System.out.println("Add trace number = " + getSettings_singl().getCfgCurrentFileAddTraceNumber());
 
 
 //        done.thenRunAsync(() -> onFinishedreading()
 //        System.out.println("mainController.saveSeismicTraceDataToVault()");
 
 //        System.out.println("mainController.saveSeismicTraceDataToVault()");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Ошибка чтения SGY файла");
+        }
     }
 
     private void redrawCharts() {
@@ -923,6 +935,7 @@ public class mainGui extends JFrame {
         for (int i = 0; i < 6; i++) {           //numbers of labels
             mainController.defineJLabelText(null, i);
         }
+        settings_singl.setCfgCurrentFileAddTraceNumber(0);
         settings_singl.zeroedTrimLaw();
         settings_singl.zeroedFullTrimLaw();
         settings_singl.zeroedFullTrimLawShifted();
@@ -977,37 +990,38 @@ public class mainGui extends JFrame {
 //    }
 
     // Changing traces with 4 seismic records
-    private void processingTraceHeader() { //TODO CHECK if 54*4 (216) traces
-        int reelNumber = settings_singl.getCfgFilesNumber();
-        for (int j = 0; j < reelNumber; j++) {
 
-
-            for (int i = 0; i < mainController.getSegyTempTracesDataFromVault()[2 + j * 54].getData().length; i++) {
-                mainController.getSegyTempTracesDataAfterProcessing()[2 + j * 54].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[3].getData()[i] +
-                        mainController.getSegyTempTracesDataForDisplaying()[4 + j * 54].getData()[i]) / 2;
-
-            }
-        }
-
-        //TODO for future release in 216
-
-//        for (int i = 0; i < mainController.getSegyTempTracesDataForDisplaying()[56].getData().length; i++) {
-//            mainController.getSegyTempTracesDataForDisplaying()[56].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[57].getData()[i] +
-//                    mainController.getSegyTempTracesDataForDisplaying()[58].getData()[i])/2;
+//    private void processingTraceHeader() { //TODO CHECK if 54*4 (216) traces
+//        int reelNumber = settings_singl.getCfgFilesNumber();
+//        for (int j = 0; j < reelNumber; j++) {
+//
+//
+//            for (int i = 0; i < mainController.getSegyTempTracesDataFromVault()[2 + j * 54].getData().length; i++) {
+//                mainController.getSegyTempTracesDataAfterProcessing()[2 + j * 54].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[3].getData()[i] +
+//                        mainController.getSegyTempTracesDataForDisplaying()[4 + j * 54].getData()[i]) / 2;
+//
+//            }
 //        }
 //
-//        for (int i = 0; i < mainController.getSegyTempTracesDataForDisplaying()[110].getData().length; i++) {
-//            mainController.getSegyTempTracesDataForDisplaying()[110].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[111].getData()[i] +
-//                    mainController.getSegyTempTracesDataForDisplaying()[112].getData()[i])/2;
-//        }
+//        //TODO for future release in 216
 //
-//        for (int i = 0; i < mainController.getSegyTempTracesDataForDisplaying()[164].getData().length; i++) {
-//            mainController.getSegyTempTracesDataForDisplaying()[164].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[165].getData()[i] +
-//                    mainController.getSegyTempTracesDataForDisplaying()[166].getData()[i])/2;
-//
-//
-//        }
-    }
+////        for (int i = 0; i < mainController.getSegyTempTracesDataForDisplaying()[56].getData().length; i++) {
+////            mainController.getSegyTempTracesDataForDisplaying()[56].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[57].getData()[i] +
+////                    mainController.getSegyTempTracesDataForDisplaying()[58].getData()[i])/2;
+////        }
+////
+////        for (int i = 0; i < mainController.getSegyTempTracesDataForDisplaying()[110].getData().length; i++) {
+////            mainController.getSegyTempTracesDataForDisplaying()[110].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[111].getData()[i] +
+////                    mainController.getSegyTempTracesDataForDisplaying()[112].getData()[i])/2;
+////        }
+////
+////        for (int i = 0; i < mainController.getSegyTempTracesDataForDisplaying()[164].getData().length; i++) {
+////            mainController.getSegyTempTracesDataForDisplaying()[164].getData()[i] = (mainController.getSegyTempTracesDataForDisplaying()[165].getData()[i] +
+////                    mainController.getSegyTempTracesDataForDisplaying()[166].getData()[i])/2;
+////
+////
+////        }
+//    }
 
     private void processingDataUpperOfPickingAGC() { //TODO need applying something better than average (or some transformation)
 
@@ -1119,7 +1133,7 @@ public class mainGui extends JFrame {
 
             int tempDatasetValue = mainGui.getSettings_singl().getFullTrimShifted().get(i).getDatasetValue();
             int tempReelValue = mainGui.getSettings_singl().getFullTrimShifted().get(i).getReelNumber();
-            int currentTraceNumberFromLaw = tempDatasetValue + tempReelValue *54;
+            int currentTraceNumberFromLaw = tempDatasetValue + tempReelValue *(48+mainGui.getSettings_singl().getCfgCurrentFileAddTraceNumber());
 
             System.out.println("Trace number comparison");
             System.out.println(currentTraceNumberFromLaw); // Begins from 0
