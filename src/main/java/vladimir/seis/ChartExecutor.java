@@ -260,11 +260,36 @@ public class ChartExecutor {
 
     // Заполнение графиков данными
     public void updateWithDataset(int index, int FILE_SEQ_NUM){  //TODO 4 executing need change to one ???? Somewhere hire java.lang.IllegalArgumentException: Invalid category index:
-        String series1 = "First";
+        String series1 = "First"; //TODO Imlement add trace variable
 
-        for (int i = 0; i < mainGui.getMainController().segyTempTracesDataForDisplaying[index].getData().length; i++) {   //TODO Change to display a 1/8 of trace
-            categoryDatasets[index].addValue(mainGui.getMainController().segyTempTracesDataForDisplaying[index+FILE_SEQ_NUM*54].getData()[i], series1, Integer.toString(i));
+        if (index >= 0 && index < mainGui.getSettings_singl().getCfgCurrentFileAddTraceNumber()) //Add Traces with data
+        {
+            for (int i = 0; i < mainGui.getMainController().segyTempTracesDataForDisplaying.get(0).getData().length; i++) {   //TODO Change to display a 1/8 of trace
+            categoryDatasets[index]
+                    .addValue(mainGui.getMainController().segyTempTracesDataForDisplaying
+                    .get(index+FILE_SEQ_NUM*54).getData()[i], series1, Integer.toString(i));
 
+            }
+        }
+
+        if (index >= mainGui.getSettings_singl().getCfgCurrentFileAddTraceNumber() && index < 6 ) //Add Traces without data
+        {
+            for (int i = 0; i < mainGui.getMainController().segyTempTracesDataForDisplaying.get(0).getData().length; i++) {   //TODO Change to display a 1/8 of trace
+                categoryDatasets[index]
+                        .addValue(0, series1, Integer.toString(i));
+
+            }
+        }
+
+        if (index >= 6 && index < 54) //Traces with data
+        {
+            for (int i = 0; i < mainGui.getMainController().segyTempTracesDataForDisplaying.get(0).getData().length; i++) {   //TODO Change to display a 1/8 of trace
+                categoryDatasets[index]
+                        .addValue(mainGui.getMainController().segyTempTracesDataForDisplaying
+                                .get(index - (6 - mainGui.getSettings_singl().getCfgCurrentFileAddTraceNumber())+FILE_SEQ_NUM*54)
+                                .getData()[i], series1, Integer.toString(i));
+
+            }
         }
 
 
@@ -298,10 +323,10 @@ public class ChartExecutor {
 
         }
 
-        for (int i = settings_singleton.getCfgCurrentFileAddTraceNumber(); i < 48 + settings_singleton.getCfgCurrentFileAddTraceNumber(); i++) {//TODO Number of addition+data traces graphs
+        for (int i = 6; i < 48 + settings_singleton.getCfgCurrentFileAddTraceNumber(); i++) {//TODO Number of addition+data traces graphs
 //            System.out.println("cur trace index -> " + (i+FILE_SEQ_NUM*54));
 //            System.out.println(Integer.toString(mainGui.getMainController().segyTempTraces[i+FILE_SEQ_NUM*54].getTraceNumberWithinOrigFieldRecord()));
-            categoryPlots[i].getRangeAxis().setLabel(Integer.toString(mainGui.getMainController().segyTempTraces[i+FILE_SEQ_NUM*(48 +settings_singleton.getCfgCurrentFileAddTraceNumber())].getTraceSequenceNumberWithinSegyFile()));
+            categoryPlots[i].getRangeAxis().setLabel(Integer.toString(mainGui.getMainController().segyTempTraces.get(i+FILE_SEQ_NUM*(48 +settings_singleton.getCfgCurrentFileAddTraceNumber())).getTraceSequenceNumberWithinSegyFile()));
 
         }
 

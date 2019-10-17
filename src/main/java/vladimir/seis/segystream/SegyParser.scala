@@ -334,6 +334,9 @@ case class TraceHeaderPhase(cfg: SegyConfig, binHeader: BinHeader) extends SegyP
 //      sourceMeasUnit = it.getShort
 //      // 233 - 240 Unassigned in v1
     )
+
+    mainGui.getMainController.addOneTraceToLists();
+
 //    mainGui.mainController.formingTraceData(segy.samplesNumber)
 
 //    System.out.println(mainGui.mainController.getSegyTempTraces(segy.traceNumberWithinOrigFieldRecord - 1).toString);
@@ -341,7 +344,14 @@ case class TraceHeaderPhase(cfg: SegyConfig, binHeader: BinHeader) extends SegyP
 //    System.out.println("111111111111--- segy.traceNumberWithinOrigFieldRecord - 1 :" + (segy.traceNumberWithinOrigFieldRecord - 1));
 
 //    mainGui.mainController.getSegyTempTraces(segy.traceNumberWithinOrigFieldRecord - 1).setTraceBinHeader(
-    mainGui.mainController.getSegyTempTraces(segy.traceSequenceNumberWithinSegyFile - 1).setTraceBinHeader(
+
+    var myIndex:Int = 0;
+    if (segy.traceSequenceNumberWithinSegyFile > mainGui.mainController.segyTempTraces.size()) {
+      myIndex = mainGui.mainController.segyTempTraces.size()-1;  //Traces adds one by one
+    }
+    else myIndex = segy.traceSequenceNumberWithinSegyFile - 1;
+
+    mainGui.mainController.getSegyTempTraces.get(myIndex).setTraceBinHeader(
       segy.traceSequenceNumberWithinLine,
       segy.traceSequenceNumberWithinSegyFile,
       segy.origFieldRecordNumber,
@@ -453,7 +463,7 @@ case class TraceHeaderPhase(cfg: SegyConfig, binHeader: BinHeader) extends SegyP
     )
 
 //    mainGui.getMainController.getSegyTempTraces(segy.traceNumberWithinOrigFieldRecord - 1) .printHeader()
-    mainGui.getMainController.getSegyTempTraces(segy.traceSequenceNumberWithinSegyFile - 1) .printHeader()
+    mainGui.getMainController.getSegyTempTraces.get(myIndex) .printHeader()
 
     if (segy.traceIdCode != 1 && segy.traceSequenceNumberWithinSegyFile < 48)
     {
@@ -492,7 +502,15 @@ case class TraceDataPhase(cfg: SegyConfig, binHeader: BinHeader, th: TraceHeader
 
 
 //    mainGui.mainController.segyTempTracesDataForDisplaying(th.traceNumberWithinOrigFieldRecord-1).data=segy.floatData;
-    mainGui.mainController.segyTempTracesDataForDisplaying(th.traceSequenceNumberWithinSegyFile -1).data=segy.floatData;
+var myIndex:Int = 0;
+    if (th.traceSequenceNumberWithinSegyFile > mainGui.mainController.segyTempTraces.size()) {
+      myIndex = mainGui.mainController.segyTempTraces.size()-1;  //Traces adds one by one
+    }  else myIndex = th.traceSequenceNumberWithinSegyFile - 1;
+    System.out.println("myIndex")
+    System.out.println("myIndex 1 " + (mainGui.mainController.segyTempTraces.size()-1))
+    System.out.println("myIndex 2 " + (th.traceSequenceNumberWithinSegyFile - 1))
+
+    mainGui.mainController.segyTempTracesDataForDisplaying.get(myIndex).data=segy.floatData;
 //    System.out.println("-segy.floatData----------------------- data length" + segy.floatData.length)
 //    System.out.println("-segy.floatData----------------------- data " + segy.floatData.toString)
 //    System.out.println("-segy.floatData----------------------- data " + segy.floatData.toString)

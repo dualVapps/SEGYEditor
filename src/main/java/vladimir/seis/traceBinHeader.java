@@ -138,7 +138,7 @@ public class traceBinHeader { //TODO rewrite Segy1 class
             public void stateChanged(ChangeEvent e) {
 //                System.out.println("Source: " + e.getSource());
 //                System.out.println("JSPinner: " + traceSelector.getValue());
-                setBinHeaderTxtFields(mainGui.mainController.getSegyTempTraces((int) traceSelector.getValue() - 1));
+                setBinHeaderTxtFields(mainGui.mainController.getSegyTempTraces().get((int) traceSelector.getValue() - 1));
             }
         });
     }

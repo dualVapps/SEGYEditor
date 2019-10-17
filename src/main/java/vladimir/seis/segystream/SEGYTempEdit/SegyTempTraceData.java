@@ -15,6 +15,10 @@ public class SegyTempTraceData {
 
     public float[] data;
 
+    public SegyTempTraceData(float[] data) {
+        this.data = data;
+    }
+
     public void writeToDataOutputStream(DataOutputStream dos, int traceLenthInBytes) throws IOException {
 
         ByteBuffer bb = ByteBuffer.allocate(traceLenthInBytes);

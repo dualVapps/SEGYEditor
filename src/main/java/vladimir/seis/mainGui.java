@@ -446,7 +446,7 @@ public class mainGui extends JFrame {
 //                System.out.println("mainController.getSegyTempTraces(0).toString(): "+mainController.getSegyTempTraces(0).toString());
 //                System.out.println("mainController.getSegyTempTraces(0).toString(): "+mainController.getSegyTempTraces(0).getTraceSequenceNumberWithinLine().toString());
 
-                traceBinHeader.setBinHeaderTxtFields(mainController.getSegyTempTraces(0));
+                traceBinHeader.setBinHeaderTxtFields(mainController.getSegyTempTraces().get(0));
                 traceBinJFrame.pack();
                 traceBinJFrame.setVisible(true);
             }
@@ -474,14 +474,14 @@ public class mainGui extends JFrame {
                         DataOutputStream dos = new DataOutputStream(fos);
                         mainController.segyTempFile.writeToDataOutputStream(dos);
 
-                        for (int i = 0; i < settings_singl.getCfgTraceNumber(); i++) { //TODO change to variable (216)
+                        for (int i = 0; i < mainController.getSegyTempTracesDataAfterProcessing().size(); i++) { //TODO change to variable (216)
 //                            System.out.println(" *** mainController.segyTempTraces[i].getTraceSequenceNumberWithinLine() " + mainController.segyTempTraces[i].getTraceSequenceNumberWithinLine());
-                            mainController.segyTempTraces[i].writeToDataOutputStream(dos);
+                            mainController.segyTempTraces.get(i).writeToDataOutputStream(dos);
 //                            mainController.segyTempTracesDataForDisplaying[i].writeToDataOutputStream(dos,settings_singl.getSample_sizeInBytes());
                             System.out.println("Saving...getSample_sizeInBytes -->" + settings_singl.getSample_sizeInBytes());
                             System.out.println("Saving...getCfgTraceSizeBytes -->" + settings_singl.getCfgTraceSizeBytes());
 
-                            mainController.segyTempTracesDataAfterProcessing[i].writeToDataOutputStream(dos, settings_singl.getCfgTraceSizeBytes());
+                            mainController.segyTempTracesDataAfterProcessing.get(i).writeToDataOutputStream(dos, settings_singl.getCfgTraceSizeBytes());
 //                            System.out.println("mainController.segyTempTraces.length  " + mainController.segyTempTraces.length);
 //                            System.out.println("mainController.segyTempTracesDataForDisplaying.length  " + mainController.segyTempTracesDataForDisplaying.length);
                         }
@@ -688,10 +688,10 @@ public class mainGui extends JFrame {
         //PrepareData for processing and saving
 
 
-        for (int i = 0; i < getSettings_singl().getCfgTraceNumber(); i++) {
+        for (int i = 0; i < getMainController().getSegyTempTracesDataAfterProcessing().size(); i++) {
             for (int j = 0; j < getSettings_singl().getCfgSamplesNumber(); j++) {
 //                System.out.println("i = " + i + " j = " + j);
-                getMainController().getSegyTempTracesDataAfterProcessing()[i].getData()[j] = getMainController().getSegyTempTracesDataFromVault()[i].getData()[j];
+                getMainController().getSegyTempTracesDataAfterProcessing().get(i).getData()[j] = getMainController().getSegyTempTracesDataFromVault().get(i).getData()[j];
             }
 
         }
@@ -1037,7 +1037,7 @@ public class mainGui extends JFrame {
                 //Copying array above trimShiftedLaw
                 float[] tempTrimDataArray = new float[tempSampleNumber];
                 for (int j = 0; j < tempTrimDataArray.length; j++) {
-                    tempTrimDataArray[j] = getMainController().getSegyTempTracesDataAfterProcessing()[tempTraceNumber].getData()[j];
+                    tempTrimDataArray[j] = getMainController().getSegyTempTracesDataAfterProcessing().get(tempTraceNumber).getData()[j];
                 }
 
                 //Calculating summary of array from 0 to trimShifted point and deviding to sample number (average value)
@@ -1098,7 +1098,7 @@ public class mainGui extends JFrame {
                 for (int j = 0; j < tempKoef.length; j++) {
 
                     System.out.print(tempKoef[j] + " | " + tempTrimDataArray[j]);
-                    getMainController().getSegyTempTracesDataAfterProcessing()[tempTraceNumber].getData()[j] = tempTrimDataArray[j] * tempKoef[j];
+                    getMainController().getSegyTempTracesDataAfterProcessing().get(tempTraceNumber).getData()[j] = tempTrimDataArray[j] * tempKoef[j];
                 }
 
 
@@ -1137,11 +1137,11 @@ public class mainGui extends JFrame {
 
             System.out.println("Trace number comparison");
             System.out.println(currentTraceNumberFromLaw); // Begins from 0
-            System.out.println(getMainController().getSegyTempTraces(currentTraceNumberFromLaw).getTraceSequenceNumberWithinSegyFile()); //Begins grom 1
+            System.out.println(getMainController().getSegyTempTraces().get(currentTraceNumberFromLaw).getTraceSequenceNumberWithinSegyFile()); //Begins grom 1
 
             float sum = 0;
             for (int j = 0; j < 1000; j++) { //Calculate average for first 1000 samples
-                sum = sum + Math.abs(getMainController().getSegyTempTracesDataAfterProcessing()[currentTraceNumberFromLaw].getData()[j]);
+                sum = sum + Math.abs(getMainController().getSegyTempTracesDataAfterProcessing().get(currentTraceNumberFromLaw).getData()[j]);
             }
 
             float traceCorrKoef;
@@ -1161,9 +1161,9 @@ public class mainGui extends JFrame {
 
 
                 if (sign ==0 ) {
-                    getMainController().getSegyTempTracesDataAfterProcessing()[currentTraceNumberFromLaw].getData()[j] = fTemp;
+                    getMainController().getSegyTempTracesDataAfterProcessing().get(currentTraceNumberFromLaw).getData()[j] = fTemp;
                 }
-                else if (sign == 1) getMainController().getSegyTempTracesDataAfterProcessing()[currentTraceNumberFromLaw].getData()[j] = fTemp* -1;
+                else if (sign == 1) getMainController().getSegyTempTracesDataAfterProcessing().get(currentTraceNumberFromLaw).getData()[j] = fTemp* -1;
 
             }
 

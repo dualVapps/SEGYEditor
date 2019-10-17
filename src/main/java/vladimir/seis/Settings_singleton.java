@@ -254,7 +254,7 @@ public class Settings_singleton {
 
     }
 
-    public void formingShiftedFullTrimLaw(SegyTempTraceData[] segyTempTraceData) {
+    public void formingShiftedFullTrimLaw(ArrayList<SegyTempTraceData> segyTempTraceData) {
         if (fullTrimLaw.size() > 1) {
             ArrayList<TrimLawSingleValue> tempShiftedFullTrimLaw = new ArrayList<>(48);
 
@@ -269,8 +269,8 @@ public class Settings_singleton {
                     if (isFromNegToPos) {
 //                        System.out.println("Path 1");
                         if (shift < fullTrimLaw.get(i).getSampleValue() &&
-                                segyTempTraceData[tempTraceNumber].getData()[fullTrimLaw.get(i).getSampleValue() - shift] < 0 &&
-                                segyTempTraceData[tempTraceNumber].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] >= 0)
+                                segyTempTraceData.get(tempTraceNumber).getData()[fullTrimLaw.get(i).getSampleValue() - shift] < 0 &&
+                                segyTempTraceData.get(tempTraceNumber).getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] >= 0)
                         //                      segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue()-shift-2]>0)
                         {
                             isSearchingSuccess = true;
@@ -298,8 +298,8 @@ public class Settings_singleton {
 
                         if (
                                 shift < fullTrimLaw.get(i).getSampleValue() &&
-                                        segyTempTraceData[tempTraceNumber].getData()[fullTrimLaw.get(i).getSampleValue() - shift] > 0 &&
-                                        segyTempTraceData[tempTraceNumber].getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] <= 0)
+                                        segyTempTraceData.get(tempTraceNumber).getData()[fullTrimLaw.get(i).getSampleValue() - shift] > 0 &&
+                                        segyTempTraceData.get(tempTraceNumber).getData()[fullTrimLaw.get(i).getSampleValue() - shift - 1] <= 0)
                         //                      segyTempTraceData[fullTrimLaw.get(i).getDatasetValue()].getData()[fullTrimLaw.get(i).getSampleValue()-shift-2]>0)
                         {
                             isSearchingSuccess = true;

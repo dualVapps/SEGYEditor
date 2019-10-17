@@ -9,6 +9,7 @@ import vladimir.seis.segystream.SEGYTempEdit.SegyTempTrace;
 import vladimir.seis.segystream.SEGYTempEdit.SegyTempTraceData;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class mainController {
 
@@ -22,10 +23,10 @@ public class mainController {
     private JPanel mainJPanel;
     private JLabel[] lawJLs = new JLabel[6];
     public SegyTempFile segyTempFile;
-    public SegyTempTrace[] segyTempTraces;
-    public SegyTempTraceData[] segyTempTracesDataForDisplaying;
-    public SegyTempTraceData[] segyTempTracesDataAfterProcessing;
-    public SegyTempTraceData[] segyTempTracesDataVault;
+    public ArrayList<SegyTempTrace> segyTempTraces;
+    public ArrayList<SegyTempTraceData> segyTempTracesDataForDisplaying;
+    public ArrayList<SegyTempTraceData> segyTempTracesDataAfterProcessing;
+    public ArrayList<SegyTempTraceData> segyTempTracesDataVault;
     private JButton pickButton;
     private  float[] currentBalancingCorrKoef; // = new float[54];
     Settings_singleton settings_singleton;
@@ -67,53 +68,50 @@ public class mainController {
 //            System.out.println("CURRENT_TRACE_NUMBER " + CURRENT_TRACE_NUMBER);
 //            System.out.println("CURRENT_SAMPLE_NUMBER " + CURRENT_SAMPLE_NUMBER);
 
-            segyTempTraces = new SegyTempTrace[CURRENT_TRACE_NUMBER];
-            for (int i = 0; i < CURRENT_TRACE_NUMBER; i++) {
-                this.segyTempTraces[i] = new SegyTempTrace();
-            }
+            segyTempTraces = new ArrayList<>();
+//            for (int i = 0; i < CURRENT_TRACE_NUMBER; i++) {
+//                this.segyTempTraces[i] = new SegyTempTrace();
+//            }
 
-            segyTempTracesDataForDisplaying = new SegyTempTraceData[CURRENT_TRACE_NUMBER];
-            for (int i = 0; i < CURRENT_TRACE_NUMBER; i++) {
-                this.segyTempTracesDataForDisplaying[i] = new SegyTempTraceData();
-            }
+            segyTempTracesDataForDisplaying = new ArrayList<>();
+//            for (int i = 0; i < CURRENT_TRACE_NUMBER; i++) {
+//                this.segyTempTracesDataForDisplaying[i] = new SegyTempTraceData();
+//            }
 
-            segyTempTracesDataAfterProcessing = new SegyTempTraceData[CURRENT_TRACE_NUMBER];
-            for (int i = 0; i < CURRENT_TRACE_NUMBER; i++) {
-                this.segyTempTracesDataAfterProcessing[i] = new SegyTempTraceData();
-                this.segyTempTracesDataAfterProcessing[i].data = new float[CURRENT_SAMPLE_NUMBER];
-            }
+            segyTempTracesDataAfterProcessing = new ArrayList<>();
+//            for (int i = 0; i < CURRENT_TRACE_NUMBER; i++) {
+//                this.segyTempTracesDataAfterProcessing[i] = new SegyTempTraceData();
+//                this.segyTempTracesDataAfterProcessing[i].data = new float[CURRENT_SAMPLE_NUMBER];
+//            }
 
-            segyTempTracesDataVault = new SegyTempTraceData[CURRENT_TRACE_NUMBER];
-            for (int i = 0; i < CURRENT_TRACE_NUMBER; i++) {
-                this.segyTempTracesDataVault[i] = new SegyTempTraceData();
-                this.segyTempTracesDataVault[i].data = new float[CURRENT_SAMPLE_NUMBER];
-            }
+            segyTempTracesDataVault = new ArrayList<>();
+//            for (int i = 0; i < CURRENT_TRACE_NUMBER; i++) {
+//                this.segyTempTracesDataVault[i] = new SegyTempTraceData();
+//                this.segyTempTracesDataVault[i].data = new float[CURRENT_SAMPLE_NUMBER];
+//            }
         }
 
     }
-
 
     public SegyTempFile getSegyTempFile() {
         return segyTempFile;
     }
 
-    public SegyTempTrace getSegyTempTraces(int traceNumber) {
-        return segyTempTraces[traceNumber];
+    public ArrayList<SegyTempTrace> getSegyTempTraces() {
+        return segyTempTraces;
     }
 
-    public SegyTempTraceData[] getSegyTempTracesDataForDisplaying() {
+    public ArrayList<SegyTempTraceData> getSegyTempTracesDataForDisplaying() {
         return segyTempTracesDataForDisplaying;
     }
 
-    public SegyTempTraceData[] getSegyTempTracesDataAfterProcessing() {
+    public ArrayList<SegyTempTraceData> getSegyTempTracesDataAfterProcessing() {
         return segyTempTracesDataAfterProcessing;
     }
 
-    public SegyTempTraceData[] getSegyTempTracesDataFromVault() {
+    public ArrayList<SegyTempTraceData> getSegyTempTracesDataFromVault() {
         return segyTempTracesDataVault;
     }
-
-
 
 
 //    public static void setMainGui(main.java.vladimir.seis.mainGui mainGui) {
@@ -144,10 +142,10 @@ public class mainController {
 //        System.out.println("length ............ "+ segyTempTracesDataForDisplaying[0].getData().length);
 //        System.out.println("length ............ "+ segyTempTracesDataVault[0].getData().length);
 //        System.out.println("length ............ ");
-        System.out.println(segyTempTracesDataForDisplaying.length);
-        for (int i = 0; i < segyTempTracesDataForDisplaying.length; i++) {
-            for (int j = 0; j < segyTempTracesDataForDisplaying[i].getData().length; j++) {
-                segyTempTracesDataVault[i].getData()[j] = segyTempTracesDataForDisplaying[i].getData()[j];
+        System.out.println(segyTempTracesDataForDisplaying.size());
+        for (int i = 0; i < segyTempTracesDataForDisplaying.size(); i++) {
+            for (int j = 0; j < segyTempTracesDataForDisplaying.get(i).getData().length; j++) {
+                segyTempTracesDataVault.get(i).getData()[j] = segyTempTracesDataForDisplaying.get(i).getData()[j];
             }
         }
 
@@ -159,9 +157,9 @@ public class mainController {
 //        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault.toString());
 //        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault[0].getData().toString());
 //        System.out.println("restoreSeismicTraceDataToVault" + segyTempTracesDataVault[0].getData().length);
-        for (int i = 0; i < segyTempTracesDataForDisplaying.length; i++) {
-            for (int j = 0; j < segyTempTracesDataForDisplaying[i].getData().length; j++) {
-                segyTempTracesDataForDisplaying[i].getData()[j] = segyTempTracesDataVault[i].getData()[j];
+        for (int i = 0; i < segyTempTracesDataForDisplaying.size(); i++) {
+            for (int j = 0; j < segyTempTracesDataForDisplaying.get(i).getData().length; j++) {
+                segyTempTracesDataForDisplaying.get(i).getData()[j] = segyTempTracesDataVault.get(i).getData()[j];
             }
         }
 
@@ -185,7 +183,7 @@ public class mainController {
 
         final int balancedAmpl = 1;
 
-        System.out.println("segyTempTracesDataForDisplaying ->" + segyTempTracesDataForDisplaying.length);
+        System.out.println("segyTempTracesDataForDisplaying ->" + segyTempTracesDataForDisplaying.size());
         for (int i = settings_singleton.getCfgCurrentFileAddTraceNumber()+CURRENT_FILE_SEQ_NUMBER*(48 + settings_singleton.getCfgCurrentFileAddTraceNumber());
              i < 48 +settings_singleton.getCfgCurrentFileAddTraceNumber()+CURRENT_FILE_SEQ_NUMBER*(48 + settings_singleton.getCfgCurrentFileAddTraceNumber());
              i++) { //TODO Fix for zero add trace number
@@ -196,7 +194,7 @@ public class mainController {
             float regLevel = balancedAmpl; //regulation level
             float sum = 0;
             for (int j = 0; j < tempSampleNumber; j++) {
-                sum = sum + Math.abs(segyTempTracesDataForDisplaying[i].getData()[j]);
+                sum = sum + Math.abs(segyTempTracesDataForDisplaying.get(i).getData()[j]);
             }
 
 //            System.out.println("sum ->>> "+ i+ " ---- " +sum);
@@ -219,8 +217,8 @@ public class mainController {
         for (int i = settings_singleton.getCfgCurrentFileAddTraceNumber()+CURRENT_FILE_SEQ_NUMBER*(48+ settings_singleton.getCfgCurrentFileAddTraceNumber());
              i < settings_singleton.getCfgCurrentFileAddTraceNumber()+48+CURRENT_FILE_SEQ_NUMBER*(48+settings_singleton.getCfgCurrentFileAddTraceNumber());
              i++) {
-            for (int j = 0; j < segyTempTracesDataForDisplaying[i].getData().length; j++) {
-                segyTempTracesDataForDisplaying[i].getData()[j] = segyTempTracesDataForDisplaying[i].getData()[j] * currentBalancingCorrKoef[i];
+            for (int j = 0; j < segyTempTracesDataForDisplaying.get(i).getData().length; j++) {
+                segyTempTracesDataForDisplaying.get(i).getData()[j] = segyTempTracesDataForDisplaying.get(i).getData()[j] * currentBalancingCorrKoef[i];
             }
         }
 
@@ -228,13 +226,20 @@ public class mainController {
 
     public void resetBalancing() {
 
-        for (int i = settings_singleton.getCfgCurrentFileAddTraceNumber(); i < segyTempTracesDataForDisplaying.length; i++) {
-            for (int j = 0; j < segyTempTracesDataForDisplaying[i].getData().length; j++) {
+        for (int i = settings_singleton.getCfgCurrentFileAddTraceNumber(); i < segyTempTracesDataForDisplaying.size(); i++) {
+            for (int j = 0; j < segyTempTracesDataForDisplaying.get(i).getData().length; j++) {
 
-                segyTempTracesDataForDisplaying[i].getData()[j] = segyTempTracesDataVault[i].getData()[j];
+                segyTempTracesDataForDisplaying.get(i).getData()[j] = segyTempTracesDataVault.get(i).getData()[j];
             }
         }
 
+    }
+
+    public void addOneTraceToLists() {
+        segyTempTraces.add(new SegyTempTrace());
+        segyTempTracesDataForDisplaying.add(new SegyTempTraceData(new float[settings_singleton.getCfgSamplesNumber()]));
+        segyTempTracesDataAfterProcessing.add(new SegyTempTraceData(new float[settings_singleton.getCfgSamplesNumber()]));
+        segyTempTracesDataVault.add(new SegyTempTraceData(new float[settings_singleton.getCfgSamplesNumber()]));
     }
 
 }
