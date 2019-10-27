@@ -10,6 +10,7 @@ import java.util.Iterator;
 public class Settings_singleton {
     final float dYperSample = 0.4706f; //TODO Only for debug
     //Segy cfg from bin header
+
     private int cfgCurrentFileSeqNumber = -1;
 
     private int cfgCurrentFileAddTraceNumber = -1;
@@ -26,7 +27,7 @@ public class Settings_singleton {
     private ArrayList<TrimLawSingleValue> trimLaw = new ArrayList<>();
     private ArrayList<TrimLawSingleValue> fullTrimLaw = new ArrayList<>(48); //MaybeChange to simple array
     private ArrayList<TrimLawSingleValue> fullTrimShifted = new ArrayList<>(48); //MaybeChange to simple array
-    private int number_of_samples = -1;
+//    private int number_of_samples = -1;
     private int sample_sizeInBytes;
     private int agcWindowSizeInTraces;
     private float korCoefToAverage;
@@ -133,13 +134,13 @@ public class Settings_singleton {
         this.initialFileScaleRange = initialFileScaleRange;
     }
 
-    public int getNumber_of_samples() {
-        return number_of_samples;
-    }
-
-    public void setNumber_of_samples(int number_of_samples) {
-        this.number_of_samples = number_of_samples;
-    }
+//    public int getNumber_of_samples() {
+//        return number_of_samples;
+//    }
+//
+//    public void setNumber_of_samples(int number_of_samples) {
+//        this.number_of_samples = number_of_samples;
+//    }
 
     public int getSample_sizeInBytes() {
         return sample_sizeInBytes;
@@ -243,14 +244,14 @@ public class Settings_singleton {
         for (int i = 0; i < tempLists.size(); i++) {
             fullTrimLaw.addAll(formingFullLengthLaw(tempLists.get(i)));
         }
-        System.out.println("lengths");
-        System.out.println(trimLaw.size());
-        System.out.println("---");
+//        System.out.println("lengths");
+//        System.out.println(trimLaw.size());
+//        System.out.println("---");
         for (int i = 0; i < tempLists.size(); i++) {
-            System.out.println(tempLists.get(i).size());
+//            System.out.println(tempLists.get(i).size());
         }
-        System.out.println("---");
-        System.out.println(fullTrimLaw.size());
+//        System.out.println("---");
+//        System.out.println(fullTrimLaw.size());
 
     }
 
@@ -263,7 +264,7 @@ public class Settings_singleton {
                 int shift = 0;
 //                System.out.println(isFromNegToPos);
                 int tempTraceNumber = fullTrimLaw.get(i).getDatasetValue()+(fullTrimLaw.get(i).getReelNumber()* (48 + getCfgCurrentFileAddTraceNumber()));
-                System.out.println("tempTraceNumber " + tempTraceNumber);
+//                System.out.println("tempTraceNumber " + tempTraceNumber);
                 while (!isSearchingSuccess) {   //100 - maximum searching shift value
 
                     if (isFromNegToPos) {
@@ -443,6 +444,17 @@ public class Settings_singleton {
         }
 
         return tempFullTrimLaw;
+    }
+
+    public void resetCfgValues() {
+
+        cfgCurrentFileSeqNumber = -1;
+        cfgCurrentFileAddTraceNumber = 0; // Initial count
+        cfgSamplesNumber = -1;
+        cfgEachSampleSizeBytes = -1;
+        cfgTraceSizeBytes = -1;
+        cfgTraceNumber = -1;
+        cfgFilesNumber = -1;
     }
 }
 

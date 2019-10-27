@@ -33,7 +33,10 @@ import java.util.Random;
 import java.util.concurrent.CompletionStage;
 
 public class mainGui extends JFrame {
-
+     SegyFlow segyFlow;
+     Source<SegyPart, Future<SegyHeaders>> segySource;
+    CompletionStage<Done> done;
+    ListSelectionListener listSelectionListener;
 
     //TODO make unactive if settings Change
     static private JSpinner reelsp = new JSpinner();
@@ -69,7 +72,6 @@ public class mainGui extends JFrame {
     private JLabel seqHelperTFToolTip;
     private JButton muteLawTableBotton;
     private JPanel spinnerPanel;
-    JFileChooser fc;
     static private File directory;
     static private File savePath;
     private File[] choosenFiles;
@@ -89,6 +91,10 @@ public class mainGui extends JFrame {
     private boolean isNewFolderSelected = false;
 
     static mainGui mainJFrame;
+
+    ActorSystem system;
+
+    boolean isReading;
 
 
     public JButton getPickingButton() {
@@ -165,14 +171,14 @@ public class mainGui extends JFrame {
 
     public mainGui() {
 
-        final ActorSystem system = ActorSystem.create("111");
+        system = ActorSystem.create("111");
         final Materializer materializer = ActorMaterializer.create(system);
 
         //Set spinner initial parameters
 
-        for (int i = 0; i < reelsp.getComponents().length; i++) {
-            System.out.println(reelsp.getComponent(i));
-        }
+//        for (int i = 0; i < reelsp.getComponents().length; i++) {
+//            System.out.println(reelsp.getComponent(i));
+//        }
 
 
         rsEditor = ( JSpinner.DefaultEditor ) reelsp.getEditor();
@@ -183,7 +189,7 @@ public class mainGui extends JFrame {
 
         Component c = reelsp.getComponent(0);
         if (c instanceof BasicArrowButton) {
-                System.out.println("SetSpinnerButtonSize 1");
+//                System.out.println("SetSpinnerButtonSize 1");
             bUp = (BasicArrowButton) c;
             bUp.setBounds(26, 0, 25, 25);
 
@@ -238,11 +244,13 @@ public class mainGui extends JFrame {
         makeButtonsUnactive();
         //        getMainJPanel().addMouseListener(this);
         mainController.init(pickingButton, lawPoint1TL, lawPoint2TL, lawPoint3TL, lawPoint4TL, lawPoint5TL, lawPoint6TL);
-        fc = new JFileChooser();
+        final JFileChooser fc = new JFileChooser();
         fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
         shooseFileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+//                System.out.println("shooseFileButton");
                 //Handle open button action.
                 isNewFolderSelected = false;
                 directory = null;
@@ -261,6 +269,7 @@ public class mainGui extends JFrame {
                     if (choosenFiles.length != 0) {
 
 
+
                         for (File file : choosenFiles) {
                             if (file.isFile()) {
 //                                System.out.println(file.getName());
@@ -276,27 +285,42 @@ public class mainGui extends JFrame {
 //                        System.out.println("chooosen " +choosenFileNames[i]);
                         }
 
-                        filesList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
-                        filesList.addListSelectionListener(new ListSelectionListener() {
+                        if (filesList.getListSelectionListeners().length==0) {
+                            listSelectionListener = new ListSelectionListener() {  // TODO memory leak fix unlimited listeter creation on folder choosing
 
-                            @Override
-                            public void valueChanged(ListSelectionEvent event) {
-                                if (!event.getValueIsAdjusting() && isNewFolderSelected) {
-                                    JList source = (JList) event.getSource();
-                                    choosenIndex = source.getSelectedIndex();
-                                    makeButtonsUnactive(); //TODO Check
-                                    resetValuesWhenNewFileChoosen();
-                                    startReading();
+                                @Override
+                                public void valueChanged(ListSelectionEvent event) {
 
-//                                tempPanel.removeAll();  //TODO Refresh if new file сhoosen
-//                                tempPanel.updateUI();
+//                                    System.out.println("valueChanged1  " + this.getClass().getName());
+//                                    System.out.println("valueChanged2 " + event.toString());
+//                                    System.out.println("valueChanged3 " + event.getValueIsAdjusting());
+//                                    System.out.println("valueChanged4 " + event.getSource().getClass().getName());
+//                                    System.out.println("valueChanged5 " + event.getClass().getName());
+
+                                    if (!event.getValueIsAdjusting() && isNewFolderSelected && !isReading) {
+                                        JList source = (JList) event.getSource();
+                                        choosenIndex = source.getSelectedIndex();
+                                        makeButtonsUnactive(); //TODO Check
+                                        resetValuesWhenNewFileChoosen();
+                                        startReading();
+                                        isReading = true;
+
+                                        //                                tempPanel.removeAll();  //TODO Refresh if new file сhoosen
+                                        //                                tempPanel.updateUI();
+                                    }
+
+
                                 }
+                            };
 
+                        }
 
-                            }
-                        });
+                        if (filesList.getListSelectionListeners().length==0) filesList.addListSelectionListener(listSelectionListener);
 
                         filesList.setListData(choosenFileNames);
+
+
+
                         isNewFolderSelected = true;
                     } else {
                         JOptionPane.showMessageDialog(mainJPanel,
@@ -339,6 +363,9 @@ public class mainGui extends JFrame {
                 Source<SegyPart, Future<SegyHeaders>> segySource = fileSource.viaMat(new SegyFlow(config), Keep.right());
 
                 // Run the stream
+                system = ActorSystem.create("111");
+                Materializer materializer = ActorMaterializer.create(system);
+
                 CompletionStage<Done> done = segySource
                         .map(segy -> {
 //
@@ -349,7 +376,7 @@ public class mainGui extends JFrame {
                         .toMat(Sink.ignore(), Keep.right()) // wait for the Sink to complete
                         .run(materializer);
 
-
+//                System.out.println("2 done.getClass().getName()" + done.getClass().getName());
                 // Wait for stream termination and print the stats
 //                done.thenRunAsync(() -> onFinishedreading());
 //                done.thenRun(system::terminate);
@@ -478,8 +505,8 @@ public class mainGui extends JFrame {
 //                            System.out.println(" *** mainController.segyTempTraces[i].getTraceSequenceNumberWithinLine() " + mainController.segyTempTraces[i].getTraceSequenceNumberWithinLine());
                             mainController.segyTempTraces.get(i).writeToDataOutputStream(dos);
 //                            mainController.segyTempTracesDataForDisplaying[i].writeToDataOutputStream(dos,settings_singl.getSample_sizeInBytes());
-                            System.out.println("Saving...getSample_sizeInBytes -->" + settings_singl.getSample_sizeInBytes());
-                            System.out.println("Saving...getCfgTraceSizeBytes -->" + settings_singl.getCfgTraceSizeBytes());
+//                            System.out.println("Saving...getSample_sizeInBytes -->" + settings_singl.getSample_sizeInBytes());
+//                            System.out.println("Saving...getCfgTraceSizeBytes -->" + settings_singl.getCfgTraceSizeBytes());
 
                             mainController.segyTempTracesDataAfterProcessing.get(i).writeToDataOutputStream(dos, settings_singl.getCfgTraceSizeBytes());
 //                            System.out.println("mainController.segyTempTraces.length  " + mainController.segyTempTraces.length);
@@ -655,7 +682,7 @@ public class mainGui extends JFrame {
         balanceToggle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+            if (scaleZero.isEnabled()) {
                 if (balanceToggle.isSelected()) {
                     getMainController().balancingTempData();
 //                    System.out.println("Balanced");
@@ -666,6 +693,7 @@ public class mainGui extends JFrame {
                 }
 
                 redrawCharts();
+            }
             }
         });
 
@@ -762,8 +790,8 @@ public class mainGui extends JFrame {
 //                    System.out.println("Add chart: " + j);
 //                }
 //        System.out.println("******************************************************");
-        System.out.println("reDrawChartsWithRenevalData CURRENT_FILE_SEQ_NUMBER ->>" + CURRENT_FILE_SEQ_NUMBER);
-        System.out.println("reDrawChartsWithRenevalData single singl ->>" + getSettings_singl().getCfgFilesNumber());
+//        System.out.println("reDrawChartsWithRenevalData CURRENT_FILE_SEQ_NUMBER ->>" + CURRENT_FILE_SEQ_NUMBER);
+//        System.out.println("reDrawChartsWithRenevalData single singl ->>" + getSettings_singl().getCfgFilesNumber());
 
         for (int j = 0; j < 54; j++) {
             try {
@@ -796,17 +824,18 @@ public class mainGui extends JFrame {
 //        system::terminate;
 //        System.out.println("mainController.onFinishedReading()");
 
-            System.out.println("onFinish AddTrace" + getSettings_singl().getCfgCurrentFileAddTraceNumber());
+//            System.out.println("onFinish AddTrace" + getSettings_singl().getCfgCurrentFileAddTraceNumber());
+//            System.out.println("onFinish " + this.getClass().getName());
             mainController.saveSeismicTraceDataToVault();// TODO replace out of on finish
-            System.out.println("saveSeismicTraceDataToVault");
+//            System.out.println("saveSeismicTraceDataToVault");
 
-            System.out.println("balancingTempData");
+//            System.out.println("balancingTempData");
 
             redrawCharts();
-            System.out.println("redrawCharts");
+//            System.out.println("redrawCharts");
 
             if (getSettings_singl().getCfgTraceNumber() > 48 + getSettings_singl().getCfgCurrentFileAddTraceNumber()) {
-                System.out.println("mainGui.getSettings_singl().getCfgFilesNumber()" + mainGui.getSettings_singl().getCfgFilesNumber());
+//                System.out.println("mainGui.getSettings_singl().getCfgFilesNumber()" + mainGui.getSettings_singl().getCfgFilesNumber());
                 try {
                     reelsp.setValue(1);
                     activateReelSpinner();
@@ -816,18 +845,20 @@ public class mainGui extends JFrame {
             } else deactivateReelSpinner();
 
             makeButtonsActive();
-            System.out.println("makeButtonsActive");
-            System.out.println("Add trace number = " + getSettings_singl().getCfgCurrentFileAddTraceNumber());
+//            System.out.println("makeButtonsActive");
+//            System.out.println("Add trace number = " + getSettings_singl().getCfgCurrentFileAddTraceNumber());
 
 
 //        done.thenRunAsync(() -> onFinishedreading()
 //        System.out.println("mainController.saveSeismicTraceDataToVault()");
 
 //        System.out.println("mainController.saveSeismicTraceDataToVault()");
+            system.terminate();
+            isReading = false;
         }
         catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null,"Ошибка чтения SGY файла");
+            JOptionPane.showMessageDialog(null,"Ошибка чтения SGY файла. /n Перезапустите программу");
         }
     }
 
@@ -869,7 +900,7 @@ public class mainGui extends JFrame {
         pickingButton.setEnabled(false);
         saveFileButton.setEnabled(false);
         clearButton.setEnabled(false);
-//          muteLawTableBotton.setEnabled(false);
+          muteLawTableBotton.setEnabled(false);
         scaleUp.setEnabled(false);
         scaleDown.setEnabled(false);
         scaleZero.setEnabled(false);
@@ -881,7 +912,7 @@ public class mainGui extends JFrame {
         showTraceBinButton.setEnabled(true);
         pickingButton.setEnabled(true);
         saveFileButton.setEnabled(true);
-//          muteLawTableBotton.setEnabled(false);
+        muteLawTableBotton.setEnabled(true);
         scaleUp.setEnabled(true);
         scaleDown.setEnabled(true);
         scaleZero.setEnabled(true);
@@ -892,7 +923,7 @@ public class mainGui extends JFrame {
         showFileTxtButton.setEnabled(true);
         showFileBinButton.setEnabled(true);
         showTraceBinButton.setEnabled(true);
-        pickingButton.setEnabled(true);
+//        pickingButton.setEnabled(true);
         saveFileButton.setEnabled(true);
         muteLawTableBotton.setEnabled(true);
         scaleUp.setEnabled(true);
@@ -935,10 +966,11 @@ public class mainGui extends JFrame {
         for (int i = 0; i < 6; i++) {           //numbers of labels
             mainController.defineJLabelText(null, i);
         }
-        settings_singl.setCfgCurrentFileAddTraceNumber(0);
+        mainController.resetForReading();
         settings_singl.zeroedTrimLaw();
         settings_singl.zeroedFullTrimLaw();
         settings_singl.zeroedFullTrimLawShifted();
+        settings_singl.resetCfgValues();
 
         myDrawingGlassPane.zeroedMuteLaw();
 
@@ -1027,7 +1059,7 @@ public class mainGui extends JFrame {
 
         //Applying AGC with c = arithmetic average for samples above  shifted trim law
         try {
-            System.out.println("Saving");
+//            System.out.println("Saving");
             for (int i = 0; i < mainGui.getSettings_singl().getFullTrimShifted().size();
                  i++) {
                 int tempTraceNumber, tempSampleNumber;
@@ -1088,7 +1120,7 @@ public class mainGui extends JFrame {
                 float[] tempKoef = new float[tempAvarage.length];
 
                 for (int j = 0; j < tempKoef.length; j++) {
-                    System.out.print("000 " + regLevel + " | " + tempAvarage[j]);
+//                    System.out.print("000 " + regLevel + " | " + tempAvarage[j]);
                     tempKoef[j] = regLevel / tempAvarage[j];
 
                 }
@@ -1097,7 +1129,7 @@ public class mainGui extends JFrame {
 
                 for (int j = 0; j < tempKoef.length; j++) {
 
-                    System.out.print(tempKoef[j] + " | " + tempTrimDataArray[j]);
+//                    System.out.print(tempKoef[j] + " | " + tempTrimDataArray[j]);
                     getMainController().getSegyTempTracesDataAfterProcessing().get(tempTraceNumber).getData()[j] = tempTrimDataArray[j] * tempKoef[j];
                 }
 
@@ -1126,7 +1158,7 @@ public class mainGui extends JFrame {
     }
 
     private void processingDataUpperOfPickingRandom() {
-        System.out.println("Saving");
+//        System.out.println("Saving");
         for (int i = 0; i < mainGui.getSettings_singl().getFullTrimShifted().size();
              i++) {
 
@@ -1135,9 +1167,9 @@ public class mainGui extends JFrame {
             int tempReelValue = mainGui.getSettings_singl().getFullTrimShifted().get(i).getReelNumber();
             int currentTraceNumberFromLaw = tempDatasetValue + tempReelValue *(48+mainGui.getSettings_singl().getCfgCurrentFileAddTraceNumber());
 
-            System.out.println("Trace number comparison");
-            System.out.println(currentTraceNumberFromLaw); // Begins from 0
-            System.out.println(getMainController().getSegyTempTraces().get(currentTraceNumberFromLaw).getTraceSequenceNumberWithinSegyFile()); //Begins grom 1
+//            System.out.println("Trace number comparison");
+//            System.out.println(currentTraceNumberFromLaw); // Begins from 0
+//            System.out.println(getMainController().getSegyTempTraces().get(currentTraceNumberFromLaw).getTraceSequenceNumberWithinSegyFile()); //Begins grom 1
 
             float sum = 0;
             for (int j = 0; j < 1000; j++) { //Calculate average for first 1000 samples
@@ -1147,7 +1179,7 @@ public class mainGui extends JFrame {
             float traceCorrKoef;
             traceCorrKoef = sum/1000; //Average
 
-            traceCorrKoef = traceCorrKoef/100; //Divide average by 1000 - level to random
+            traceCorrKoef = traceCorrKoef/100; //Divide average by 100 - level to random
 
             Random generator = new Random();
 
@@ -1167,12 +1199,12 @@ public class mainGui extends JFrame {
 
             }
 
-            System.out.println("Processing info");
-            System.out.println(currentTraceNumberFromLaw);
-            System.out.println(traceCorrKoef);
+//            System.out.println("Processing info");
+//            System.out.println(currentTraceNumberFromLaw);
+//            System.out.println(traceCorrKoef);
             int sign = generator.nextInt(2);
-            System.out.println(sign);
-            System.out.println("Processing info /End");
+//            System.out.println(sign);
+//            System.out.println("Processing info /End");
 
 
 //            final int balancedAmpl = 1;
@@ -1220,16 +1252,17 @@ public class mainGui extends JFrame {
         reelsp.setVisible(true);
         seqHelperTFToolTip.setVisible(true);
         seqHelperTF.setVisible(true);
-        reelsp.addChangeListener(new ChangeListener() {
+        if (reelsp.getChangeListeners().length <2) reelsp.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) { //Logic for mute law with multireel tape
 
+//                System.out.println("reelsp.getChangeListeners().length ->" + reelsp.getChangeListeners().length);
 
                 if (isPickingMode) {
-                    System.out.println("getCfgTrimLawDescrBegs value " + (int) reelsp.getValue() +" : "+settings_singl.getCfgTrimLawDescrBegs()[(int) reelsp.getValue()-1]);
-                    System.out.println("getCfgTrimLawDescrBegs ss " + settings_singl.getCfgCurrentFileSeqNumber() +" : "  +settings_singl.getCfgTrimLawDescrBegs()[settings_singl.getCfgCurrentFileSeqNumber()]);
-                    System.out.println("getCfgTrimLawDescrEnds valur " + (int) reelsp.getValue() +" : " +settings_singl.getCfgTrimLawDescrEnds()[(int) reelsp.getValue()-1]);
-                    System.out.println("getCfgTrimLawDescrEnds ss " + settings_singl.getCfgCurrentFileSeqNumber() +" : " +settings_singl.getCfgTrimLawDescrEnds()[settings_singl.getCfgCurrentFileSeqNumber()]);
+//                    System.out.println("getCfgTrimLawDescrBegs value " + (int) reelsp.getValue() +" : "+settings_singl.getCfgTrimLawDescrBegs()[(int) reelsp.getValue()-1]);
+//                    System.out.println("getCfgTrimLawDescrBegs ss " + settings_singl.getCfgCurrentFileSeqNumber() +" : "  +settings_singl.getCfgTrimLawDescrBegs()[settings_singl.getCfgCurrentFileSeqNumber()]);
+//                    System.out.println("getCfgTrimLawDescrEnds valur " + (int) reelsp.getValue() +" : " +settings_singl.getCfgTrimLawDescrEnds()[(int) reelsp.getValue()-1]);
+//                    System.out.println("getCfgTrimLawDescrEnds ss " + settings_singl.getCfgCurrentFileSeqNumber() +" : " +settings_singl.getCfgTrimLawDescrEnds()[settings_singl.getCfgCurrentFileSeqNumber()]);
 
                     if (settings_singl.getCfgTrimLawDescrBegs()[(int)  settings_singl.getCfgCurrentFileSeqNumber()] != -1 &&
                         settings_singl.getCfgTrimLawDescrEnds()[(int)  settings_singl.getCfgCurrentFileSeqNumber()] == -1 &&
@@ -1244,21 +1277,21 @@ public class mainGui extends JFrame {
                         pickingGUIJFrame.setLocation(mainJFrame.getLocationOnScreen().x + mainJFrame.getWidth() / 2 - pickingGUIJFrame.getWidth() / 2,
                                 mainJFrame.getLocationOnScreen().y + mainJFrame.getHeight() / 2 - pickingGUIJFrame.getHeight() / 2);
                         pickingGUIJFrame.setVisible(true);
-                        System.out.println("Spinner value -" + reelsp.getValue());
-                        System.out.println("Spinner value -" + reelsp);
-                        System.out.println("Spinner value -" + reelsp.getModel().toString());
+//                        System.out.println("Spinner value -" + reelsp.getValue());
+//                        System.out.println("Spinner value -" + reelsp);
+//                        System.out.println("Spinner value -" + reelsp.getModel().toString());
                         myDrawingGlassPane.reloadTrimLaw();
                     }
                     else {
                         settings_singl.setCfgCurrentFileSeqNumber((int) reelsp.getValue() - 1);
-                        System.out.println("CURRENT_FILE_SEQ_NUMBER -> " + settings_singl.getCfgCurrentFileSeqNumber());
+//                        System.out.println("CURRENT_FILE_SEQ_NUMBER -> " + settings_singl.getCfgCurrentFileSeqNumber());
                         seqHelperTF.setText(reelsp.getValue().toString() + " of " + Integer.toString(settings_singl.getCfgFilesNumber()));
                         redrawCharts();
                         myDrawingGlassPane.checkPickingStatus();}
                 } else {
                     myDrawingGlassPane.reloadTrimLaw();
                     settings_singl.setCfgCurrentFileSeqNumber((int) reelsp.getValue() - 1);
-                    System.out.println("CURRENT_FILE_SEQ_NUMBER -> " + settings_singl.getCfgCurrentFileSeqNumber());
+//                    System.out.println("CURRENT_FILE_SEQ_NUMBER -> " + settings_singl.getCfgCurrentFileSeqNumber());
                     seqHelperTF.setText(reelsp.getValue().toString() + " of " + Integer.toString(settings_singl.getCfgFilesNumber()));
                     myDrawingGlassPane.checkAndAddLawEnd();
                     redrawCharts();
@@ -1315,15 +1348,15 @@ public class mainGui extends JFrame {
         seqHelperTF.setText(reelsp.getValue().toString() + " of " + Integer.toString(settings_singl.getCfgFilesNumber()));
         redrawCharts();
 
-        System.out.println();
-        for (int i = 0; i < getSettings_singl().getCfgTrimLawDescrBegs().length; i++) {
-            System.out.print(getSettings_singl().getCfgTrimLawDescrBegs()[i]+ " ");
-        }
-        System.out.println();
-        for (int i = 0; i < getSettings_singl().getCfgTrimLawDescrEnds().length; i++) {
-            System.out.print(getSettings_singl().getCfgTrimLawDescrEnds()[i]+ " ");
-        }
-        System.out.println();
+//        System.out.println();
+//        for (int i = 0; i < getSettings_singl().getCfgTrimLawDescrBegs().length; i++) {
+//            System.out.print(getSettings_singl().getCfgTrimLawDescrBegs()[i]+ " ");
+//        }
+//        System.out.println();
+//        for (int i = 0; i < getSettings_singl().getCfgTrimLawDescrEnds().length; i++) {
+//            System.out.print(getSettings_singl().getCfgTrimLawDescrEnds()[i]+ " ");
+//        }
+//        System.out.println();
     }
 
     public void pickingModeSpinActionCancel() {

@@ -48,8 +48,8 @@ public class isPickingSave extends JDialog {
 
     private void onOK(ActionEvent e) {
         // add your code here
-        System.out.println("isPicking - ");
-        System.out.println(((mainGui) getOwner()).getClass().getSimpleName());
+//        System.out.println("isPicking - ");
+//        System.out.println(((mainGui) getOwner()).getClass().getSimpleName());
 
         ((mainGui) getOwner()).pickingModeSpinActionOk();
 //        mainGui.pickingModeSpinAction();

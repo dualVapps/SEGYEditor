@@ -211,15 +211,15 @@ public class ChartPanelRewrite extends ChartPanel implements ChartMouseListener 
 
                     int tempNumber = 0;
                     boolean isFirstInReel = false;
-                    System.out.println("start");
+//                    System.out.println("start");
                     for (int i = 0; i< mainGui.getSettings_singl().getTrimLaw().size(); i++) {
-                        System.out.print(mainGui.getSettings_singl().getTrimLaw().get(i).getReelNumber() + " : " + mainGui.getSettings_singl().getTrimLaw().get(i).getSampleValue() + "|| ");
+//                        System.out.print(mainGui.getSettings_singl().getTrimLaw().get(i).getReelNumber() + " : " + mainGui.getSettings_singl().getTrimLaw().get(i).getSampleValue() + "|| ");
                     }
-                    System.out.println();
+//                    System.out.println();
                     for (int i = 0; i < mainGui.getSettings_singl().getTrimLaw().size(); i++) {
-                        System.out.println("tempNumber1 " + tempNumber);
+//                        System.out.println("tempNumber1 " + tempNumber);
                         if (mainGui.getSettings_singl().getTrimLaw().get(i).getReelNumber() == mainGui.getSettings_singl().getCfgCurrentFileSeqNumber()) tempNumber++;
-                        System.out.println("tempNumber2 " + tempNumber);
+//                        System.out.println("tempNumber2 " + tempNumber);
                     }
 
                     if (tempNumber == 0) {

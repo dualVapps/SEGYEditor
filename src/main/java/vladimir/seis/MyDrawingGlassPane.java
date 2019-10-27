@@ -181,8 +181,8 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
 
         point = e.getPoint();
 
-        System.out.println("X= " + point.getX());
-        System.out.println("Y= " + point.getX());
+//        System.out.println("X= " + point.getX());
+//        System.out.println("Y= " + point.getX());
 
 //        System.out.println("Size of Mute Law before comparising " + muteLaw.size());
         if (point.getX() < 440) { //checking for disable picking 440: 100 + 150 + addtrace width
@@ -487,12 +487,12 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
                 reelSpiner = (JSpinner) component[19];
             }
 
-            System.out.println(component.length);
-            for (int i = 0; i < component.length; i++) {
-                System.out.println(component[i].getClass().getSimpleName()+ " " + component[i].getName() );
-                if (component[i] instanceof JButton) System.out.println(i +  ((JButton)component[i]).getText() );
-                if (component[i] instanceof JSpinner) System.out.println(i +  ((JSpinner)component[i]).getUIClassID() );
-            }
+//            System.out.println(component.length);
+//            for (int i = 0; i < component.length; i++) {
+//                System.out.println(component[i].getClass().getSimpleName()+ " " + component[i].getName() );
+//                if (component[i] instanceof JButton) System.out.println(i +  ((JButton)component[i]).getText() );
+//                if (component[i] instanceof JSpinner) System.out.println(i +  ((JSpinner)component[i]).getUIClassID() );
+//            }
 
 
 

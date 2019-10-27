@@ -73,23 +73,23 @@ public class muteLawTable {
 
 
         mainJtable = new JTable(tableModel);
-        System.out.println("main table created" + mainJtable.getClass().getSimpleName());
+//        System.out.println("main table created" + mainJtable.getClass().getSimpleName());
 //        muteLawTableScrollPanel.setLayout(new ScrollPaneLayout());
 
         muteLawTableScrollPanel.getViewport().add(mainJtable);
 //        muteLawTableScrollPanel.add(mainJtable);
-        System.out.println("main table add. Rows - " + tableModel.getRowCount());
+//        System.out.println("main table add. Rows - " + tableModel.getRowCount());
 
-        System.out.println("Begs:");
-        for (int i = 0; i < mainGui.getSettings_singl().getCfgTrimLawDescrBegs().length; i++) {
-
-            System.out.print("" + mainGui.getSettings_singl().getCfgTrimLawDescrBegs()[i] + " ");
-        }
-        System.out.println("ENDs:");
-        for (int i = 0; i < mainGui.getSettings_singl().getCfgTrimLawDescrEnds().length; i++) {
-
-            System.out.print("" + mainGui.getSettings_singl().getCfgTrimLawDescrEnds()[i] + " ");
-        }
+//        System.out.println("Begs:");
+//        for (int i = 0; i < mainGui.getSettings_singl().getCfgTrimLawDescrBegs().length; i++) {
+//
+//            System.out.print("" + mainGui.getSettings_singl().getCfgTrimLawDescrBegs()[i] + " ");
+//        }
+//        System.out.println("ENDs:");
+//        for (int i = 0; i < mainGui.getSettings_singl().getCfgTrimLawDescrEnds().length; i++) {
+//
+//            System.out.print("" + mainGui.getSettings_singl().getCfgTrimLawDescrEnds()[i] + " ");
+//        }
 
 
 

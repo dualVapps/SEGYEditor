@@ -24,7 +24,7 @@ sealed trait SegyPhase {
   def extract(bs: ByteString): (SegyPart, SegyPhase) // (segy, nextPhase)
 }
 
-case class TextHeaderPhase(cfg: SegyConfig) extends SegyPhase {
+case  class TextHeaderPhase(cfg: SegyConfig) extends SegyPhase {
 
   val length = 3200
   override def matPromise: PromiseStrategy = KEEP
@@ -159,7 +159,9 @@ case class BinHeaderPhase(cfg: SegyConfig) extends SegyPhase {
     mainGui.getSettings_singl.setCfgSamplesNumber(mainGui.mainController.segyTempFile.getSamplesPerDataTraceOrig.toInt)
     mainGui.getSettings_singl.setCfgTraceSizeBytes(mainGui.getSettings_singl.getCfgEachSampleSizeBytes * mainGui.getSettings_singl.getCfgSamplesNumber)
     mainGui.getSettings_singl.setCfgTraceNumber(mainGui.mainController.segyTempFile.getNumOfTraces)
+//    System.out.println("mainGui.mainController.segyTempFile.getNumOfTraces" + mainGui.mainController.segyTempFile.getNumOfTraces)
     mainGui.getSettings_singl.setCfgFilesNumber(mainGui.mainController.segyTempFile.getNumOfFiles)
+
     mainGui.getSettings_singl.setCfgCurrentFileSeqNumber(0)
     mainGui.getSettings_singl.initTrimLawDescr(mainGui.getSettings_singl.getCfgFilesNumber)
     mainGui.mainController.initReadingParameters()
@@ -467,9 +469,10 @@ case class TraceHeaderPhase(cfg: SegyConfig, binHeader: BinHeader) extends SegyP
 
     if (segy.traceIdCode != 1 && segy.traceSequenceNumberWithinSegyFile < 48)
     {
-      System.out.println("before " + mainGui.getSettings_singl.getCfgCurrentFileAddTraceNumber)
+
+//      System.out.println("before " + mainGui.getSettings_singl.getCfgCurrentFileAddTraceNumber)
       mainGui.getSettings_singl.setCfgCurrentFileAddTraceNumber(mainGui.getSettings_singl.getCfgCurrentFileAddTraceNumber()+1)
-      System.out.println("after " + mainGui.getSettings_singl.getCfgCurrentFileAddTraceNumber)
+//      System.out.println("after " + mainGui.getSettings_singl.getCfgCurrentFileAddTraceNumber)
     }
 
 
@@ -506,9 +509,9 @@ var myIndex:Int = 0;
     if (th.traceSequenceNumberWithinSegyFile > mainGui.mainController.segyTempTraces.size()) {
       myIndex = mainGui.mainController.segyTempTraces.size()-1;  //Traces adds one by one
     }  else myIndex = th.traceSequenceNumberWithinSegyFile - 1;
-    System.out.println("myIndex")
-    System.out.println("myIndex 1 " + (mainGui.mainController.segyTempTraces.size()-1))
-    System.out.println("myIndex 2 " + (th.traceSequenceNumberWithinSegyFile - 1))
+//    System.out.println("myIndex")
+//    System.out.println("myIndex 1 " + (mainGui.mainController.segyTempTraces.size()-1))
+//    System.out.println("myIndex 2 " + (th.traceSequenceNumberWithinSegyFile - 1))
 
     mainGui.mainController.segyTempTracesDataForDisplaying.get(myIndex).data=segy.floatData;
 //    System.out.println("-segy.floatData----------------------- data length" + segy.floatData.length)

@@ -25,10 +25,10 @@ case class SegyConfig(
   dataChunkSize: Int =  -1  //bytes //TODO Fix to variable
 )
 
-object SegyFlow {
-  def apply(): SegyFlow = new SegyFlow(SegyConfig()) //Default config
-
-}
+//object SegyFlow {
+//  def apply(): SegyFlow = new SegyFlow(SegyConfig()) //Default config
+//
+//}
 
 class SegyFlow(cfg: SegyConfig)
   extends GraphStageWithMaterializedValue[FlowShape[ByteString, SegyPart], Future[SegyHeaders]] {

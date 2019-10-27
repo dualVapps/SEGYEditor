@@ -9,9 +9,5 @@
         <module name="SEGYMpvEditorTC" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="SEGYMpvEditorTC" target="1.8" />
-      <module name="seis" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

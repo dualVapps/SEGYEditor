@@ -36,25 +36,25 @@ public class Settings {
 
     public Settings() {
 
-        if (mainGui.getSettings_singl().getNumber_of_samples() == -1)
-        {
-
-            numberOfSamplesTF.setText("2048");
-            sizesInBytesTF.setText("8192");
-            isFromNegToPosCB.setSelected(false);
-            AGCWindowTracesTF.setText("17");
-            korCoefToAverageTF.setText("4");
-        }
-
-        else {
-            numberOfSamplesTF.setText(Integer.toString(mainGui.getSettings_singl().getNumber_of_samples()));
-            sizesInBytesTF.setText(Integer.toString(mainGui.getSettings_singl().getSample_sizeInBytes()));
-            isFromNegToPosCB.setSelected(mainGui.getSettings_singl().isFromNegToPos());
-            AGCWindowTracesTF.setText(Integer.toString(mainGui.getSettings_singl().getAgcWindowSizeInTraces()));
-            korCoefToAverageTF.setText(Float.toString(mainGui.getSettings_singl().getKorCoefToAverage()));
-        }
-
-//        System.out.println(numberOfSamplesInt);
+//        if (mainGui.getSettings_singl().getNumber_of_samples() == -1)
+//        {
+//
+//            numberOfSamplesTF.setText("2048");
+//            sizesInBytesTF.setText("8192");
+//            isFromNegToPosCB.setSelected(false);
+//            AGCWindowTracesTF.setText("17");
+//            korCoefToAverageTF.setText("4");
+//        }
+//
+//        else {
+////            numberOfSamplesTF.setText(Integer.toString(mainGui.getSettings_singl().getNumber_of_samples()));
+//            sizesInBytesTF.setText(Integer.toString(mainGui.getSettings_singl().getSample_sizeInBytes()));
+//            isFromNegToPosCB.setSelected(mainGui.getSettings_singl().isFromNegToPos());
+//            AGCWindowTracesTF.setText(Integer.toString(mainGui.getSettings_singl().getAgcWindowSizeInTraces()));
+//            korCoefToAverageTF.setText(Float.toString(mainGui.getSettings_singl().getKorCoefToAverage()));
+//        }
+//
+////        System.out.println(numberOfSamplesInt);
 
 
         confirmButton.addActionListener(new ActionListener() {
@@ -100,7 +100,7 @@ public class Settings {
 
 
 
-                    mainGui.getSettings_singl().setNumber_of_samples(numberOfSamplesInt);
+//                    mainGui.getSettings_singl().setNumber_of_samples(numberOfSamplesInt);
                     mainGui.getSettings_singl().setSample_sizeInBytes(sizesInBytesInt);
 //                    mainGui.getSettings_singl().setFromNegToPos(isFromNegToPosCB.isSelected());
                     mainGui.getSettings_singl().setAgcWindowSizeInTraces(AGCWindowTraces);
