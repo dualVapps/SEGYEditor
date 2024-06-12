@@ -15,11 +15,11 @@ import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
 import akka.util.ByteString;
 
+import scala.concurrent.Future;
 import vladimir.seis.segystream.SegyConfig;
 import vladimir.seis.segystream.SegyFlow;
 import vladimir.seis.segystream.SegyHeaders;
 import vladimir.seis.segystream.SegyPart;
-import scala.concurrent.Future;
 
 import javax.swing.*;
 import java.nio.charset.Charset;

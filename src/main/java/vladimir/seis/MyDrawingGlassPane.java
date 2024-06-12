@@ -331,7 +331,7 @@ public class MyDrawingGlassPane extends JComponent implements MouseInputListener
 
                 } else {
                     shift++;
-                    System.out.println(shift);
+//                    System.out.println(shift);
 
                 }
                 if (shift > 6) break;

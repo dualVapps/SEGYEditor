@@ -1,6 +1,6 @@
 package vladimir.seis.segystream;
 
-import javafx.scene.text.Text;
+
 import org.jfree.chart.axis.AxisState;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryTick;

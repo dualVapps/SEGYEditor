@@ -7,7 +7,6 @@ package vladimir.seis.segystream
 */
 
 
-
 import java.nio.charset.Charset;
 import akka.stream.stage.{GraphStageLogic, GraphStageWithMaterializedValue, InHandler, OutHandler}
 import akka.stream.{Attributes, FlowShape, Inlet, Outlet}
@@ -53,7 +52,7 @@ class SegyFlow(cfg: SegyConfig)
             val (segy, nextPhase) = phase.extract(currBuff)
             if (!promise.isCompleted) { //It's OK to use isCompleted here, no race conditions
               if (phase.matPromise == KEEP) matBuffer += segy
-              if (nextPhase.matPromise == COMPLETE) promise.success(SegyHeaders.of(matBuffer))
+              if (nextPhase.matPromise == COMPLETE) promise.success(SegyHeaders.of(matBuffer.toList))
             }
             emit(out, segy)
             phase = nextPhase

@@ -31,8 +31,7 @@ import vladimir.seis.Settings_singleton;
 import vladimir.seis.mainGui;
 import vladimir.seis.segystream.SEGYTempEdit.TrimLawSingleValue;
 
-import javax.xml.bind.SchemaOutputResolver;
-import java.awt.*;
+
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
