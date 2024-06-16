@@ -3,6 +3,7 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/src/main/java/vladimir/seis/PrintDebugInfo.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/java/vladimir/seis/mainGui.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/java/vladimir/seis/segystream/SEGYTempEdit/SegyTempTrace.java" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/java/vladimir/seis/segystream/SegyException.scala" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/vladimir/seis/segystream/SegyFlow.scala" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/src/main/java/vladimir/seis/segystream/SegyFormatV1.scala" charset="UTF-8" />

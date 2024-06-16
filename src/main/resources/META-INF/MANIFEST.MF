@@ -1,15 +1,13 @@
 Manifest-Version: 1.0
-Class-Path: res/config-1.2.1.jar res/akka-cluster_2.12-2.5.15.jar res/
- akka-stream_2.12-2.5.15.jar res/config-1.2.1.jar res/akka-actor_2.12-
- 2.5.15.jar res/reactive-streams-1.0.2.jar res/akka-remote_2.12-2.5.15
- .jar res/akka-stream_2.12-2.5.15.jar res/akka-cluster_2.12-2.5.15.jar
-  res/akka-protobuf_2.12-2.5.15.jar res/scala-java8-compat_2.12-0.8.0.
- jar res/reactive-streams-1.0.2.jar res/akka-protobuf_2.12-2.5.15.jar 
- res/akka-actor_2.12-2.5.15.jar res/scala-library-2.12.6.jar res/scala
- -reflect-2.12.6.jar res/scala-library-2.12.6-sources.jar res/scala-re
- flect-2.12.6-sources.jar res/jfreesvg-2.0.jar res/jcommon-1.0.19.jar 
- res/jfreechart-1.0.19.jar res/jfreechart-1.0.19-swt.jar res/jfreechar
- t-1.0.19-experimental.jar res/scala-java8-compat_2.12-0.8.0.jar res/s
- cala-library-2.12.0.jar res/akka-remote_2.12-2.5.15.jar
-Main-Class: main.java.vladimir.seis.mainGui
-
+Class-Path: akka-remote_2.12-2.5.15.jar reactive-streams-1.0.2.jar akk
+ a-stream_2.12-2.5.15.jar scala-library-2.12.6.jar scala-reflect-2.12.
+ 6.jar scala-library-2.12.6-sources.jar scala-reflect-2.12.6-sources.j
+ ar config-1.2.1.jar akka-actor_2.12-2.5.15.jar reactive-streams-1.0.2
+ .jar akka-remote_2.12-2.5.15.jar akka-stream_2.12-2.5.15.jar akka-clu
+ ster_2.12-2.5.15.jar akka-protobuf_2.12-2.5.15.jar scala-java8-compat
+ _2.12-0.8.0.jar scala-java8-compat_2.12-0.8.0.jar akka-protobuf_2.12-
+ 2.5.15.jar jfreesvg-2.0.jar jcommon-1.0.19.jar jfreechart-1.0.19.jar
+ jfreechart-1.0.19-swt.jar jfreechart-1.0.19-experimental.jar scala-li
+ brary-2.12.0.jar akka-cluster_2.12-2.5.15.jar config-1.2.1.jar akka-a
+ ctor_2.12-2.5.15.jar
+Main-Class: vladimir.seis.mainGui

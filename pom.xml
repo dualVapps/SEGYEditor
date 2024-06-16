@@ -89,6 +89,25 @@
 
                 </dependencies>
             </plugin>
+            <plugin>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.7.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>reference.conf</resource>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -192,8 +211,14 @@
                     <artifactId>scala-library</artifactId>
                     <version>2.12.6</version>
                 </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>1.7.1</version>
+        </dependency>
 
-            </dependencies>
+
+    </dependencies>
 
 
 
